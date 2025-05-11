@@ -10,6 +10,7 @@ import TeacherPortal from "./components/TeacherPortal";
 import UserJourney from "./components/UserJourney";
 import Journeys from "./pages/Journeys";
 import Signup from "./pages/Signup";
+import MentorLanding from "./pages/MentorLanding";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/mentor" element={<MentorLanding />} />
           <Route path="/teacher" element={<TeacherPortal />} />
           <Route path="/journey/:id" element={<UserJourney />} />
           <Route path="/journeys" element={<Journeys />} />
