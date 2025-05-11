@@ -8,7 +8,8 @@ export const featuredProcesses: ProcessCardProps[] = [
     description: 'Learn to release resentment and cultivate inner peace through guided forgiveness practices.',
     teacher: 'Michael Thompson',
     duration: 7,
-    category: 'Forgiveness'
+    category: 'Forgiveness',
+    image: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843'
   },
   {
     id: '2',
@@ -16,7 +17,8 @@ export const featuredProcesses: ProcessCardProps[] = [
     description: 'Open yourself to receive abundance in all areas of your life through mindfulness and gratitude.',
     teacher: 'Sarah Jenkins',
     duration: 14,
-    category: 'Abundance'
+    category: 'Abundance',
+    image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d'
   },
   {
     id: '3',
@@ -24,7 +26,8 @@ export const featuredProcesses: ProcessCardProps[] = [
     description: 'Connect with and heal your inner child through compassionate awareness and guided visualizations.',
     teacher: 'Elena Rodriguez',
     duration: 21,
-    category: 'Healing'
+    category: 'Healing',
+    image: 'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb'
   },
   {
     id: '4',
@@ -32,6 +35,7 @@ export const featuredProcesses: ProcessCardProps[] = [
     description: 'Develop deeper connections through emotional intelligence and mindful communication.',
     teacher: 'David Chen',
     duration: 14,
-    category: 'Relationships'
+    category: 'Relationships',
+    image: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843'
   }
 ];

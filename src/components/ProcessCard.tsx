@@ -15,6 +15,27 @@ export interface ProcessCardProps {
   image?: string;
 }
 
+// Category-specific placeholder images
+const categoryImages: Record<string, string> = {
+  "Personal Development": "https://images.unsplash.com/photo-1518495973542-4542c06a5843",
+  "Spirituality": "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb",
+  "Consciousness": "https://images.unsplash.com/photo-1500673922987-e212871fec22",
+  "Reality Manifestation": "https://images.unsplash.com/photo-1501854140801-50d01698950b",
+  "Abundance Manifestation": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+  "Forgiveness": "https://images.unsplash.com/photo-1523712999610-f77fbcfc3843",
+  "Abundance": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+  "Healing": "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb",
+  "Relationships": "https://images.unsplash.com/photo-1518495973542-4542c06a5843",
+};
+
+// Get appropriate image for the card based on category
+const getProcessImage = (category: string, providedImage?: string): string => {
+  if (providedImage) return providedImage;
+  
+  // Return category-specific image or a default one
+  return categoryImages[category] || "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb";
+};
+
 const ProcessCard: React.FC<ProcessCardProps> = ({
   id,
   title,
@@ -24,20 +45,17 @@ const ProcessCard: React.FC<ProcessCardProps> = ({
   category,
   image
 }) => {
+  const cardImage = getProcessImage(category, image);
+  
   return (
     <Card className="overflow-hidden transition-shadow hover:shadow-md">
       <div className="relative aspect-video overflow-hidden">
-        {image ? (
-          <img 
-            src={image} 
-            alt={title} 
-            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-          />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-spirit-400 to-calm-400 flex items-center justify-center">
-            <span className="font-serif text-white text-2xl">{title.charAt(0)}</span>
-          </div>
-        )}
+        <img 
+          src={cardImage} 
+          alt={title} 
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          loading="lazy"
+        />
         <Badge className="absolute top-2 right-2 bg-white/80 text-earth-800 hover:bg-white">
           {duration} days
         </Badge>
