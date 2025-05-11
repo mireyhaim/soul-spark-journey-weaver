@@ -86,6 +86,7 @@ const JourneyPurchase: React.FC<JourneyPurchaseProps> = ({
   onPurchase,
   category
 }) => {
+  // If the journey is purchased, don't show this component at all
   if (isPurchased) {
     return null;
   }

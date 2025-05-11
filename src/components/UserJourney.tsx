@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
@@ -81,23 +82,13 @@ const UserJourney: React.FC = () => {
             onDismiss={handleDismissExplanations}
           />
           
-          <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
-            {/* Progress information */}
-            <JourneyProgress currentDay={currentDay} duration={journey.duration} />
-            
-            {/* Purchase button (small version) */}
-            {!isPurchased && (
-              <div className="w-full md:w-auto">
-                <Button 
-                  onClick={handlePurchase} 
-                  className="w-full bg-green-600 hover:bg-green-700 gap-2"
-                >
-                  <ShoppingCart size={16} />
-                  <span>Purchase for ${price}</span>
-                </Button>
-              </div>
-            )}
-          </div>
+          {/* Only show progress info and continue button if journey is purchased */}
+          {isPurchased && (
+            <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
+              {/* Progress information */}
+              <JourneyProgress currentDay={currentDay} duration={journey.duration} />
+            </div>
+          )}
           
           {/* Daily practice card or purchase card */}
           {isPurchased ? (
@@ -117,6 +108,7 @@ const UserJourney: React.FC = () => {
             />
           )}
           
+          {/* Only show timeline and insights if the journey is purchased */}
           {isPurchased && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Journey Timeline */}
