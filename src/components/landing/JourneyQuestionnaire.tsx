@@ -5,7 +5,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { journeys } from '@/data/journeys';
-import { ProcessCardProps } from '@/components/ProcessCard';
+import ProcessCard, { ProcessCardProps } from '@/components/ProcessCard';
 import { Link } from 'react-router-dom';
 
 type QuestionnaireFormValues = {
@@ -19,7 +19,7 @@ interface JourneyQuestionnaireProps {
 }
 
 const JourneyQuestionnaire: React.FC<JourneyQuestionnaireProps> = ({ onClose }) => {
-  const [result, setResult] = useState<ProcessCardProps | null>(null);
+  const [results, setResults] = useState<ProcessCardProps[]>([]);
   const [showResults, setShowResults] = useState(false);
 
   const form = useForm<QuestionnaireFormValues>({
@@ -30,7 +30,7 @@ const JourneyQuestionnaire: React.FC<JourneyQuestionnaireProps> = ({ onClose }) 
     },
   });
 
-  const findMatchingJourney = (data: QuestionnaireFormValues) => {
+  const findMatchingJourneys = (data: QuestionnaireFormValues): ProcessCardProps[] => {
     // Simple mapping of goals to categories
     const categoryMap: Record<string, string> = {
       'personal-growth': 'Personal Development',
@@ -51,26 +51,40 @@ const JourneyQuestionnaire: React.FC<JourneyQuestionnaireProps> = ({ onClose }) 
     const [minDuration, maxDuration] = durationMap[data.timePeriod];
     
     // Find journeys in the target category with matching duration
-    const matchingJourneys = journeys.filter(journey => 
+    let matchingJourneys = journeys.filter(journey => 
       journey.category === targetCategory && 
       journey.duration >= minDuration && 
       journey.duration <= maxDuration
     );
 
-    // Return first match or a default journey if no match
-    return matchingJourneys.length > 0 
-      ? matchingJourneys[0] 
-      : journeys.find(j => j.category === targetCategory) || journeys[0];
+    // If we don't have enough matches, add some from the same category regardless of duration
+    if (matchingJourneys.length < 2) {
+      const additionalJourneys = journeys.filter(journey => 
+        journey.category === targetCategory && 
+        !matchingJourneys.some(match => match.id === journey.id)
+      );
+      matchingJourneys = [...matchingJourneys, ...additionalJourneys].slice(0, 3);
+    }
+
+    // If we still don't have enough matches, add some from other categories
+    if (matchingJourneys.length < 3) {
+      const otherJourneys = journeys.filter(journey => 
+        !matchingJourneys.some(match => match.id === journey.id)
+      );
+      matchingJourneys = [...matchingJourneys, ...otherJourneys].slice(0, 3);
+    }
+
+    return matchingJourneys.slice(0, 3); // Return up to 3 journeys
   };
 
   const onSubmit = (data: QuestionnaireFormValues) => {
-    const matchingJourney = findMatchingJourney(data);
-    setResult(matchingJourney);
+    const matchingJourneys = findMatchingJourneys(data);
+    setResults(matchingJourneys);
     setShowResults(true);
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-2xl mx-auto animate-fade-in">
+    <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-3xl mx-auto animate-fade-in">
       <h2 className="text-2xl font-serif font-semibold mb-6 text-center text-spirit-800">Find Your Perfect Journey</h2>
       
       {!showResults ? (
@@ -204,27 +218,19 @@ const JourneyQuestionnaire: React.FC<JourneyQuestionnaireProps> = ({ onClose }) 
         </Form>
       ) : (
         <div className="space-y-6 animate-fade-in">
-          <h3 className="text-xl font-medium text-center">Your Recommended Journey</h3>
+          <h3 className="text-xl font-medium text-center mb-6">Your Recommended Journeys</h3>
           
-          {result && (
-            <div className="bg-earth-50 p-4 rounded-lg">
-              <h4 className="text-lg font-semibold">{result.title}</h4>
-              <p className="text-earth-600 mt-2">{result.description}</p>
-              <div className="mt-3 text-sm text-earth-500">
-                <span className="font-medium">Teacher:</span> {result.teacher}
-              </div>
-              <div className="mt-1 text-sm text-earth-500">
-                <span className="font-medium">Duration:</span> {result.duration} days
-              </div>
-              <div className="mt-4 flex justify-center">
-                <Button asChild className="bg-spirit-600 hover:bg-spirit-700">
-                  <Link to={`/journey/${result.id}`}>Begin This Journey</Link>
-                </Button>
-              </div>
+          {results.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {results.map((journey) => (
+                <ProcessCard key={journey.id} {...journey} />
+              ))}
             </div>
+          ) : (
+            <p className="text-center text-earth-600">No matching journeys found. Please try different preferences.</p>
           )}
           
-          <div className="flex justify-between">
+          <div className="flex justify-between mt-8">
             <Button 
               variant="outline" 
               onClick={() => {

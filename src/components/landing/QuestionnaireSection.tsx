@@ -8,11 +8,11 @@ const QuestionnaireSection: React.FC = () => {
 
   return (
     <section className="py-16 md:py-20 px-4 md:px-6 bg-gradient-to-b from-white to-purple-50">
-      <div className="container mx-auto max-w-5xl text-center">
+      <div className="container mx-auto max-w-6xl text-center">
         <div className="mb-10 space-y-4">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold">Not Sure Where to Begin?</h2>
           <p className="text-lg text-earth-700 mx-auto max-w-2xl">
-            Take our quick questionnaire to discover the perfect spiritual journey for your unique needs and aspirations.
+            Take our quick questionnaire to discover the perfect spiritual journeys for your unique needs and aspirations.
           </p>
         </div>
         
