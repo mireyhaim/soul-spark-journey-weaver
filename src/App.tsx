@@ -8,6 +8,8 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import TeacherPortal from "./components/TeacherPortal";
 import UserJourney from "./components/UserJourney";
+import Journeys from "./pages/Journeys";
+import Signup from "./pages/Signup";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +23,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/teacher" element={<TeacherPortal />} />
           <Route path="/journey/:id" element={<UserJourney />} />
+          <Route path="/journeys" element={<Journeys />} />
+          <Route path="/signup" element={<Signup />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
