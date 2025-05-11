@@ -9,7 +9,7 @@ export const featuredProcesses: ProcessCardProps[] = [
     teacher: 'Michael Thompson',
     duration: 7,
     category: 'Forgiveness',
-    image: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843'
+    image: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   },
   {
     id: '2',
@@ -18,7 +18,7 @@ export const featuredProcesses: ProcessCardProps[] = [
     teacher: 'Sarah Jenkins',
     duration: 14,
     category: 'Abundance',
-    image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d'
+    image: 'https://images.unsplash.com/photo-1506815444479-bfdb1e96c566?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   },
   {
     id: '3',
@@ -27,7 +27,7 @@ export const featuredProcesses: ProcessCardProps[] = [
     teacher: 'Elena Rodriguez',
     duration: 21,
     category: 'Healing',
-    image: 'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb'
+    image: 'https://images.unsplash.com/photo-1511840636560-acee95b3a83f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   },
   {
     id: '4',
@@ -36,6 +36,6 @@ export const featuredProcesses: ProcessCardProps[] = [
     teacher: 'David Chen',
     duration: 14,
     category: 'Relationships',
-    image: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843'
+    image: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   }
 ];
