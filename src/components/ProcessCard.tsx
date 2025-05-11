@@ -36,6 +36,13 @@ const getProcessImage = (category: string, providedImage?: string): string => {
   return categoryImages[category] || "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb";
 };
 
+// Calculate price based on journey duration
+const getJourneyPrice = (duration: number): number => {
+  if (duration <= 7) return 11;
+  if (duration <= 14) return 15;
+  return 27;
+};
+
 const ProcessCard: React.FC<ProcessCardProps> = ({
   id,
   title,
@@ -46,6 +53,7 @@ const ProcessCard: React.FC<ProcessCardProps> = ({
   image
 }) => {
   const cardImage = getProcessImage(category, image);
+  const price = getJourneyPrice(duration);
   
   return (
     <Card className="overflow-hidden transition-shadow hover:shadow-md">
@@ -74,6 +82,9 @@ const ProcessCard: React.FC<ProcessCardProps> = ({
       <CardContent>
         <p className="text-sm text-earth-600 line-clamp-2">
           {description}
+        </p>
+        <p className="text-sm text-spirit-700 font-semibold mt-2">
+          ${price}
         </p>
       </CardContent>
       

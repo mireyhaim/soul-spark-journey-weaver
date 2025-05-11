@@ -10,7 +10,16 @@ interface JourneyHeaderProps {
   journey: ProcessCardProps;
 }
 
+// Calculate price based on journey duration
+const getJourneyPrice = (duration: number): number => {
+  if (duration <= 7) return 11;
+  if (duration <= 14) return 15;
+  return 27;
+};
+
 const JourneyHeader: React.FC<JourneyHeaderProps> = ({ journey }) => {
+  const price = getJourneyPrice(journey.duration);
+  
   return (
     <>
       <Link to="/journeys" className="inline-flex items-center gap-1 text-spirit-600 hover:text-spirit-700 mb-6">
@@ -25,6 +34,9 @@ const JourneyHeader: React.FC<JourneyHeaderProps> = ({ journey }) => {
               {journey.category}
             </Badge>
             <Badge variant="outline">{journey.duration}-day journey</Badge>
+            <Badge variant="default" className="bg-green-600 hover:bg-green-700">
+              ${price}
+            </Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-sans font-semibold mb-2">{journey.title}</h1>
           <div className="flex items-center gap-2 text-earth-600 mb-4">

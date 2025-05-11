@@ -8,12 +8,22 @@ import JourneyProgress from './journey/JourneyProgress';
 import DailyPractice from './journey/DailyPractice';
 import JourneyTimeline from './journey/JourneyTimeline';
 import JourneyInsights from './journey/JourneyInsights';
+import { Button } from "@/components/ui/button";
+import { ShoppingCart } from 'lucide-react';
+
+// Calculate price based on journey duration
+const getJourneyPrice = (duration: number): number => {
+  if (duration <= 7) return 11;
+  if (duration <= 14) return 15;
+  return 27;
+};
 
 const UserJourney: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
   const [completed, setCompleted] = useState(false);
   const [savedProgress, setSavedProgress] = useState<number[]>([1, 2, 3, 4]); // Days completed
+  const [isPurchased, setIsPurchased] = useState(false);
   
   // Find the selected journey
   const journey = journeys.find(j => j.id === id) || {
@@ -28,6 +38,7 @@ const UserJourney: React.FC = () => {
   
   // Current day of the journey (this would normally be calculated from user data)
   const currentDay: number = 5;
+  const price = getJourneyPrice(journey.duration);
   
   const handleComplete = () => {
     // Add the current day to saved progress if not already saved
@@ -42,6 +53,14 @@ const UserJourney: React.FC = () => {
     });
   };
 
+  const handlePurchase = () => {
+    setIsPurchased(true);
+    toast({
+      title: "Journey purchased!",
+      description: `Your ${journey.title} journey has been purchased for $${price}. Enjoy your spiritual path!`,
+    });
+  };
+
   return (
     <div className="container mx-auto py-10 px-4 md:px-6">
       <div className="flex flex-col gap-8">
@@ -52,22 +71,53 @@ const UserJourney: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
             {/* Progress information */}
             <JourneyProgress currentDay={currentDay} duration={journey.duration} />
+            
+            {/* Purchase button */}
+            {!isPurchased && (
+              <div className="w-full md:w-auto">
+                <Button 
+                  onClick={handlePurchase} 
+                  className="w-full bg-green-600 hover:bg-green-700 gap-2"
+                >
+                  <ShoppingCart size={16} />
+                  <span>Purchase for ${price}</span>
+                </Button>
+              </div>
+            )}
           </div>
           
           {/* Daily practice card */}
-          <DailyPractice 
-            currentDay={currentDay} 
-            completed={completed}
-            onComplete={handleComplete}
-          />
+          {isPurchased ? (
+            <DailyPractice 
+              currentDay={currentDay} 
+              completed={completed}
+              onComplete={handleComplete}
+            />
+          ) : (
+            <div className="bg-white p-8 rounded-lg border shadow-sm mb-6 text-center">
+              <h2 className="text-2xl font-semibold mb-4">Purchase This Journey</h2>
+              <p className="text-earth-600 mb-6">
+                Get full access to this {journey.duration}-day journey for just ${price}.
+              </p>
+              <Button 
+                onClick={handlePurchase} 
+                className="bg-green-600 hover:bg-green-700 gap-2"
+              >
+                <ShoppingCart size={16} />
+                <span>Purchase Now</span>
+              </Button>
+            </div>
+          )}
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Journey Timeline */}
-            <JourneyTimeline currentDay={currentDay} />
-            
-            {/* AI Insights */}
-            <JourneyInsights />
-          </div>
+          {isPurchased && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Journey Timeline */}
+              <JourneyTimeline currentDay={currentDay} />
+              
+              {/* AI Insights */}
+              <JourneyInsights />
+            </div>
+          )}
         </div>
       </div>
     </div>
