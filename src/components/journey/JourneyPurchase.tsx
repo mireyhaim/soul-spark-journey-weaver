@@ -10,10 +10,60 @@ interface JourneyPurchaseProps {
   isPurchased: boolean;
   onPurchase: () => void;
   category?: string;
+  journeyId: string; // Add journeyId to props
 }
 
 // Helper function to get journey-specific experience content
-const getJourneyExperienceContent = (category: string | undefined) => {
+const getJourneyExperienceContent = (journeyId: string, category: string | undefined) => {
+  // Journey specific content mapping by ID
+  const journeySpecificContent: Record<string, { title: string, experiences: string[] }> = {
+    // Personal Development journeys
+    '1': {
+      title: "Your Self-Discovery Journey Will Include",
+      experiences: [
+        "Daily reflective exercises to uncover your authentic values and strengths",
+        "Guided visualizations to connect with your deeper purpose",
+        "Personalized insight tools that adapt to your unique life experiences",
+        "Integration practices to align your daily choices with your true self"
+      ]
+    },
+    '2': {
+      title: "Your Emotional Intelligence Growth Will Include",
+      experiences: [
+        "Emotion awareness techniques to identify feelings before they overwhelm you",
+        "Communication frameworks to express your needs with clarity and compassion",
+        "Empathy-building practices for deeper connections with others",
+        "Real-world application exercises for your most challenging relationships"
+      ]
+    },
+    // Abundance journeys
+    '13': {
+      title: "Your Abundance Meditation Journey Will Include",
+      experiences: [
+        "Daily gratitude practices that rewire your relationship with receiving",
+        "Specific meditation techniques to clear unconscious money blocks",
+        "Visualization exercises to expand your capacity to receive prosperity",
+        "Practical abundance rituals to integrate into your everyday life"
+      ]
+    },
+    '14': {
+      title: "Your Financial Freedom Path Includes",
+      experiences: [
+        "Mindset practices to release inherited money beliefs that limit your growth",
+        "Daily abundance affirmations tailored to your specific financial goals",
+        "Energy alignment exercises to create harmony with wealth and resources",
+        "Practical manifestation techniques specifically for financial prosperity"
+      ]
+    },
+    // Add other journeys as needed
+  };
+  
+  // Return journey-specific content if available, otherwise use category-based content
+  if (journeySpecificContent[journeyId]) {
+    return journeySpecificContent[journeyId];
+  }
+  
+  // Fall back to category-based content if journey-specific isn't available
   switch (category) {
     case 'Personal Development':
       return {
@@ -84,14 +134,15 @@ const JourneyPurchase: React.FC<JourneyPurchaseProps> = ({
   duration,
   isPurchased,
   onPurchase,
-  category
+  category,
+  journeyId
 }) => {
   // If the journey is purchased, don't show this component at all
   if (isPurchased) {
     return null;
   }
   
-  const experienceContent = getJourneyExperienceContent(category);
+  const experienceContent = getJourneyExperienceContent(journeyId, category);
   
   return (
     <div className="bg-white p-8 rounded-lg border shadow-sm mb-6">

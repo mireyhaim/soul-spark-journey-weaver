@@ -105,6 +105,7 @@ const UserJourney: React.FC = () => {
               isPurchased={isPurchased}
               onPurchase={handlePurchase}
               category={journey.category}
+              journeyId={journey.id} // Pass the journey ID to the component
             />
           )}
           
