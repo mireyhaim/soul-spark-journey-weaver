@@ -9,6 +9,7 @@ import DailyPractice from './journey/DailyPractice';
 import JourneyTimeline from './journey/JourneyTimeline';
 import JourneyInsights from './journey/JourneyInsights';
 import JourneyExplanations from './journey/JourneyExplanations';
+import JourneyPurchase from './journey/JourneyPurchase';
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from 'lucide-react';
 
@@ -85,7 +86,7 @@ const UserJourney: React.FC = () => {
             {/* Progress information */}
             <JourneyProgress currentDay={currentDay} duration={journey.duration} />
             
-            {/* Purchase button */}
+            {/* Purchase button (small version) */}
             {!isPurchased && (
               <div className="w-full md:w-auto">
                 <Button 
@@ -99,7 +100,7 @@ const UserJourney: React.FC = () => {
             )}
           </div>
           
-          {/* Daily practice card */}
+          {/* Daily practice card or purchase card */}
           {isPurchased ? (
             <DailyPractice 
               currentDay={currentDay} 
@@ -107,19 +108,13 @@ const UserJourney: React.FC = () => {
               onComplete={handleComplete}
             />
           ) : (
-            <div className="bg-white p-8 rounded-lg border shadow-sm mb-6 text-center">
-              <h2 className="text-2xl font-semibold mb-4">Purchase This Journey</h2>
-              <p className="text-earth-600 mb-6">
-                Get full access to this {journey.duration}-day journey for just ${price}.
-              </p>
-              <Button 
-                onClick={handlePurchase} 
-                className="bg-green-600 hover:bg-green-700 gap-2"
-              >
-                <ShoppingCart size={16} />
-                <span>Purchase Now</span>
-              </Button>
-            </div>
+            <JourneyPurchase 
+              price={price}
+              journeyTitle={journey.title}
+              duration={journey.duration}
+              isPurchased={isPurchased}
+              onPurchase={handlePurchase}
+            />
           )}
           
           {isPurchased && (
