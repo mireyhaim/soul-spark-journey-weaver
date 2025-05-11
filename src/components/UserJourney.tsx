@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,7 +27,8 @@ const UserJourney: React.FC = () => {
     image: 'https://images.unsplash.com/photo-1502139214982-d0ad755818d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   };
   
-  const currentDay = 5;
+  // Changed from a literal type '5' to a regular number type
+  const currentDay: number = 5;
   const progressPercentage = Math.round((currentDay / journey.duration) * 100);
   
   const handleComplete = () => {
@@ -91,7 +93,9 @@ const UserJourney: React.FC = () => {
                   <span>~15 min/day</span>
                 </div>
               </div>
-              <Button className="w-full">{currentDay === 1 ? "Start Journey" : "Continue Journey"}</Button>
+              <Button className="w-full">
+                {currentDay === 1 ? "Start Journey" : "Continue Journey"}
+              </Button>
             </div>
           </div>
           
