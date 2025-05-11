@@ -13,6 +13,7 @@ const UserJourney: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
   const [completed, setCompleted] = useState(false);
+  const [savedProgress, setSavedProgress] = useState<number[]>([1, 2, 3, 4]); // Days completed
   
   // Find the selected journey
   const journey = journeys.find(j => j.id === id) || {
@@ -25,14 +26,19 @@ const UserJourney: React.FC = () => {
     image: 'https://images.unsplash.com/photo-1502139214982-d0ad755818d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   };
   
-  // Changed from a literal type '5' to a regular number type
+  // Current day of the journey (this would normally be calculated from user data)
   const currentDay: number = 5;
   
   const handleComplete = () => {
+    // Add the current day to saved progress if not already saved
+    if (!savedProgress.includes(currentDay)) {
+      setSavedProgress(prev => [...prev, currentDay]);
+    }
+    
     setCompleted(true);
     toast({
       title: "Practice completed!",
-      description: "Great job! You've completed today's practice.",
+      description: "Great job! Your reflections have been saved and you've completed today's practice.",
     });
   };
 
