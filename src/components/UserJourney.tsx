@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
@@ -114,6 +113,7 @@ const UserJourney: React.FC = () => {
               duration={journey.duration}
               isPurchased={isPurchased}
               onPurchase={handlePurchase}
+              category={journey.category}
             />
           )}
           
