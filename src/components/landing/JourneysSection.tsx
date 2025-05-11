@@ -14,7 +14,7 @@ const JourneysSection: React.FC<JourneysSectionProps> = ({ featuredProcesses }) 
       <div className="container mx-auto max-w-6xl">
         <div className="flex justify-between items-end mb-8">
           <div>
-            <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-2">
+            <h2 className="text-3xl md:text-4xl font-sans font-semibold mb-2">
               Featured Journeys
             </h2>
             <p className="text-earth-600">

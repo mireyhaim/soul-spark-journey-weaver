@@ -196,7 +196,7 @@ const Journeys: React.FC = () => {
       <main className="flex-grow bg-earth-50/30 py-10 px-4 md:px-6">
         <div className="container mx-auto max-w-6xl">
           <div className="mb-10">
-            <h1 className="text-3xl md:text-4xl font-serif font-semibold mb-3">
+            <h1 className="text-3xl md:text-4xl font-sans font-semibold mb-3">
               Explore Journeys
             </h1>
             <p className="text-earth-700 md:text-lg max-w-3xl">
@@ -255,7 +255,7 @@ const Journeys: React.FC = () => {
                 
                 {filteredJourneys.length === 0 && (
                   <div className="text-center py-16">
-                    <h3 className="text-xl font-medium mb-2">No journeys found</h3>
+                    <h3 className="text-xl font-sans font-medium mb-2">No journeys found</h3>
                     <p className="text-earth-600">Try adjusting your search or filters</p>
                   </div>
                 )}
