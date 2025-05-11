@@ -12,7 +12,7 @@ export const featuredProcesses: ProcessCardProps[] = [
     image: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   },
   {
-    id: '2',
+    id: '13',
     title: 'Abundance Meditation',
     description: 'Open yourself to receive abundance in all areas of your life through mindfulness and gratitude.',
     teacher: 'Sarah Jenkins',
