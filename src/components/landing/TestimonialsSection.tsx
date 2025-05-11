@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -72,7 +71,7 @@ const TestimonialsSection: React.FC = () => {
             Transformative Experiences
           </h2>
           <p className="text-lg text-earth-600 max-w-3xl mx-auto">
-            Hear from people whose lives have been changed by SoulPath journeys.
+            Hear from people whose lives have been changed by InFlow journeys.
           </p>
         </div>
         

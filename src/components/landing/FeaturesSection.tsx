@@ -8,7 +8,7 @@ const FeaturesSection: React.FC = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-4">
-            How SoulPath Works
+            How InFlow Works
           </h2>
           <p className="text-lg text-earth-600 max-w-3xl mx-auto">
             Our platform connects you with personalized spiritual guidance through AI-powered journeys.

@@ -18,7 +18,7 @@ const MentorLanding: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold leading-tight text-gradient">
-                  Share Your Wisdom Through SoulPath
+                  Share Your Wisdom Through InFlow
                 </h1>
                 <p className="text-xl text-earth-700">
                   Join our platform as a mentor and help guide others on their spiritual journey with your expertise and wisdom.
@@ -34,7 +34,7 @@ const MentorLanding: React.FC = () => {
               </div>
               <div className="relative">
                 <div className="relative z-10 bg-white rounded-2xl shadow-xl p-6 md:p-8 animate-float">
-                  <h2 className="text-2xl font-serif font-semibold mb-4">Why Become a SoulPath Mentor?</h2>
+                  <h2 className="text-2xl font-serif font-semibold mb-4">Why Become an InFlow Mentor?</h2>
                   <ul className="space-y-3">
                     <li className="flex items-start">
                       <div className="w-6 h-6 rounded-full spirit-gradient flex items-center justify-center mt-1 mr-3">
@@ -66,7 +66,7 @@ const MentorLanding: React.FC = () => {
           <div className="container mx-auto max-w-6xl">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-4">
-                How SoulPath Works For Mentors
+                How InFlow Works For Mentors
               </h2>
               <p className="text-lg text-earth-600 max-w-3xl mx-auto">
                 Our platform makes it easy for you to share your wisdom and guide seekers through their spiritual journey.
@@ -126,7 +126,7 @@ const MentorLanding: React.FC = () => {
               <Button size="lg" variant="secondary" asChild>
                 <Link to="/teacher">Enter Mentor Portal</Link>
               </Button>
-              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10" asChild>
+              <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white border-2 border-white/30 hover:border-white/40" asChild>
                 <Link to="/signup">Join as Mentor</Link>
               </Button>
             </div>
