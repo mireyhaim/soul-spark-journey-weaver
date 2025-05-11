@@ -11,7 +11,7 @@ const FeaturesSection: React.FC = () => {
             How SoulPath Works
           </h2>
           <p className="text-lg text-earth-600 max-w-3xl mx-auto">
-            Our platform connects spiritual teachers with seekers through AI-guided personal journeys.
+            Our platform connects you with personalized spiritual guidance through AI-powered journeys.
           </p>
         </div>
         
@@ -21,9 +21,9 @@ const FeaturesSection: React.FC = () => {
               <div className="w-16 h-16 rounded-full spirit-gradient mx-auto flex items-center justify-center">
                 <span className="text-white font-serif text-2xl">1</span>
               </div>
-              <h3 className="text-xl font-medium">Teachers Create Content</h3>
+              <h3 className="text-xl font-medium">Choose Your Journey</h3>
               <p className="text-earth-600">
-                Spiritual teachers upload their guidance, exercises, meditations, and wisdom.
+                Select from a variety of transformative spiritual journeys designed for your needs.
               </p>
             </CardContent>
           </Card>
@@ -33,9 +33,9 @@ const FeaturesSection: React.FC = () => {
               <div className="w-16 h-16 rounded-full spirit-gradient mx-auto flex items-center justify-center">
                 <span className="text-white font-serif text-2xl">2</span>
               </div>
-              <h3 className="text-xl font-medium">AI Creates Journeys</h3>
+              <h3 className="text-xl font-medium">Daily Guidance</h3>
               <p className="text-earth-600">
-                Our system transforms their content into personalized multi-day spiritual journeys.
+                Receive personalized exercises, meditations, and practices tailored to your unique journey.
               </p>
             </CardContent>
           </Card>
@@ -45,9 +45,9 @@ const FeaturesSection: React.FC = () => {
               <div className="w-16 h-16 rounded-full spirit-gradient mx-auto flex items-center justify-center">
                 <span className="text-white font-serif text-2xl">3</span>
               </div>
-              <h3 className="text-xl font-medium">Users Experience Growth</h3>
+              <h3 className="text-xl font-medium">Experience Growth</h3>
               <p className="text-earth-600">
-                You engage with the AI companion that guides you through a transformative process.
+                Grow spiritually through consistent practice with your AI companion guiding your transformation.
               </p>
             </CardContent>
           </Card>

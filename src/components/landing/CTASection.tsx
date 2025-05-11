@@ -18,7 +18,7 @@ const CTASection: React.FC = () => {
             <Link to="/signup">Start Your Journey</Link>
           </Button>
           <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10" asChild>
-            <Link to="/mentor">Join as Mentor</Link>
+            <Link to="/mentor">For Mentors</Link>
           </Button>
         </div>
       </div>

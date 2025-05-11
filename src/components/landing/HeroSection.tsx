@@ -11,14 +11,14 @@ const HeroSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold leading-tight text-gradient">
-              Begin Your Personal Spiritual Journey Today
+              Begin Your Personal Growth Journey
             </h1>
             <p className="text-xl text-earth-700">
-              Discover personalized spiritual paths designed to help you grow, heal, and transform with guidance from our AI companion.
+              Discover tailored spiritual paths to help you find peace, purpose, and transformation with our AI companion.
             </p>
             <div className="flex flex-wrap gap-4">
               <Button size="lg" className="bg-spirit-600 hover:bg-spirit-700" asChild>
-                <Link to="/signup">Start Your Journey</Link>
+                <Link to="/signup">Start Now</Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link to="/journeys">Explore Journeys</Link>
