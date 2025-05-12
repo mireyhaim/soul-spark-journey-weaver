@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, ListChecks } from 'lucide-react';
+import JourneyDailyLessons from './JourneyDailyLessons';
 
 interface JourneyPurchaseProps {
   price: number;
@@ -10,7 +11,7 @@ interface JourneyPurchaseProps {
   isPurchased: boolean;
   onPurchase: () => void;
   category?: string;
-  journeyId: string; // Add journeyId to props
+  journeyId: string;
 }
 
 // Helper function to get journey-specific experience content
@@ -239,6 +240,9 @@ const JourneyPurchase: React.FC<JourneyPurchaseProps> = ({
       <p className="text-earth-600 mb-6 text-center">
         Get full access to <span className="font-medium">{journeyTitle}</span> for just ${price}.
       </p>
+      
+      {/* Add the daily lessons preview */}
+      <JourneyDailyLessons journeyId={journeyId} category={category} />
       
       <div className="bg-spirit-50 p-4 rounded-md mb-6">
         <h3 className="font-medium text-spirit-700 flex items-center gap-2 mb-3">
