@@ -7,39 +7,39 @@ const RecentPosts: React.FC = () => {
   const recentPosts = [
     {
       id: 3,
-      title: "5 Meditation Practices for Beginners",
-      excerpt: "Start your meditation journey with these simple yet powerful practices suitable for beginners.",
+      title: "What's the Difference Between Spiritual Consciousness and Positive Thinking?",
+      excerpt: "Explore the key differences between spiritual awareness and mere positive thinking, and how to cultivate each for personal growth.",
       image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=300",
       author: "Sarah Williams",
       date: "April 28, 2025",
-      category: "Meditation"
+      category: "Spirituality"
     },
     {
       id: 4,
-      title: "Understanding Your Energy Centers",
-      excerpt: "Learn about the seven main chakras and how they influence your physical and mental wellbeing.",
+      title: "Abundance Mindset – Is It Just a Catchphrase?",
+      excerpt: "Dive deep into what abundance consciousness really means beyond the surface-level interpretations popular in self-help circles.",
       image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=300",
       author: "Michael Rivera",
       date: "April 22, 2025",
-      category: "Energy Work"
+      category: "Mindset"
     },
     {
       id: 5,
-      title: "Journaling Prompts for Self-Discovery",
-      excerpt: "Unlock deeper insights about yourself with these thought-provoking journaling prompts.",
+      title: "How to Use Vision Boards Intelligently, Not Superficially",
+      excerpt: "Learn practical techniques to create vision boards that connect with your deeper intentions rather than just surface-level desires.",
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=300",
       author: "Emma Thompson",
       date: "April 15, 2025",
-      category: "Self-Discovery"
+      category: "Manifestation"
     },
     {
       id: 6,
-      title: "The Power of Gratitude Practice",
-      excerpt: "Discover how cultivating gratitude can transform your perspective and enhance your manifestation abilities.",
+      title: "How to Market Yourself Without Apologizing – An Energetic Approach to Business",
+      excerpt: "Discover how to promote your business authentically by aligning with your inner values and natural energy.",
       image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=300",
       author: "James Wilson",
       date: "April 8, 2025",
-      category: "Gratitude"
+      category: "Business"
     }
   ];
 

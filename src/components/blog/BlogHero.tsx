@@ -7,11 +7,11 @@ const BlogHero: React.FC = () => {
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="text-center">
           <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-6">
-            הבלוג שלנו
+            Our Blog
           </h1>
           <p className="text-xl text-earth-700 max-w-3xl mx-auto">
-            מאמרים, תובנות וכלים שיעזרו לך להעמיק בתהליכים הפנימיים שלך
-            ולהתפתח בדרך שלך לחיים מודעים ומלאי משמעות
+            Articles, insights, and tools to help you deepen your inner processes
+            and grow on your path to conscious and meaningful living
           </p>
         </div>
       </div>
