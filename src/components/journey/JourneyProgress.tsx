@@ -2,15 +2,23 @@
 import React from 'react';
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Clock } from 'lucide-react';
+import { BookOpen, Clock, ArrowRight } from 'lucide-react';
 
 interface JourneyProgressProps {
   currentDay: number;
   duration: number;
   onContinue: () => void;
+  completed: boolean;
+  onNext?: () => void;
 }
 
-const JourneyProgress: React.FC<JourneyProgressProps> = ({ currentDay, duration, onContinue }) => {
+const JourneyProgress: React.FC<JourneyProgressProps> = ({ 
+  currentDay, 
+  duration, 
+  onContinue, 
+  completed, 
+  onNext 
+}) => {
   // Calculate progress as a percentage (current day out of total duration)
   const progressPercentage = Math.round((currentDay / duration) * 100);
   
@@ -33,9 +41,16 @@ const JourneyProgress: React.FC<JourneyProgressProps> = ({ currentDay, duration,
           <span>~15 min/day</span>
         </div>
       </div>
-      <Button className="w-full" onClick={onContinue}>
-        {currentDay === 1 && !progressPercentage ? "Start Journey" : "Continue Journey"}
-      </Button>
+      
+      {completed ? (
+        <Button className="w-full" onClick={onNext} disabled={currentDay >= duration}>
+          Next Day <ArrowRight size={16} />
+        </Button>
+      ) : (
+        <Button className="w-full" onClick={onContinue}>
+          {currentDay === 1 && progressPercentage === 0 ? "Start Journey" : "Continue Journey"}
+        </Button>
+      )}
     </div>
   );
 };

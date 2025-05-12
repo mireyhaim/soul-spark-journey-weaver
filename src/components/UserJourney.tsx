@@ -44,8 +44,6 @@ const UserJourney: React.FC = () => {
     // Add the current day to saved progress if not already saved
     if (!savedProgress.includes(currentDay)) {
       setSavedProgress(prev => [...prev, currentDay]);
-      // Advance to the next day when current day is completed
-      setCurrentDay(prev => Math.min(prev + 1, journey.duration));
     }
     
     setCompleted(true);
@@ -53,6 +51,19 @@ const UserJourney: React.FC = () => {
       title: "Practice completed!",
       description: "Great job! Your reflections have been saved and you've completed today's practice.",
     });
+  };
+
+  const handleNextDay = () => {
+    if (currentDay < journey.duration) {
+      // Move to the next day
+      setCurrentDay(prev => prev + 1);
+      setCompleted(false); // Reset completed state for the new day
+      
+      toast({
+        title: "Moving to next day",
+        description: `You're now on Day ${currentDay + 1} of your journey. Keep up the great work!`,
+      });
+    }
   };
 
   const handlePurchase = () => {
@@ -64,8 +75,7 @@ const UserJourney: React.FC = () => {
   };
 
   const handleContinueJourney = () => {
-    setCompleted(false); // Reset completed state for the new day
-    // No need to increment the day here, we do that when the day is completed
+    setCompleted(false); // Reset completed state for the current day
     toast({
       title: "Continue your journey",
       description: `Day ${currentDay} of your ${journey.title} journey is ready for you.`,
@@ -99,6 +109,8 @@ const UserJourney: React.FC = () => {
                   currentDay={currentDay} 
                   duration={journey.duration}
                   onContinue={handleContinueJourney}
+                  completed={completed}
+                  onNext={handleNextDay}
                 />
               </div>
               <DailyPractice 
