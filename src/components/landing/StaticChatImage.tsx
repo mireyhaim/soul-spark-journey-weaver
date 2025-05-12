@@ -30,7 +30,7 @@ const StaticChatImage: React.FC = () => {
             </div>
             <div className="bg-spirit-50 rounded-lg py-2 px-3 max-w-[80%]">
               <p className="text-sm text-gray-800">
-                Welcome to your spiritual journey. I'm your personal guide, here to support you every step of the way. How are you feeling today?
+                I'm so glad you're here. I can sense you're ready for something meaningful in your life journey. I'm here to guide you with compassion and wisdom every step of the way. How are you feeling as you begin this path today?
               </p>
               <span className="text-xs text-gray-500 block mt-1">10:03 AM</span>
             </div>
@@ -40,7 +40,7 @@ const StaticChatImage: React.FC = () => {
           <div className="flex items-start mb-4 justify-end">
             <div className="bg-blue-50 rounded-lg py-2 px-3 max-w-[80%]">
               <p className="text-sm text-gray-800">
-                I'm feeling stressed lately. My boss has been putting a lot of pressure on me and I don't know how to handle it. Every day feels like a struggle.
+                I'm feeling stressed lately. My boss has been putting a lot of pressure on me and I don't know how to handle it. Every day feels like a struggle to stay centered.
               </p>
               <span className="text-xs text-gray-500 block mt-1">10:05 AM</span>
             </div>
@@ -60,7 +60,7 @@ const StaticChatImage: React.FC = () => {
             </div>
             <div className="bg-spirit-50 rounded-lg py-2 px-3 max-w-[80%]">
               <p className="text-sm text-gray-800">
-                I understand how challenging workplace stress can be. Remember that your worth isn't defined by someone else's expectations. Have you tried setting aside a few minutes each day for mindful breathing? It might help create a small buffer between the stress and your response to it. Also, is there a trusted colleague you could talk with about how you're feeling?
+                I hear how challenging this is for you. That pressure can feel so overwhelming, especially when it's constant. Your body and spirit are trying to tell you something important through this stress. I'm wondering - where in your body do you feel this tension most strongly? Many find that a simple 3-minute grounding practice can create a small sanctuary within these challenging moments. Would you like me to guide you through a quick exercise that many have found helpful during work pressure?
               </p>
               <span className="text-xs text-gray-500 block mt-1">10:06 AM</span>
             </div>
