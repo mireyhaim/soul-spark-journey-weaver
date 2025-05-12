@@ -241,8 +241,8 @@ const JourneyPurchase: React.FC<JourneyPurchaseProps> = ({
         Get full access to <span className="font-medium">{journeyTitle}</span> for just ${price}.
       </p>
       
-      {/* Add the daily lessons preview */}
-      <JourneyDailyLessons journeyId={journeyId} category={category} />
+      {/* Add the daily lessons preview with duration */}
+      <JourneyDailyLessons journeyId={journeyId} category={category} duration={duration} />
       
       <div className="bg-spirit-50 p-4 rounded-md mb-6">
         <h3 className="font-medium text-spirit-700 flex items-center gap-2 mb-3">
