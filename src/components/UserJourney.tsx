@@ -10,8 +10,6 @@ import JourneyTimeline from './journey/JourneyTimeline';
 import JourneyInsights from './journey/JourneyInsights';
 import JourneyExplanations from './journey/JourneyExplanations';
 import JourneyPurchase from './journey/JourneyPurchase';
-import { Button } from "@/components/ui/button";
-import { ShoppingCart } from 'lucide-react';
 
 // Calculate price based on journey duration
 const getJourneyPrice = (duration: number): number => {
@@ -24,7 +22,8 @@ const UserJourney: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
   const [completed, setCompleted] = useState(false);
-  const [savedProgress, setSavedProgress] = useState<number[]>([1, 2, 3, 4]); // Days completed
+  const [currentDay, setCurrentDay] = useState(1); // Always start at day 1 after purchase
+  const [savedProgress, setSavedProgress] = useState<number[]>([]); // Days completed
   const [isPurchased, setIsPurchased] = useState(false);
   const [showExplanations, setShowExplanations] = useState(true);
   
@@ -39,14 +38,14 @@ const UserJourney: React.FC = () => {
     image: 'https://images.unsplash.com/photo-1502139214982-d0ad755818d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   };
   
-  // Current day of the journey (this would normally be calculated from user data)
-  const currentDay: number = 5;
   const price = getJourneyPrice(journey.duration);
   
   const handleComplete = () => {
     // Add the current day to saved progress if not already saved
     if (!savedProgress.includes(currentDay)) {
       setSavedProgress(prev => [...prev, currentDay]);
+      // Advance to the next day when current day is completed
+      setCurrentDay(prev => Math.min(prev + 1, journey.duration));
     }
     
     setCompleted(true);
@@ -61,6 +60,15 @@ const UserJourney: React.FC = () => {
     toast({
       title: "Journey purchased!",
       description: `Your ${journey.title} journey has been purchased for $${price}. Enjoy your spiritual path!`,
+    });
+  };
+
+  const handleContinueJourney = () => {
+    setCompleted(false); // Reset completed state for the new day
+    // No need to increment the day here, we do that when the day is completed
+    toast({
+      title: "Continue your journey",
+      description: `Day ${currentDay} of your ${journey.title} journey is ready for you.`,
     });
   };
 
@@ -82,21 +90,30 @@ const UserJourney: React.FC = () => {
             onDismiss={handleDismissExplanations}
           />
           
-          {/* Only show progress info and continue button if journey is purchased */}
-          {isPurchased && (
-            <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
-              {/* Progress information */}
-              <JourneyProgress currentDay={currentDay} duration={journey.duration} />
-            </div>
-          )}
-          
-          {/* Daily practice card or purchase card */}
+          {/* Only show progress info and content if journey is purchased */}
           {isPurchased ? (
-            <DailyPractice 
-              currentDay={currentDay} 
-              completed={completed}
-              onComplete={handleComplete}
-            />
+            <>
+              <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
+                {/* Progress information */}
+                <JourneyProgress 
+                  currentDay={currentDay} 
+                  duration={journey.duration}
+                  onContinue={handleContinueJourney}
+                />
+              </div>
+              <DailyPractice 
+                currentDay={currentDay} 
+                completed={completed}
+                onComplete={handleComplete}
+              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Journey Timeline */}
+                <JourneyTimeline currentDay={currentDay} />
+                
+                {/* AI Insights */}
+                <JourneyInsights />
+              </div>
+            </>
           ) : (
             <JourneyPurchase 
               price={price}
@@ -105,19 +122,8 @@ const UserJourney: React.FC = () => {
               isPurchased={isPurchased}
               onPurchase={handlePurchase}
               category={journey.category}
-              journeyId={journey.id} // Pass the journey ID to the component
+              journeyId={journey.id}
             />
-          )}
-          
-          {/* Only show timeline and insights if the journey is purchased */}
-          {isPurchased && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Journey Timeline */}
-              <JourneyTimeline currentDay={currentDay} />
-              
-              {/* AI Insights */}
-              <JourneyInsights />
-            </div>
           )}
         </div>
       </div>
