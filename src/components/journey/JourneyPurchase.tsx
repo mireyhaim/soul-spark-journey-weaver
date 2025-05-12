@@ -55,7 +55,36 @@ const getJourneyExperienceContent = (journeyId: string, category: string | undef
         "Practical manifestation techniques specifically for financial prosperity"
       ]
     },
-    // Add other journeys as needed
+    // Relationships journeys
+    '16': {
+      title: "Your Heal & Attract Love Journey Includes",
+      experiences: [
+        "Emotional release practices to heal past relationship wounds",
+        "Energy clearing techniques to remove blockages to receiving love",
+        "Attraction activation meditations to align with healthy partnerships",
+        "Daily self-love practices to strengthen your relationship foundation"
+      ]
+    },
+    '17': {
+      title: "Your Conscious Relationships Mastery Includes",
+      experiences: [
+        "Advanced communication techniques for deeper emotional connection",
+        "Boundary-setting frameworks that honor both yourself and others",
+        "Conflict resolution strategies that strengthen rather than damage bonds",
+        "Intimacy practices that create lasting trust and vulnerability"
+      ]
+    },
+    // Career Development journeys
+    '18': {
+      title: "Your True Calling Journey Includes",
+      experiences: [
+        "Guided inner explorations to identify your authentic purpose",
+        "Skills and passions inventory to align your natural gifts with career paths",
+        "Visualization techniques to connect with your future professional self",
+        "Practical steps to transition from current work to aligned purpose"
+      ]
+    },
+    // Add more journey-specific content as needed
   };
   
   // Return journey-specific content if available, otherwise use category-based content
@@ -113,6 +142,66 @@ const getJourneyExperienceContent = (journeyId: string, category: string | undef
           "Energy clearing exercises to heal your relationship with receiving",
           "Powerful techniques to align with the natural flow of prosperity",
           "Daily rituals to magnetize opportunities and resources to you"
+        ]
+      };
+    case 'Relationships':
+      return {
+        title: "Transform Your Relationships",
+        experiences: [
+          "Communication techniques for authentic connection and understanding",
+          "Healing practices for past relationship wounds and patterns",
+          "Tools for setting healthy boundaries while maintaining connection",
+          "Daily practices to cultivate deeper intimacy and trust"
+        ]
+      };
+    case 'Career Development':
+      return {
+        title: "Discover Your Professional Path",
+        experiences: [
+          "Self-discovery exercises to align your work with your authentic self",
+          "Practical tools for creating an authentic personal brand",
+          "Strategies to overcome professional blocks and fears",
+          "Daily practices for success mindset and professional fulfillment"
+        ]
+      };
+    case 'Emotional Healing':
+      return {
+        title: "Heal Your Emotional Patterns",
+        experiences: [
+          "Gentle techniques to access and release stored emotional wounds",
+          "Inner child healing practices for core emotional healing",
+          "Tools to identify and transform self-sabotaging patterns",
+          "Daily emotional integration practices for lasting transformation"
+        ]
+      };
+    case 'Feminine Power':
+      return {
+        title: "Awaken Your Feminine Wisdom",
+        experiences: [
+          "Sacred womb connection practices for accessing feminine power",
+          "Intuition strengthening exercises for clearer inner guidance",
+          "Balance techniques for integrating gentle strength and power",
+          "Rituals to honor your feminine cycles and natural rhythms"
+        ]
+      };
+    case 'Energy & Healing':
+      return {
+        title: "Activate Your Energy Healing",
+        experiences: [
+          "Daily energy clearing practices for maintaining your energetic field",
+          "Shadow work techniques to integrate disowned aspects of self",
+          "Consciousness expansion exercises for spiritual awakening",
+          "Intuitive development practices to strengthen your natural abilities"
+        ]
+      };
+    case 'Productivity':
+      return {
+        title: "Master Your Focus and Flow",
+        experiences: [
+          "Practical time management tools designed for your unique needs",
+          "Focus-enhancing practices to deepen your concentration abilities",
+          "Self-motivation techniques that don't rely on willpower alone",
+          "Daily rituals to maintain consistent energy and productivity"
         ]
       };
     default:

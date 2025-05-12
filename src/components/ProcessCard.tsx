@@ -25,7 +25,12 @@ const categoryImages: Record<string, string> = {
   "Forgiveness": "https://images.unsplash.com/photo-1523712999610-f77fbcfc3843",
   "Abundance": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
   "Healing": "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb",
-  "Relationships": "https://images.unsplash.com/photo-1518495973542-4542c06a5843",
+  "Relationships": "https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a",
+  "Career Development": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40",
+  "Emotional Healing": "https://images.unsplash.com/photo-1517091581880-3ae8c248404a",
+  "Feminine Power": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
+  "Energy & Healing": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48",
+  "Productivity": "https://images.unsplash.com/photo-1518655048521-f130df041f66",
 };
 
 // Get appropriate image for the card based on category

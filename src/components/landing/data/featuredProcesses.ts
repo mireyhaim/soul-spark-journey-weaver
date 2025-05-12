@@ -3,39 +3,39 @@ import { ProcessCardProps } from '@/components/ProcessCard';
 
 export const featuredProcesses: ProcessCardProps[] = [
   {
-    id: '1',
-    title: 'Journey to Forgiveness',
-    description: 'Learn to release resentment and cultivate inner peace through guided forgiveness practices.',
-    teacher: 'Michael Thompson',
-    duration: 7,
-    category: 'Forgiveness',
-    image: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: '13',
-    title: 'Abundance Meditation',
-    description: 'Open yourself to receive abundance in all areas of your life through mindfulness and gratitude.',
-    teacher: 'Sarah Jenkins',
-    duration: 14,
-    category: 'Abundance',
-    image: 'https://images.unsplash.com/photo-1506815444479-bfdb1e96c566?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: '3',
-    title: 'Healing Inner Child',
-    description: 'Connect with and heal your inner child through compassionate awareness and guided visualizations.',
-    teacher: 'Elena Rodriguez',
-    duration: 21,
-    category: 'Healing',
-    image: 'https://images.unsplash.com/photo-1511840636560-acee95b3a83f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: '4',
-    title: 'Conscious Relationships',
-    description: 'Develop deeper connections through emotional intelligence and mindful communication.',
-    teacher: 'David Chen',
+    id: '16',
+    title: 'Heal & Attract Love',
+    description: 'שחרור רגשי מאכזבות עבר + תהליך זימון זוגיות בריאה.',
+    teacher: 'Sophia Martinez',
     duration: 14,
     category: 'Relationships',
-    image: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    image: 'https://images.unsplash.com/photo-1522039553440-46d3e1e61e2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '21',
+    title: 'Inner Child Healing',
+    description: 'מסע לריפוי הילדה הפנימית ושחרור דפוסים רגשיים ישנים.',
+    teacher: 'Emma Wilson',
+    duration: 14,
+    category: 'Emotional Healing',
+    image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '23',
+    title: 'Womb Awakening',
+    description: 'חיבור למרכז האנרגיה הנשי – ריפוי, יצירה, כוח נשי.',
+    teacher: 'Sarah Mitchell',
+    duration: 14,
+    category: 'Feminine Power',
+    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '28',
+    title: 'Focus & Flow',
+    description: 'כלים יומיומיים לניהול זמן, ריכוז וזרימה בעבודה.',
+    teacher: 'Mark Thomas',
+    duration: 7,
+    category: 'Productivity',
+    image: 'https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   }
 ];

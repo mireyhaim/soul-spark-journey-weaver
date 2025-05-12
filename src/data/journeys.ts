@@ -146,5 +146,144 @@ export const journeys: ProcessCardProps[] = [
     duration: 14,
     category: 'Abundance Manifestation',
     image: 'https://images.unsplash.com/photo-1505765050516-f72dcac9c60e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  
+  // Relationships & Love
+  {
+    id: '16',
+    title: 'Heal & Attract Love',
+    description: 'שחרור רגשי מאכזבות עבר + תהליך זימון זוגיות בריאה.',
+    teacher: 'Sophia Martinez',
+    duration: 14,
+    category: 'Relationships',
+    image: 'https://images.unsplash.com/photo-1522039553440-46d3e1e61e2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '17',
+    title: 'Conscious Relationships Mastery',
+    description: 'איך ליצור תקשורת מקרבת, גבולות, חיבור רגשי עמוק.',
+    teacher: 'Daniel Cohen',
+    duration: 21,
+    category: 'Relationships',
+    image: 'https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  
+  // Business & Career Development
+  {
+    id: '18',
+    title: 'Find Your True Calling',
+    description: 'תהליך לדיוק הייעוד המקצועי, חיבור בין תשוקה וכישרון.',
+    teacher: 'Rachel Gold',
+    duration: 14,
+    category: 'Career Development',
+    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '19',
+    title: 'Authentic Business Creation',
+    description: 'איך להקים עסק מתוך חיבור פנימי, במקום מתוך פחד או צורך לרצות.',
+    teacher: 'Adam Silver',
+    duration: 21,
+    category: 'Career Development',
+    image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '20',
+    title: 'Magnetic Branding from Within',
+    description: 'תהליך יצירה של מיתוג אישי מבוסס אנרגיה וזהות פנימית.',
+    teacher: 'Lisa Johnson',
+    duration: 14,
+    category: 'Career Development',
+    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  
+  // Deep Emotional Work
+  {
+    id: '21',
+    title: 'Inner Child Healing',
+    description: 'מסע לריפוי הילדה הפנימית ושחרור דפוסים רגשיים ישנים.',
+    teacher: 'Emma Wilson',
+    duration: 14,
+    category: 'Emotional Healing',
+    image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '22',
+    title: 'Overcome Self-Sabotage',
+    description: 'תהליך מודע להתבוננות, שחרור והחלפת דפוסי הרס עצמי.',
+    teacher: 'David Brown',
+    duration: 10,
+    category: 'Emotional Healing',
+    image: 'https://images.unsplash.com/photo-1517091581880-3ae8c248404a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  
+  // Feminine Power & Transformation
+  {
+    id: '23',
+    title: 'Womb Awakening',
+    description: 'חיבור למרכז האנרגיה הנשי – ריפוי, יצירה, כוח נשי.',
+    teacher: 'Sarah Mitchell',
+    duration: 14,
+    category: 'Feminine Power',
+    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '24',
+    title: 'Feminine Power Activation',
+    description: 'איזון בין עדינות לעוצמה, חיבור לעצמי הגבוה והאינטואיטיבי.',
+    teacher: 'Leah Goldman',
+    duration: 21,
+    category: 'Feminine Power',
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  
+  // Energy, Consciousness & Healing
+  {
+    id: '25',
+    title: 'Shadow Integration Journey',
+    description: 'תהליך לאינטגרציה של הצדדים המודחקים – להפוך כאב לכוח.',
+    teacher: 'Michael Davis',
+    duration: 21,
+    category: 'Energy & Healing',
+    image: 'https://images.unsplash.com/photo-1534330207526-8e81f10ec6fc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '26',
+    title: 'Daily Energy Cleansing',
+    description: 'ניקוי אנרגטי יומיומי קצר, פשוט, אפקטיבי – למתחילות.',
+    teacher: 'Anna Garcia',
+    duration: 7,
+    category: 'Energy & Healing',
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '27',
+    title: 'Pineal Gland Activation',
+    description: 'תהליך רוחני לעידוד אינטואיציה, חלומות, ראייה תודעתית.',
+    teacher: 'Jason White',
+    duration: 10,
+    category: 'Energy & Healing',
+    image: 'https://images.unsplash.com/photo-1528569937393-ee892b976859?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  
+  // Student / Freelancer / Entrepreneur Processes
+  {
+    id: '28',
+    title: 'Focus & Flow',
+    description: 'כלים יומיומיים לניהול זמן, ריכוז וזרימה בעבודה.',
+    teacher: 'Mark Thomas',
+    duration: 7,
+    category: 'Productivity',
+    image: 'https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '29',
+    title: 'Self-Motivation Mastery',
+    description: 'איך להניע את עצמך כל יום מחדש – בלי מאבק.',
+    teacher: 'Rebecca Klein',
+    duration: 14,
+    category: 'Productivity',
+    image: 'https://images.unsplash.com/photo-1496170696808-3127b1a2ca52?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   }
 ];
+

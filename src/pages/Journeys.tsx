@@ -25,7 +25,13 @@ const categories = [
   'Spirituality', 
   'Consciousness',
   'Reality Manifestation',
-  'Abundance Manifestation'
+  'Abundance Manifestation',
+  'Relationships',
+  'Career Development',
+  'Emotional Healing',
+  'Feminine Power',
+  'Energy & Healing',
+  'Productivity'
 ];
 
 const Journeys: React.FC = () => {
