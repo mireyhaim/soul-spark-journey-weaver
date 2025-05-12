@@ -85,6 +85,7 @@ export const useTrackingStats = (): TrackingStats => {
         }
         
         // Get AI interactions data for engagement rate - with batching
+        // Fixed: Declare the promises before awaiting them to avoid using variables before declaration
         const interactionsPromise = supabase
           .from('ai_interactions')
           .select('user_id, created_at');
@@ -96,7 +97,7 @@ export const useTrackingStats = (): TrackingStats => {
         // Execute both queries in parallel
         const [interactionsResult, activeUsersResult] = await Promise.all([
           interactionsPromise, 
-          activeUsersResult
+          activeUsersPromise
         ]);
         
         const aiInteractions = interactionsResult.data || [];
