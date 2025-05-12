@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import AIInteraction from '@/components/AIInteraction';
+import StaticChatImage from './StaticChatImage';
 
 const HeroSection: React.FC = () => {
   return (
@@ -29,7 +29,7 @@ const HeroSection: React.FC = () => {
             <div className="relative z-10 bg-white rounded-2xl shadow-xl p-6 md:p-8 animate-float">
               <div className="absolute top-0 right-0 w-24 h-24 bg-spirit-100 rounded-full -z-10 -translate-y-1/3 translate-x-1/3 blur-3xl"></div>
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-calm-100 rounded-full -z-10 translate-y-1/3 -translate-x-1/3 blur-3xl"></div>
-              <AIInteraction />
+              <StaticChatImage />
             </div>
           </div>
         </div>
