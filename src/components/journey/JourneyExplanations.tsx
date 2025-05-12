@@ -3,6 +3,7 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { journeys } from '@/data/journeys';
+import { Avatar } from "@/components/ui/avatar";
 
 // Generate journey-specific feelings for each journey with a more empathetic, personal tone
 export const getJourneyExplanations = (journey: any) => {
@@ -49,25 +50,31 @@ const JourneyExplanations: React.FC<JourneyExplanationsProps> = ({ journey, show
     <Card className="mb-6 border-spirit-200 bg-spirit-50/50">
       <CardContent className="pt-6">
         <div className="space-y-6">
-          <div>
-            <h3 className="text-xl font-medium text-spirit-800 mb-2">Before Your Journey</h3>
-            <p className="text-earth-700">{journeyExplanations.before}</p>
-          </div>
-          
-          <div>
-            <h3 className="text-xl font-medium text-green-700 mb-2">After Your Journey</h3>
-            <p className="text-earth-700">{journeyExplanations.after}</p>
-          </div>
-          
-          <div className="flex justify-end">
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={onDismiss}
-              className="text-earth-600"
-            >
-              Continue to Journey
-            </Button>
+          <div className="flex items-start space-x-4">
+            <Avatar className="h-10 w-10 border-2 border-spirit-200">
+              <div className="bg-spirit-100 text-spirit-700 font-medium h-full w-full flex items-center justify-center">AI</div>
+            </Avatar>
+            
+            <div className="space-y-4 flex-1">
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-earth-100">
+                <p className="text-earth-700">{journeyExplanations.before}</p>
+              </div>
+              
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-calm-100">
+                <p className="text-earth-700">{journeyExplanations.after}</p>
+              </div>
+              
+              <div className="flex justify-end">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={onDismiss}
+                  className="text-earth-600"
+                >
+                  Continue to Journey
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </CardContent>
