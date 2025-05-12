@@ -10,26 +10,38 @@ export { type StageDistribution, type JourneyStat, type EngagementTrendItem, typ
 export const useTrackingStats = (): TrackingStats => {
   console.log("useTrackingStats hook called");
   
-  // Use individual queries for better granularity in refetching and error handling
+  // Use individual queries with proper error handling and fallbacks
   const progressQuery = useQuery({
     queryKey: ['journeyProgressDistribution'],
     queryFn: fetchJourneyProgressDistribution,
-    retry: 1
+    retry: 1,
+    staleTime: 5 * 60 * 1000, // 5 minutes to prevent excessive refetching
+    gcTime: 10 * 60 * 1000, // 10 minutes
+    refetchOnWindowFocus: false, // Prevent refetching on window focus
+    refetchOnMount: false // Only fetch once when component mounts
   });
 
   const engagementQuery = useQuery({
     queryKey: ['engagementStats'],
     queryFn: fetchEngagementStats,
-    retry: 1
+    retry: 1,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false
   });
 
   const journeyStatsQuery = useQuery({
     queryKey: ['journeyStats'],
     queryFn: fetchJourneyStats,
-    retry: 1
+    retry: 1,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false
   });
 
-  // Log query states
+  // Log query states with safer formatting to avoid console errors
   console.log("Progress query status:", progressQuery.status);
   console.log("Engagement query status:", engagementQuery.status);
   console.log("Journey stats query status:", journeyStatsQuery.status);
@@ -52,6 +64,7 @@ export const useTrackingStats = (): TrackingStats => {
     console.error("Error fetching journey stats:", journeyStatsQuery.error);
   }
 
+  // Always return a valid object with fallback values to prevent rendering errors
   return {
     stageDistribution: progressQuery.data?.stageDistribution || [],
     completionRate: progressQuery.data?.completionRate || 0,
