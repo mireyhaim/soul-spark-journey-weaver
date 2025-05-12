@@ -7,11 +7,11 @@ import AIInteraction from '../AIInteraction';
 const JourneyInsights: React.FC = () => {
   return (
     <div>
-      <h2 className="text-2xl font-sans font-semibold mb-4">Your AI Companion</h2>
+      <h2 className="text-2xl font-sans font-semibold mb-4">Your Guide & Insights</h2>
       <Tabs defaultValue="chat">
         <TabsList className="mb-4">
-          <TabsTrigger value="chat">Chat</TabsTrigger>
-          <TabsTrigger value="insights">Insights</TabsTrigger>
+          <TabsTrigger value="chat">Chat with Guide</TabsTrigger>
+          <TabsTrigger value="insights">Personal Insights</TabsTrigger>
         </TabsList>
         <TabsContent value="chat">
           <AIInteraction />
