@@ -24,46 +24,73 @@ const TrackingPage = () => {
           .select('current_day, completed_at');
         
         if (userProgress) {
-          // Calculate stage distribution
-          const day1To7 = userProgress.filter(p => p.current_day >= 1 && p.current_day <= 7).length;
-          const day8To14 = userProgress.filter(p => p.current_day >= 8 && p.current_day <= 14).length;
-          const day15To21 = userProgress.filter(p => p.current_day >= 15 && p.current_day <= 21).length;
-          const day22Plus = userProgress.filter(p => p.current_day > 21).length;
-          const completed = userProgress.filter(p => p.completed_at).length;
+          // Calculate stage distribution using more efficient filtering
+          const distribution = {
+            day1To7: 0,
+            day8To14: 0,
+            day15To21: 0,
+            day22Plus: 0,
+            completed: 0
+          };
+          
+          userProgress.forEach(p => {
+            if (p.completed_at) distribution.completed++;
+            
+            const day = p.current_day;
+            if (day >= 1 && day <= 7) distribution.day1To7++;
+            else if (day >= 8 && day <= 14) distribution.day8To14++;
+            else if (day >= 15 && day <= 21) distribution.day15To21++;
+            else if (day > 21) distribution.day22Plus++;
+          });
           
           setStageDistribution([
-            { name: 'Day 1-7', value: day1To7 },
-            { name: 'Day 8-14', value: day8To14 },
-            { name: 'Day 15-21', value: day15To21 },
-            { name: 'Day 22+', value: day22Plus },
-            { name: 'Completed', value: completed }
+            { name: 'Day 1-7', value: distribution.day1To7 },
+            { name: 'Day 8-14', value: distribution.day8To14 },
+            { name: 'Day 15-21', value: distribution.day15To21 },
+            { name: 'Day 22+', value: distribution.day22Plus },
+            { name: 'Completed', value: distribution.completed }
           ]);
           
           // Calculate completion rate
           const totalUsers = userProgress.length;
-          const completionRate = totalUsers > 0 ? (completed / totalUsers * 100) : 0;
+          const completionRate = totalUsers > 0 ? (distribution.completed / totalUsers * 100) : 0;
           setCompletionRate(completionRate);
         }
         
-        // Get AI interactions data for engagement rate
-        const { data: aiInteractions } = await supabase
+        // Get AI interactions data for engagement rate - with batching
+        const interactionsPromise = supabase
           .from('ai_interactions')
-          .select('user_id')
-          .order('created_at', { ascending: false });
+          .select('user_id');
           
-        const { data: activeUsers } = await supabase
+        const activeUsersPromise = supabase
           .from('user_journey_progress')
           .select('user_id');
         
+        // Execute both queries in parallel
+        const [interactionsResult, activeUsersResult] = await Promise.all([
+          interactionsPromise, 
+          activeUsersPromise
+        ]);
+        
+        const aiInteractions = interactionsResult.data;
+        const activeUsers = activeUsersResult.data;
+        
         if (aiInteractions && activeUsers) {
-          const uniqueInteractingUsers = new Set(aiInteractions.map(i => i.user_id)).size;
-          const totalActiveUsers = new Set(activeUsers.map(u => u.user_id)).size;
+          // Use Maps for faster unique user counting
+          const uniqueInteractingUsersMap = new Map();
+          aiInteractions.forEach(i => uniqueInteractingUsersMap.set(i.user_id, true));
+          
+          const totalActiveUsersMap = new Map();
+          activeUsers.forEach(u => totalActiveUsersMap.set(u.user_id, true));
+          
+          const uniqueInteractingUsers = uniqueInteractingUsersMap.size;
+          const totalActiveUsers = totalActiveUsersMap.size;
           
           const engagementRate = totalActiveUsers > 0 ? (uniqueInteractingUsers / totalActiveUsers * 100) : 0;
           setEngagementRate(engagementRate);
         }
         
-        // Get detailed journey stats
+        // Get detailed journey stats - optimize query
         const { data: journeys } = await supabase
           .from('journeys')
           .select(`
@@ -80,12 +107,23 @@ const TrackingPage = () => {
         
         if (journeys) {
           const journeyStatsData = journeys.map(journey => {
-            const totalUsers = journey.user_journey_progress?.length || 0;
-            const completedUsers = journey.user_journey_progress?.filter((p: any) => p.completed_at).length || 0;
-            const day1 = journey.user_journey_progress?.filter((p: any) => p.current_day === 1).length || 0;
-            const day7 = journey.user_journey_progress?.filter((p: any) => p.current_day === 7).length || 0;
-            const day14 = journey.user_journey_progress?.filter((p: any) => p.current_day === 14).length || 0;
-            const day21 = journey.user_journey_progress?.filter((p: any) => p.current_day === 21).length || 0;
+            const progress = journey.user_journey_progress || [];
+            
+            // Use counters rather than multiple array filters
+            let totalUsers = progress.length;
+            let completedUsers = 0;
+            let day1 = 0;
+            let day7 = 0;
+            let day14 = 0;
+            let day21 = 0;
+            
+            progress.forEach((p: any) => {
+              if (p.completed_at) completedUsers++;
+              if (p.current_day === 1) day1++;
+              if (p.current_day === 7) day7++;
+              if (p.current_day === 14) day14++;
+              if (p.current_day === 21) day21++;
+            });
             
             const completionRate = totalUsers > 0 ? (completedUsers / totalUsers * 100) : 0;
             
