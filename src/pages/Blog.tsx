@@ -1,25 +1,183 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BlogHero from "@/components/blog/BlogHero";
 import FeaturedPosts from "@/components/blog/FeaturedPosts";
-import RecentPosts from "@/components/blog/RecentPosts";
+import { Card, CardContent } from "@/components/ui/card";
+import { Link } from 'react-router-dom';
+import { Calendar, Tag } from 'lucide-react';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 const Blog: React.FC = () => {
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-grow">
-        <BlogHero />
-        <div className="container mx-auto px-4 py-12">
-          <FeaturedPosts />
-          <RecentPosts />
-        </div>
-      </main>
-      <Footer />
-    </div>
-  );
-};
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 3;
 
-export default Blog;
+  // Blog post data - 15 articles with full content
+  const allPosts = [
+    {
+      id: 1,
+      title: "Embracing Mindfulness in Daily Life",
+      content: "Mindfulness has become an essential practice for many seeking balance in today's fast-paced world. At its core, mindfulness is about being fully present and engaged in the current moment, aware of your thoughts and feelings without distraction or judgment. This practice can transform ordinary experiences into opportunities for growth and insight.\n\nResearch has shown that regular mindfulness practice can reduce stress, improve focus, and enhance emotional regulation. By taking just a few minutes each day to center yourself through meditation, breathing exercises, or mindful activities, you can cultivate a deeper connection to your inner self and the world around you.\n\nStart by incorporating small moments of mindfulness into your daily routine. Whether it's savoring your morning coffee without distractions, taking a mindful walk where you notice the sensations in your body and the details of your surroundings, or practicing conscious breathing during stressful moments, these simple practices can lead to profound shifts in your overall wellbeing and spiritual journey.",
+      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=600",
+      author: "Maya Johnson",
+      date: "May 10, 2025",
+      category: "Mindfulness",
+      readTime: "7 min read"
+    },
+    {
+      id: 2,
+      title: "The Science Behind Manifestation",
+      content: "Manifestation has gained popularity as a spiritual practice, but there's fascinating science that helps explain why focusing your thoughts and energy can influence your reality. The principle operates at the intersection of quantum physics, neuroscience, and psychology.\n\nAt its foundation, manifestation works with the reticular activating system (RAS) in your brain, which filters information based on what you focus on. When you clearly define your goals and consistently direct your attention toward them, your RAS begins to notice opportunities and resources related to those goals that might otherwise go unnoticed.\n\nResearch in neuroplasticity demonstrates that repeated thought patterns create neural pathways that strengthen over time. When you regularly visualize success or positive outcomes, you're actually training your brain to recognize and act upon opportunities aligned with those visions.\n\nFurthermore, the phenomenon of quantum entanglement suggests that consciousness and matter are fundamentally connected. Your thoughts and intentions may have subtle but measurable effects on the physical world, creating a scientific basis for the concept that your energy affects your reality.",
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600",
+      author: "David Chen",
+      date: "May 5, 2025",
+      category: "Manifestation",
+      readTime: "8 min read"
+    },
+    {
+      id: 3,
+      title: "5 Meditation Practices for Beginners",
+      content: "Starting a meditation practice can transform your mental and emotional wellbeing, but many beginners feel overwhelmed about where to begin. These five accessible practices provide perfect entry points for those new to meditation.\n\n1. **Breath Awareness Meditation**: Simply sit comfortably, close your eyes, and focus on your natural breathing pattern. When your mind wanders (which is normal and expected), gently bring your attention back to your breath. Start with just 3-5 minutes and gradually increase as you become more comfortable.\n\n2. **Body Scan Meditation**: Lie down in a comfortable position and systematically bring attention to each part of your body, from your toes to your head. Notice any sensations without judgment, allowing yourself to release tension as you progress.\n\n3. **Guided Visualization**: Use recorded meditations that lead you through calming mental images, like peaceful natural settings or healing light. This approach provides structure that helps keep the wandering mind engaged.\n\n4. **Walking Meditation**: Perfect for those who find sitting still challenging, walking meditation involves slow, deliberate steps while maintaining awareness of the physical sensations of walking and the environment around you.\n\n5. **Loving-Kindness Meditation**: Begin by directing positive wishes toward yourself with phrases like 'May I be happy, may I be healthy, may I be safe.' Gradually extend these wishes to others, cultivating compassion and connection.\n\nConsistency matters more than duration when starting out. Even five minutes daily will yield more benefits than an occasional longer session.",
+      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600",
+      author: "Sarah Williams",
+      date: "April 28, 2025",
+      category: "Meditation",
+      readTime: "6 min read"
+    },
+    {
+      id: 4,
+      title: "Understanding Your Energy Centers",
+      content: "The seven main chakras represent energy centers within your body that influence your physical, emotional, and spiritual wellbeing. Each chakra corresponds to specific aspects of your consciousness and when balanced, contribute to overall health and harmony.\n\n**Root Chakra (Muladhara)**: Located at the base of your spine, this chakra governs your sense of security, stability, and basic survival needs. When balanced, you feel grounded and safe. Imbalances may manifest as anxiety, fear, or financial insecurity.\n\n**Sacral Chakra (Svadhisthana)**: Found in your lower abdomen, this energy center relates to creativity, pleasure, and emotional fluidity. A balanced sacral chakra supports healthy relationships and emotional expression, while blockages can lead to emotional rigidity or lack of creative inspiration.\n\n**Solar Plexus Chakra (Manipura)**: Located in your upper abdomen, this chakra governs personal power, confidence, and self-esteem. When flowing freely, you experience healthy self-assertion and clarity of purpose. Imbalances may appear as control issues, lack of direction, or low self-confidence.\n\n**Heart Chakra (Anahata)**: At the center of your chest, this chakra mediates love, compassion, and connection. A balanced heart chakra allows you to give and receive love freely, while blockages can manifest as difficulty in relationships or emotional isolation.\n\n**Throat Chakra (Vishuddha)**: Positioned at your throat, this energy center governs communication and self-expression. When open, you speak your truth with clarity and listen deeply to others. Imbalances may appear as communication difficulties or inability to express yourself authentically.\n\n**Third Eye Chakra (Ajna)**: Located between your eyebrows, this chakra relates to intuition, imagination, and clear thinking. A balanced third eye supports insight and wisdom, while blockages can lead to confusion or difficulty trusting your intuition.\n\n**Crown Chakra (Sahasrara)**: At the top of your head, this chakra connects you to higher consciousness and spiritual awareness. When open, you experience a sense of unity and divine connection. Imbalances may manifest as spiritual disconnection or rigid thinking.",
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600",
+      author: "Michael Rivera",
+      date: "April 22, 2025",
+      category: "Energy Work",
+      readTime: "9 min read"
+    },
+    {
+      id: 5,
+      title: "Journaling Prompts for Self-Discovery",
+      content: "Journaling is a powerful tool for self-discovery, offering a private space to explore your thoughts, feelings, and insights. These thought-provoking prompts will help you dive deeper into understanding yourself:\n\n1. **Reflect on your values**: What three principles do you value most in life? How do these values show up in your daily decisions and actions?\n\n2. **Explore your fears**: What are you most afraid of right now? What would it look like to face this fear with compassion?\n\n3. **Examine your patterns**: What recurring patterns have you noticed in your relationships or behaviors? What might these patterns be teaching you?\n\n4. **Investigate your joy**: When do you feel most alive and joyful? What elements are present in those moments that you could incorporate more into your everyday life?\n\n5. **Consider your inner critic**: What negative messages do you tell yourself? How would you respond if a friend shared these same thoughts about themselves?\n\n6. **Envision your ideal self**: If you could embody your highest potential, what qualities would you possess? What small steps could you take toward becoming this version of yourself?\n\n7. **Reflect on personal growth**: How have you evolved over the past year? What challenges have shaped you, and what wisdom have you gained from them?\n\n8. **Explore your purpose**: What activities make you lose track of time? What contribution would you like to make to the world?\n\n9. **Examine your needs**: What needs are currently being unmet in your life? How might you honor these needs with greater intention?\n\n10. **Contemplate forgiveness**: Who do you need to forgive (including yourself)? What might become possible when you release this burden?\n\nApproach these prompts with honesty and self-compassion. The goal isn't perfect answers but rather the process of inquiry itself, which gradually reveals deeper layers of self-knowledge.",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600",
+      author: "Emma Thompson",
+      date: "April 15, 2025",
+      category: "Self-Discovery",
+      readTime: "7 min read"
+    },
+    {
+      id: 6,
+      title: "The Power of Gratitude Practice",
+      content: "Gratitude is more than just saying 'thank you'—it's a transformative practice that can profoundly shift your perspective and enhance your manifestation abilities. Research in positive psychology has consistently shown that people who regularly practice gratitude experience improved mental health, stronger relationships, and greater resilience during challenging times.\n\nWhen you deliberately focus on what you're grateful for, you train your brain to notice the positive aspects of your life rather than defaulting to problem-solving or threat detection mode. This creates a positive feedback loop: the more you notice what's going well, the more your brain seeks out additional positive experiences.\n\nFrom a manifestation perspective, gratitude places you in energetic alignment with abundance rather than scarcity. By acknowledging and appreciating what you already have, you vibrate at a frequency that attracts more experiences to be grateful for. This isn't merely spiritual conjecture—neurological research demonstrates that gratitude activates the brain's reward pathways and the production of dopamine and serotonin, creating feelings of pleasure and contentment.\n\nTo develop a consistent gratitude practice, try these approaches:\n\n1. Keep a daily gratitude journal, noting 3-5 specific things you appreciate\n2. Practice gratitude meditation, focusing your awareness on the feeling of thankfulness\n3. Express appreciation directly to others through verbal acknowledgment or thank-you notes\n4. Create visual reminders like gratitude jars or boards\n\nThe most powerful gratitude practices involve specific details rather than generic statements. Instead of 'I'm grateful for my health,' you might reflect on 'I'm grateful for the energy that allowed me to take a rejuvenating walk in the sunshine today.'",
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600",
+      author: "James Wilson",
+      date: "April 8, 2025",
+      category: "Gratitude",
+      readTime: "6 min read"
+    },
+    {
+      id: 7,
+      title: "Connecting with Your Higher Self Through Dreams",
+      content: "Dreams offer a unique gateway to your higher self and subconscious wisdom. During sleep, the analytical mind relaxes its grip, allowing deeper aspects of consciousness to communicate through symbols, emotions, and narratives. Learning to work with your dreams can provide profound insights for your spiritual journey.\n\nYour higher self—the aspect of you connected to universal consciousness—often speaks through dream imagery. Unlike the logical waking mind, dreams communicate through metaphor, emotion, and symbolism, offering guidance that bypasses mental resistance and connecting you with your intuitive knowing.\n\nTo enhance your dream connection:\n\n1. **Set clear intentions**: Before sleep, ask for guidance on specific questions or simply request meaningful dreams you can remember.\n\n2. **Keep a dream journal**: Place a notebook by your bed and record dreams immediately upon waking, before they fade. Note emotions, symbols, characters, and any messages that seem significant.\n\n3. **Recognize recurring themes**: Pay attention to symbols or scenarios that appear repeatedly in your dreams, as these often highlight important patterns in your life.\n\n4. **Practice lucid dreaming**: Becoming aware that you're dreaming while in the dream state allows for conscious exploration and direct communication with your higher wisdom.\n\n5. **Meditate on dream symbols**: When a dream symbol feels particularly significant, bring it into meditation to discover its personal meaning for you.\n\n6. **Notice synchronicities**: Watch for connections between dream content and waking life events, which often confirm you're receiving meaningful guidance.\n\nRemember that you are the ultimate authority on your dreams' meanings. While dream dictionaries can offer general symbolic interpretations, your personal associations and feelings about dream elements provide the most accurate insights into their significance for your unique journey.",
+      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600",
+      author: "Luna Nightingale",
+      date: "March 30, 2025",
+      category: "Dreams",
+      readTime: "8 min read"
+    },
+    {
+      id: 8,
+      title: "Sacred Sound Healing: Ancient Vibrations for Modern Wellness",
+      content: "Sound healing is one of the oldest therapeutic modalities, used across cultures for thousands of years to restore harmony to body, mind, and spirit. From Tibetan singing bowls to Aboriginal didgeridoos, indigenous cultures worldwide have recognized the profound impact of vibrational medicine.\n\nThe science behind sound healing lies in the principle of resonance. Every organ, tissue, and cell in your body vibrates at specific frequencies. When these frequencies become disrupted by stress, illness, or emotional trauma, disharmony results. Therapeutic sound works by introducing harmonic frequencies that encourage your body's natural systems to realign.\n\nBrain wave entrainment is another mechanism through which sound healing operates. Your brainwaves naturally synchronize with external rhythmic stimuli—a phenomenon called entrainment. Sound healers skillfully use instruments and tones to guide brainwave patterns toward states associated with relaxation, creativity, or spiritual expansion.\n\nCommon sound healing modalities include:\n\n• **Singing bowls**: Crystal or metal bowls that produce rich overtones, facilitating deep meditation and chakra balancing\n\n• **Tuning forks**: Precisely calibrated instruments that direct specific frequencies to areas of imbalance\n\n• **Vocal toning**: Using your own voice to create resonant frequencies that harmonize your energy field\n\n• **Binaural beats**: Slightly different frequencies played in each ear, creating a third frequency that induces specific brainwave states\n\n• **Gongs**: Producing complex, multilayered sounds that create a 'sound bath' experience, releasing energetic blockages\n\nTo incorporate sound healing into your practice, begin with simple listening meditation. Select music featuring instruments like singing bowls, gongs, or gentle drums. Create a comfortable space, close your eyes, and allow the sounds to wash through you, noticing sensations in your body and shifts in your mental state.",
+      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=600",
+      author: "Gabriel Tone",
+      date: "March 22, 2025",
+      category: "Sound Healing",
+      readTime: "7 min read"
+    },
+    {
+      id: 9,
+      title: "The Ancient Wisdom of Ayurveda for Modern Balance",
+      content: "Ayurveda, often translated as 'the science of life,' is a 5,000-year-old healing system from India that offers profound insights for contemporary wellbeing. Rather than treating symptoms, Ayurveda addresses the root causes of imbalance through personalized approaches to diet, lifestyle, and mind-body practices.\n\nAt the core of Ayurvedic philosophy are the three doshas—Vata, Pitta, and Kapha—energetic forces composed of the five elements (earth, water, fire, air, and ether). Each person has a unique constitution, or prakriti, with varying proportions of these doshas. Understanding your dominant dosha provides a blueprint for maintaining balance.\n\n**Vata** (air and ether) governs movement and communication. When balanced, Vata types are creative, energetic, and quick-thinking. When imbalanced, they may experience anxiety, insomnia, and digestive irregularity. Vatas find balance through warming foods, routine, grounding practices, and sufficient rest.\n\n**Pitta** (fire and water) governs metabolism and transformation. Balanced Pittas are intelligent, focused, and passionate. Imbalanced Pittas may experience irritability, inflammation, and perfectionism. They find harmony through cooling foods, moderation, time in nature, and practices that release intensity.\n\n**Kapha** (earth and water) governs structure and stability. Balanced Kaphas are nurturing, patient, and strong. Imbalanced Kaphas may experience lethargy, attachment, and weight gain. They thrive with regular exercise, stimulating experiences, and warm, light foods that counteract sluggishness.\n\nAyurveda emphasizes the importance of digestion (agni) as the foundation of health. When digestion is strong, nutrients are properly absorbed and toxins (ama) don't accumulate. Practices like eating in a calm environment, consuming the main meal at midday when digestion is strongest, and including all six tastes (sweet, sour, salty, pungent, bitter, astringent) in meals support optimal digestion.\n\nBy incorporating Ayurvedic wisdom into your daily routine through practices like self-massage (abhyanga), tongue scraping, seasonal eating, and dosha-specific yoga, you can experience greater vitality and prevent imbalances before they manifest as disease.",
+      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600",
+      author: "Deepa Sharma",
+      date: "March 15, 2025",
+      category: "Ayurveda",
+      readTime: "10 min read"
+    },
+    {
+      id: 10,
+      title: "Crystal Healing: Understanding Energy Amplifiers",
+      content: "Crystals have been used across civilizations for thousands of years as tools for healing, protection, and spiritual connection. These mineral formations capture attention not only for their beauty but for their unique energetic properties that interact with human energy fields.\n\nThe scientific basis for crystal healing relates to their stable molecular structures. Crystals form in highly organized, repeating geometric patterns, creating energy fields that oscillate at specific frequencies. When these ordered vibrations interact with the more chaotic energy of an unbalanced human energy field, the principle of entrainment suggests that our energies may shift toward the more coherent pattern of the crystal.\n\nDifferent crystals offer unique benefits based on their composition, color, and structure:\n\n**Clear Quartz**: Known as the 'master healer,' this versatile crystal amplifies energy and intention. It can be programmed for any purpose and works to clear blocked energy and enhance clarity.\n\n**Amethyst**: This purple variety of quartz supports spiritual awareness, intuition, and calm. It's particularly helpful for enhancing meditation practices and improving sleep quality.\n\n**Rose Quartz**: The gentle pink stone of unconditional love helps heal the heart chakra, fostering self-compassion and harmonious relationships.\n\n**Black Tourmaline**: A powerful protective stone that grounds energy and shields against electromagnetic fields and negative energies from others.\n\n**Citrine**: This golden crystal attracts abundance and success while promoting confidence and creativity. Unlike most crystals, citrine doesn't accumulate negative energy and rarely needs clearing.\n\n**Selenite**: With its pure white energy, selenite clears and charges other crystals while activating the crown chakra for higher consciousness connection.\n\nTo work with crystals effectively, begin by clearing their energy (using methods like moonlight, sound, or smudging), then set a clear intention for how you wish the crystal to support you. Crystals can be placed on the body, carried in a pocket, arranged in your environment, or used during meditation by holding them or placing them on relevant chakra points.\n\nApproach crystal work with openness and presence, remembering that these beautiful tools support your inherent healing abilities rather than creating effects independent of your participation in the process.",
+      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600",
+      author: "Crystal Reed",
+      date: "March 8, 2025",
+      category: "Crystal Healing",
+      readTime: "8 min read"
+    },
+    {
+      id: 11,
+      title: "The Art of Conscious Breathing",
+      content: "Breath is the bridge between mind and body—a powerful tool always available to enhance your wellbeing and deepen your spiritual practice. While breathing happens automatically, conscious breathing techniques allow you to influence your nervous system, emotional state, and energy flow.\n\nYour breath directly impacts your autonomic nervous system, which controls unconscious bodily functions. Deep, slow breathing activates the parasympathetic 'rest and digest' response, reducing stress hormones and promoting relaxation. Conversely, certain energizing breathing practices stimulate the sympathetic 'fight or flight' system, increasing alertness and vitality.\n\nMany spiritual traditions recognize breath (prana in yoga, chi in Taoism, pneuma in ancient Greek philosophy) as the vital life force that animates physical existence. By consciously directing this force through breathing practices, you can influence your energy centers and state of consciousness.\n\nEffective breathing techniques for different purposes include:\n\n**For Calming and Stress Relief:**\n• **4-7-8 Breath**: Inhale for 4 counts, hold for 7, exhale for 8\n• **Alternate Nostril Breathing**: Balance masculine and feminine energies while soothing the nervous system\n• **Coherent Breathing**: Simple 5-6 second inhales and exhales that optimize heart rate variability\n\n**For Energy and Focus:**\n• **Kapalabhati**: Rapid, forceful exhales with passive inhales to clear stagnant energy\n• **Breath of Fire**: Quick, rhythmic breathing through the nose that builds heat and vitality\n• **Ujjayi Breath**: Creating gentle resistance in the throat for focused, warming breath often used in yoga\n\n**For Spiritual Connection:**\n• **Holotropic Breathwork**: Sustained, intensified breathing that can facilitate non-ordinary states of consciousness\n• **So Hum Meditation**: Mentally repeating \"So\" on inhale and \"Hum\" on exhale, recognizing your connection with universal consciousness\n• **Box Breathing**: Equal counts of inhale, hold, exhale, and hold to establish profound presence\n\nTo develop greater breath awareness, begin with simple observation. Spend a few minutes each day noticing your natural breathing pattern without attempting to change it. This foundational practice builds the awareness necessary for more advanced breathing techniques and connects you with the continuous life force flowing through you in every moment.",
+      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=600",
+      author: "Aria Wind",
+      date: "March 1, 2025",
+      category: "Breathwork",
+      readTime: "7 min read"
+    },
+    {
+      id: 12,
+      title: "Understanding the Akashic Records",
+      content: "The Akashic Records represent one of the most fascinating concepts in spiritual philosophy—a non-physical repository of all human events, thoughts, words, emotions, and intent ever to have occurred in the past, present, or future. Often described as a cosmic or ethereal library, the Records exist in a non-local dimension of consciousness accessible through deep meditation, prayer, or guided journeying.\n\nThe term 'Akasha' comes from Sanskrit, meaning 'ether' or 'sky,' representing the fifth element that contains and infuses all others. According to this ancient understanding, the vibrational imprints of all experiences become encoded in this subtle energy field, creating a complete informational database of every soul's journey.\n\nContemporary quantum physics offers interesting parallels to this concept through theories like the unified field and non-locality, suggesting information may indeed be stored beyond conventional space-time constraints. While science cannot yet prove the Records' existence, many practitioners report remarkably consistent experiences when accessing them.\n\nWorking with the Akashic Records can provide:\n\n• Deeper understanding of your soul's purpose and evolutionary path\n• Insight into karmic patterns and recurring life themes\n• Clarity about relationships and their spiritual significance\n• Healing perspective on challenging experiences\n• Access to information about abilities and knowledge from past lifetimes\n• Guidance for current decisions aligned with your highest good\n\nThe Records are typically accessed through a specific prayer or meditation that shifts consciousness to the appropriate vibrational level. Many seekers describe entering a state of expanded awareness where information comes through intuitive knowing, visual imagery, emotional impressions, or direct communication from Record Keepers—wise beings who assist in navigating and interpreting the Records.\n\nWhile anyone can potentially access their Records with proper preparation and intention, working with an experienced Akashic Records practitioner can be valuable, especially initially. These readers have developed the discernment to distinguish between genuine Akashic information and projections from their own minds.\n\nApproaching the Records requires reverence, clear intention, and discernment. This isn't a space for prediction or fortune-telling but rather for soul-level guidance that empowers conscious choice and spiritual growth. The information received is often transformative, providing not just insights about the past but illumination for creating a more aligned future.",
+      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=600",
+      author: "Elias Justice",
+      date: "February 22, 2025",
+      category: "Akashic Records",
+      readTime: "9 min read"
+    },
+    {
+      id: 13,
+      title: "The Sacred Geometry of Consciousness",
+      content: "Sacred geometry reveals how mathematical principles underlie the fundamental patterns of life and consciousness itself. These geometric archetypes—found throughout nature, ancient architecture, and art across cultures—represent the underlying organizational principles of reality and offer profound insights for spiritual exploration.\n\nAt its essence, sacred geometry illustrates how the universe creates complexity and diversity from simplicity. From the perfect symmetry of snowflakes to the spiral growth patterns of plants, these recurring mathematical relationships suggest an intelligent design principle at work throughout creation.\n\nKey sacred geometric forms and their significance include:\n\n**The Circle**: Representing unity, wholeness, and the infinite, the circle has no beginning or end. It forms the foundation for all other sacred geometric patterns and symbolizes the cyclical nature of existence.\n\n**The Vesica Piscis**: Created by two overlapping circles, this almond-shaped center represents the intersection of the physical and spiritual realms, creation, and sacred feminine energy. It's the geometric basis for the Flower of Life pattern.\n\n**The Flower of Life**: A complex arrangement of multiple overlapping circles creating a flower-like pattern. This ancient symbol contains all five Platonic solids and is said to hold the mathematical patterns of all creation.\n\n**The Platonic Solids**: Five perfect three-dimensional forms (tetrahedron, cube, octahedron, dodecahedron, and icosahedron) that correspond to the classical elements and are believed to be the building blocks of physical reality.\n\n**The Golden Ratio (Phi)**: A mathematical proportion (approximately 1:1.618) found throughout nature—from the human body to galaxy formations—that creates aesthetically pleasing, harmonious relationships between parts.\n\n**The Fibonacci Sequence**: A series of numbers where each is the sum of the two preceding ones (0, 1, 1, 2, 3, 5, 8, 13...), creating a spiral pattern mirrored in phenomena from seashells to the arrangement of leaves.\n\n**The Sri Yantra**: A complex sacred geometry configuration using nine interlocking triangles to represent the union of masculine and feminine divine energies and the process of cosmic manifestation.\n\nWorking with sacred geometry can enhance meditation practices, energy healing, and consciousness expansion. By contemplating, visualizing, or creating these forms, you align your awareness with the underlying mathematical harmony of the universe, potentially facilitating shifts in perception and energetic attunement.\n\nUltimately, sacred geometry offers a visual language for understanding the invisible patterns that connect all aspects of reality, from the microscopic to the cosmic, and from the material to the spiritual dimensions of existence.",
+      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600",
+      author: "Orion Matrix",
+      date: "February 15, 2025",
+      category: "Sacred Geometry",
+      readTime: "8 min read"
+    },
+    {
+      id: 14,
+      title: "Shadow Work: Embracing Your Whole Self",
+      content: "Shadow work—the practice of consciously exploring the disowned, suppressed aspects of yourself—is one of the most transformative yet challenging spiritual practices. Based on Carl Jung's concept of the shadow, this inner work involves bringing awareness to the parts of yourself that have been rejected, denied, or hidden from conscious awareness.\n\nYour shadow contains not only negative or 'dark' traits but also positive qualities and gifts that were unsafe to express in your formative environments. When these aspects remain unconscious, they control you from below the surface, emerging as triggers, projections onto others, self-sabotage patterns, and internal conflicts.\n\nSigns that shadow material may be influencing your life include:\n\n• Strong emotional triggers or disproportionate reactions to others' behaviors\n• Recurring relationship patterns with similar negative outcomes\n• Consistent projection (seeing in others what you deny in yourself)\n• Persistent feelings of shame, unworthiness, or imposter syndrome\n• Self-sabotage when approaching success or happiness\n• Strong aversion to particular personality types\n\nEffective approaches to shadow work include:\n\n**Trigger Investigation**: When something strongly triggers you, pause and ask: \"What within me is being activated here? What disowned part of myself might this person be reflecting?\"\n\n**Journaling**: Use prompts like \"The part of myself I'm most afraid to acknowledge is...\" or \"If people really knew me, they would see...\"\n\n**Dreams Analysis**: Pay attention to recurring characters in dreams who embody qualities you reject in waking life.\n\n**Inner Child Work**: Dialogue with younger parts of yourself that experienced wounding, offering the understanding and support that was missing originally.\n\n**Authentic Movement**: Allow your body to move spontaneously, expressing emotions and energies typically held back by the conscious mind.\n\n**Mirror Work**: Conduct honest conversations with yourself while looking into your eyes in a mirror, noting resistance, discomfort, or avoidance.\n\nShadow work requires compassion, patience, and often support from a therapist, coach, or spiritual guide trained in depth psychology. While challenging, integrating shadow material releases enormous energy previously used for repression, allowing for greater authenticity, creativity, and wholeness.\n\nRemember that the goal of shadow work isn't to eliminate darker aspects but to bring them into conscious relationship, transforming them from unconscious saboteurs into sources of wisdom and power. As Jung noted, \"One does not become enlightened by imagining figures of light, but by making the darkness conscious.\"",
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600",
+      author: "Selena Knight",
+      date: "February 8, 2025",
+      category: "Shadow Work",
+      readTime: "9 min read"
+    },
+    {
+      id: 15,
+      title: "Ancient Wisdom for Modern Relationships",
+      content: "Modern relationships face unprecedented challenges and opportunities in today's rapidly evolving social landscape. Interestingly, ancient spiritual traditions offer timeless wisdom that remains remarkably relevant for navigating contemporary connections with greater awareness and fulfillment.\n\nAcross diverse spiritual lineages, certain relationship principles consistently emerge:\n\n**The Mirror Principle**: Eastern philosophies emphasize that relationships serve as mirrors, reflecting aspects of ourselves needing attention or healing. When someone triggers a strong reaction, this offers valuable insight into your own unhealed wounds or shadow aspects. Rather than blaming others, this perspective invites using relational challenges as opportunities for self-knowledge and growth.\n\n**Sacred Communication**: Indigenous traditions teach the power of creating sacred space for communication through practices like council circles, where each person speaks with intentionality and is deeply heard without interruption. This counters modern tendencies toward distracted, reactive exchanges and fosters genuine understanding.\n\n**The Middle Path**: Buddhist teachings on the middle way apply powerfully to relationships, suggesting balance between unhealthy attachment (codependence) and cold detachment. This middle path involves caring deeply while maintaining healthy boundaries and respecting each person's individual journey.\n\n**Unity in Duality**: Taoist philosophy's concept of yin and yang offers a framework for understanding how seemingly opposite energies (feminine/masculine, active/receptive, structured/spontaneous) are complementary rather than conflicting. Healthy relationships honor these polarities and find strength in their integration rather than expecting partners to embody identical qualities.\n\n**Present Moment Awareness**: Mindfulness teachings across traditions emphasize the importance of being fully present with others rather than mentally rehearsing responses or dwelling on past interactions. This simple yet profound shift can transform relationship quality instantaneously.\n\n**Service and Generosity**: Ancient wisdom repeatedly emphasizes that giving without expectation of return creates abundance in relationships. Rather than keeping score of contributions, this approach focuses on how you can support your partner's highest good and growth.\n\n**Forgiveness as Liberation**: Nearly all spiritual traditions teach that forgiveness liberates the forgiver more than the forgiven. Holding grudges binds you energetically to past hurts, while forgiveness—which doesn't necessarily mean condoning harmful actions—frees you to be present.\n\nIncorporating these ancient principles into modern relationships doesn't require adopting specific religious beliefs. Rather, these wisdom teachings offer practical frameworks for approaching connections with greater consciousness, compassion, and purpose.",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600",
+      author: "Sofia Weisdom",
+      date: "February 1, 2025",
+      category: "Relationships",
+      readTime: "8 min read"
+    }
+  ];
+
+  // Featured posts - these will show at the top
+  const featuredPosts = allPosts.slice(0, 2);
+  
+  // Recent posts section
+  const recentPosts = allPosts.slice(2, 6);
+  
+  // Calculate current posts
