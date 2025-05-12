@@ -5,7 +5,6 @@ import { useToast } from "@/hooks/use-toast";
 import { journeys } from '@/data/journeys';
 import JourneyHeader from './journey/JourneyHeader';
 import JourneyProgress from './journey/JourneyProgress';
-import DailyPractice from './journey/DailyPractice';
 import JourneyTimeline from './journey/JourneyTimeline';
 import JourneyInsights from './journey/JourneyInsights';
 import JourneyExplanations from './journey/JourneyExplanations';
@@ -113,20 +112,27 @@ const UserJourney: React.FC = () => {
                   onNext={handleNextDay}
                 />
               </div>
-              <DailyPractice 
-                currentDay={currentDay} 
-                completed={completed}
-                onComplete={handleComplete}
-              />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Journey Timeline */}
-                <JourneyTimeline 
-                  currentDay={currentDay} 
-                  savedProgress={savedProgress}
-                />
+              
+              <div className="grid grid-cols-1 gap-6">
+                {/* Journey Timeline and AI Chat with Practice Questions */}
+                <div className="bg-white p-6 rounded-lg border shadow-sm">
+                  <div className="mb-6">
+                    <h2 className="text-2xl font-sans font-semibold mb-4">Your Spirit Guide</h2>
+                    <JourneyInsights 
+                      currentDay={currentDay} 
+                      completed={completed} 
+                      onComplete={handleComplete} 
+                    />
+                  </div>
+                </div>
                 
-                {/* AI Insights */}
-                <JourneyInsights />
+                {/* Journey Timeline */}
+                <div className="bg-white p-6 rounded-lg border shadow-sm">
+                  <JourneyTimeline 
+                    currentDay={currentDay} 
+                    savedProgress={savedProgress}
+                  />
+                </div>
               </div>
             </>
           ) : (
