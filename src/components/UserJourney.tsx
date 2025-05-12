@@ -108,7 +108,10 @@ const UserJourney: React.FC = () => {
               />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Journey Timeline */}
-                <JourneyTimeline currentDay={currentDay} />
+                <JourneyTimeline 
+                  currentDay={currentDay} 
+                  savedProgress={savedProgress}
+                />
                 
                 {/* AI Insights */}
                 <JourneyInsights />

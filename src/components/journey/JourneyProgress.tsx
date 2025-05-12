@@ -3,7 +3,6 @@ import React from 'react';
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Clock } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 interface JourneyProgressProps {
   currentDay: number;
@@ -12,6 +11,7 @@ interface JourneyProgressProps {
 }
 
 const JourneyProgress: React.FC<JourneyProgressProps> = ({ currentDay, duration, onContinue }) => {
+  // Calculate progress as a percentage (current day out of total duration)
   const progressPercentage = Math.round((currentDay / duration) * 100);
   
   return (
@@ -34,7 +34,7 @@ const JourneyProgress: React.FC<JourneyProgressProps> = ({ currentDay, duration,
         </div>
       </div>
       <Button className="w-full" onClick={onContinue}>
-        {currentDay === 1 ? "Start Journey" : "Continue Journey"}
+        {currentDay === 1 && !progressPercentage ? "Start Journey" : "Continue Journey"}
       </Button>
     </div>
   );
