@@ -3,6 +3,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { JourneyStat } from "@/types/trackingStats";
 
 export async function fetchJourneyStats(): Promise<JourneyStat[]> {
+  console.log("Fetching journey stats...");
+  
   try {
     // Get detailed journey stats
     const { data: journeys, error } = await supabase
@@ -23,6 +25,8 @@ export async function fetchJourneyStats(): Promise<JourneyStat[]> {
       console.error("Error fetching journey stats:", error);
       throw new Error(error.message);
     }
+    
+    console.log("Journeys data fetched:", journeys);
     
     if (!journeys || journeys.length === 0) {
       console.log("No journey data found");

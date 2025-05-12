@@ -22,51 +22,55 @@ import CreatorsPage from "./pages/admin/CreatorsPage";
 import TrackingPage from "./pages/admin/TrackingPage";
 import InteractionsPage from "./pages/admin/InteractionsPage";
 
-// Create a new QueryClient instance
+// Create a new QueryClient instance with simplified configuration
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: false,
+      retry: 1,
       refetchOnWindowFocus: false,
       staleTime: 5 * 60 * 1000, // 5 minutes
     },
   },
 });
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/mentor" element={<MentorLanding />} />
-          <Route path="/teacher" element={<TeacherPortal />} />
-          <Route path="/journey/:id" element={<UserJourney />} />
-          <Route path="/journeys" element={<Journeys />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/blog" element={<Blog />} />
-          
-          {/* Admin Routes */}
-          <Route path="/admin" element={<AdminDashboard />}>
-            <Route path="users" element={<UsersPage />} />
-            <Route path="revenue" element={<RevenuePage />} />
-            <Route path="journeys" element={<JourneysPage />} />
-            <Route path="creators" element={<CreatorsPage />} />
-            <Route path="tracking" element={<TrackingPage />} />
-            <Route path="interactions" element={<InteractionsPage />} />
-            <Route index element={<UsersPage />} />
-          </Route>
-          
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  console.log("Rendering App component");
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/mentor" element={<MentorLanding />} />
+            <Route path="/teacher" element={<TeacherPortal />} />
+            <Route path="/journey/:id" element={<UserJourney />} />
+            <Route path="/journeys" element={<Journeys />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/blog" element={<Blog />} />
+            
+            {/* Admin Routes */}
+            <Route path="/admin" element={<AdminDashboard />}>
+              <Route path="users" element={<UsersPage />} />
+              <Route path="revenue" element={<RevenuePage />} />
+              <Route path="journeys" element={<JourneysPage />} />
+              <Route path="creators" element={<CreatorsPage />} />
+              <Route path="tracking" element={<TrackingPage />} />
+              <Route path="interactions" element={<InteractionsPage />} />
+              <Route index element={<UsersPage />} />
+            </Route>
+            
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
