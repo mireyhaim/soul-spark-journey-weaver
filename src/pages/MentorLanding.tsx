@@ -68,7 +68,7 @@ const MentorLanding: React.FC = () => {
                 Share Your Wisdom Through InFlow
               </h1>
               <p className="text-xl text-earth-700 mb-10">
-                Join our platform as a mentor and help guide others on their spiritual journey with your expertise and wisdom.
+                Join our platform as a mentor and help guide others on their spiritual or personal development journey with your expertise and wisdom.
               </p>
               <Button 
                 size="lg" 
