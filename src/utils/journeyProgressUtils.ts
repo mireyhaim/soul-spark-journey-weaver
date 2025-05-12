@@ -15,9 +15,14 @@ export async function fetchJourneyProgressDistribution(): Promise<{
   completionRate: number;
 }> {
   // Get journey progress stage distribution
-  const { data: userProgress } = await supabase
+  const { data: userProgress, error } = await supabase
     .from('user_journey_progress')
     .select('current_day, completed_at');
+  
+  if (error) {
+    console.error("Error fetching journey progress distribution:", error);
+    throw new Error(error.message);
+  }
   
   if (!userProgress || userProgress.length === 0) {
     return {

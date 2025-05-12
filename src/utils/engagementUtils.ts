@@ -6,20 +6,21 @@ export async function fetchEngagementStats(): Promise<{
   engagementRate: number;
   engagementTrend: EngagementTrendItem[];
 }> {
-  // Get AI interactions data for engagement rate
-  const interactionsPromise = supabase
-    .from('ai_interactions')
-    .select('user_id, created_at');
-    
-  const activeUsersPromise = supabase
-    .from('user_journey_progress')
-    .select('user_id');
-  
   // Execute both queries in parallel
   const [interactionsResult, activeUsersResult] = await Promise.all([
-    interactionsPromise, 
-    activeUsersPromise
+    supabase.from('ai_interactions').select('user_id, created_at'),
+    supabase.from('user_journey_progress').select('user_id')
   ]);
+  
+  if (interactionsResult.error) {
+    console.error("Error fetching AI interactions:", interactionsResult.error);
+    throw new Error(interactionsResult.error.message);
+  }
+  
+  if (activeUsersResult.error) {
+    console.error("Error fetching active users:", activeUsersResult.error);
+    throw new Error(activeUsersResult.error.message);
+  }
   
   const aiInteractions = interactionsResult.data || [];
   const activeUsers = activeUsersResult.data || [];

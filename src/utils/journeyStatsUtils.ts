@@ -4,7 +4,7 @@ import { JourneyStat } from "@/types/trackingStats";
 
 export async function fetchJourneyStats(): Promise<JourneyStat[]> {
   // Get detailed journey stats
-  const { data: journeys } = await supabase
+  const { data: journeys, error } = await supabase
     .from('journeys')
     .select(`
       id,
@@ -17,6 +17,11 @@ export async function fetchJourneyStats(): Promise<JourneyStat[]> {
       )
     `)
     .order('title');
+  
+  if (error) {
+    console.error("Error fetching journey stats:", error);
+    throw new Error(error.message);
+  }
   
   if (!journeys) {
     return [];
