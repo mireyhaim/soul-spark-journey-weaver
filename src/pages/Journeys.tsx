@@ -34,9 +34,12 @@ const categories = [
   'Productivity'
 ];
 
+const JOURNEYS_PER_PAGE = 9;
+
 const Journeys: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState<number>(1);
   
   // Filter journeys based on active tab and search query
   const filteredJourneys = journeys.filter(journey => {
@@ -47,6 +50,27 @@ const Journeys: React.FC = () => {
     
     return matchesCategory && matchesSearch;
   });
+
+  // Calculate total pages
+  const totalPages = Math.ceil(filteredJourneys.length / JOURNEYS_PER_PAGE);
+  
+  // Get current page journeys
+  const currentJourneys = filteredJourneys.slice(
+    (currentPage - 1) * JOURNEYS_PER_PAGE,
+    currentPage * JOURNEYS_PER_PAGE
+  );
+
+  // Handle page change
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    // Scroll to top when changing page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Reset to page 1 when filters change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [activeTab, searchQuery]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -107,7 +131,7 @@ const Journeys: React.FC = () => {
               {/* Journeys Grid */}
               <TabsContent value={activeTab} className="mt-0">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredJourneys.map((journey) => (
+                  {currentJourneys.map((journey) => (
                     <ProcessCard key={journey.id} {...journey} />
                   ))}
                 </div>
@@ -123,25 +147,37 @@ const Journeys: React.FC = () => {
           </ScrollArea>
           
           {/* Pagination */}
-          <Pagination className="mt-10">
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#" isActive>1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">2</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">3</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+          {filteredJourneys.length > 0 && totalPages > 1 && (
+            <Pagination className="mt-10">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious 
+                    onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                    className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                  />
+                </PaginationItem>
+                
+                {[...Array(totalPages)].map((_, i) => (
+                  <PaginationItem key={i + 1}>
+                    <PaginationLink
+                      onClick={() => handlePageChange(i + 1)}
+                      isActive={currentPage === i + 1}
+                      className="cursor-pointer"
+                    >
+                      {i + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                
+                <PaginationItem>
+                  <PaginationNext 
+                    onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                    className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
         </div>
       </main>
       
