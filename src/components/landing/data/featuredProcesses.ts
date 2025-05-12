@@ -5,7 +5,7 @@ export const featuredProcesses: ProcessCardProps[] = [
   {
     id: '16',
     title: 'Heal & Attract Love',
-    description: 'שחרור רגשי מאכזבות עבר + תהליך זימון זוגיות בריאה.',
+    description: 'Emotional release from past disappointments + process for attracting healthy relationships.',
     teacher: 'Sophia Martinez',
     duration: 14,
     category: 'Relationships',
@@ -14,7 +14,7 @@ export const featuredProcesses: ProcessCardProps[] = [
   {
     id: '21',
     title: 'Inner Child Healing',
-    description: 'מסע לריפוי הילדה הפנימית ושחרור דפוסים רגשיים ישנים.',
+    description: 'A journey to heal your inner child and release old emotional patterns.',
     teacher: 'Emma Wilson',
     duration: 14,
     category: 'Emotional Healing',
@@ -23,7 +23,7 @@ export const featuredProcesses: ProcessCardProps[] = [
   {
     id: '23',
     title: 'Womb Awakening',
-    description: 'חיבור למרכז האנרגיה הנשי – ריפוי, יצירה, כוח נשי.',
+    description: 'Connect to your feminine energy center – healing, creation, feminine power.',
     teacher: 'Sarah Mitchell',
     duration: 14,
     category: 'Feminine Power',
@@ -32,7 +32,7 @@ export const featuredProcesses: ProcessCardProps[] = [
   {
     id: '28',
     title: 'Focus & Flow',
-    description: 'כלים יומיומיים לניהול זמן, ריכוז וזרימה בעבודה.',
+    description: 'Daily tools for time management, concentration and flow in work.',
     teacher: 'Mark Thomas',
     duration: 7,
     category: 'Productivity',

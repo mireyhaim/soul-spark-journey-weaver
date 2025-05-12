@@ -34,10 +34,10 @@ const MentorLanding: React.FC = () => {
     // Close dialog
     setDialogOpen(false);
     
-    // Show success toast
+    // Show success toast - Changed from Hebrew to English
     toast({
-      title: "פרטיך התקבלו בהצלחה!",
-      description: "ניצור איתך קשר במייל בהקדם.",
+      title: "Your details were received successfully!",
+      description: "We will contact you by email soon.",
     });
   };
 

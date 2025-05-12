@@ -1,4 +1,3 @@
-
 import { ProcessCardProps } from '@/components/ProcessCard';
 
 // Journey data with different categories
@@ -152,7 +151,7 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '16',
     title: 'Heal & Attract Love',
-    description: 'שחרור רגשי מאכזבות עבר + תהליך זימון זוגיות בריאה.',
+    description: 'Emotional release from past disappointments + process for attracting healthy relationships.',
     teacher: 'Sophia Martinez',
     duration: 14,
     category: 'Relationships',
@@ -161,7 +160,7 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '17',
     title: 'Conscious Relationships Mastery',
-    description: 'איך ליצור תקשורת מקרבת, גבולות, חיבור רגשי עמוק.',
+    description: 'How to create connecting communication, boundaries, and deep emotional connection.',
     teacher: 'Daniel Cohen',
     duration: 21,
     category: 'Relationships',
@@ -172,7 +171,7 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '18',
     title: 'Find Your True Calling',
-    description: 'תהליך לדיוק הייעוד המקצועי, חיבור בין תשוקה וכישרון.',
+    description: 'A process to define your professional purpose, connecting passion and talent.',
     teacher: 'Rachel Gold',
     duration: 14,
     category: 'Career Development',
@@ -181,7 +180,7 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '19',
     title: 'Authentic Business Creation',
-    description: 'איך להקים עסק מתוך חיבור פנימי, במקום מתוך פחד או צורך לרצות.',
+    description: 'How to build a business from inner connection, rather than from fear or people-pleasing.',
     teacher: 'Adam Silver',
     duration: 21,
     category: 'Career Development',
@@ -190,7 +189,7 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '20',
     title: 'Magnetic Branding from Within',
-    description: 'תהליך יצירה של מיתוג אישי מבוסס אנרגיה וזהות פנימית.',
+    description: 'A process for creating personal branding based on energy and inner identity.',
     teacher: 'Lisa Johnson',
     duration: 14,
     category: 'Career Development',
@@ -201,7 +200,7 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '21',
     title: 'Inner Child Healing',
-    description: 'מסע לריפוי הילדה הפנימית ושחרור דפוסים רגשיים ישנים.',
+    description: 'A journey to heal your inner child and release old emotional patterns.',
     teacher: 'Emma Wilson',
     duration: 14,
     category: 'Emotional Healing',
@@ -210,7 +209,7 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '22',
     title: 'Overcome Self-Sabotage',
-    description: 'תהליך מודע להתבוננות, שחרור והחלפת דפוסי הרס עצמי.',
+    description: 'A conscious process to observe, release and replace self-destructive patterns.',
     teacher: 'David Brown',
     duration: 10,
     category: 'Emotional Healing',
@@ -221,7 +220,7 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '23',
     title: 'Womb Awakening',
-    description: 'חיבור למרכז האנרגיה הנשי – ריפוי, יצירה, כוח נשי.',
+    description: 'Connect to your feminine energy center – healing, creation, feminine power.',
     teacher: 'Sarah Mitchell',
     duration: 14,
     category: 'Feminine Power',
@@ -230,7 +229,7 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '24',
     title: 'Feminine Power Activation',
-    description: 'איזון בין עדינות לעוצמה, חיבור לעצמי הגבוה והאינטואיטיבי.',
+    description: 'Balance between gentleness and strength, connecting to your higher and intuitive self.',
     teacher: 'Leah Goldman',
     duration: 21,
     category: 'Feminine Power',
@@ -241,7 +240,7 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '25',
     title: 'Shadow Integration Journey',
-    description: 'תהליך לאינטגרציה של הצדדים המודחקים – להפוך כאב לכוח.',
+    description: 'A process for integrating repressed aspects – turning pain into power.',
     teacher: 'Michael Davis',
     duration: 21,
     category: 'Energy & Healing',
@@ -250,7 +249,7 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '26',
     title: 'Daily Energy Cleansing',
-    description: 'ניקוי אנרגטי יומיומי קצר, פשוט, אפקטיבי – למתחילות.',
+    description: 'Short, simple, effective daily energy cleansing – for beginners.',
     teacher: 'Anna Garcia',
     duration: 7,
     category: 'Energy & Healing',
@@ -259,7 +258,7 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '27',
     title: 'Pineal Gland Activation',
-    description: 'תהליך רוחני לעידוד אינטואיציה, חלומות, ראייה תודעתית.',
+    description: 'A spiritual process to stimulate intuition, dreams, and conscious vision.',
     teacher: 'Jason White',
     duration: 10,
     category: 'Energy & Healing',
@@ -270,7 +269,7 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '28',
     title: 'Focus & Flow',
-    description: 'כלים יומיומיים לניהול זמן, ריכוז וזרימה בעבודה.',
+    description: 'Daily tools for time management, concentration and flow in work.',
     teacher: 'Mark Thomas',
     duration: 7,
     category: 'Productivity',
@@ -279,11 +278,10 @@ export const journeys: ProcessCardProps[] = [
   {
     id: '29',
     title: 'Self-Motivation Mastery',
-    description: 'איך להניע את עצמך כל יום מחדש – בלי מאבק.',
+    description: 'How to motivate yourself each day anew – without struggle.',
     teacher: 'Rebecca Klein',
     duration: 14,
     category: 'Productivity',
     image: 'https://images.unsplash.com/photo-1496170696808-3127b1a2ca52?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   }
 ];
-
