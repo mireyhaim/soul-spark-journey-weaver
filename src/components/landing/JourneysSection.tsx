@@ -28,7 +28,9 @@ const JourneysSection: React.FC<JourneysSectionProps> = ({ featuredProcesses }) 
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredProcesses.map((process) => (
-            <ProcessCard key={process.id} {...process} />
+            <div key={process.id} className="flex flex-col h-full">
+              <ProcessCard {...process} />
+            </div>
           ))}
         </div>
         

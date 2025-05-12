@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -132,7 +131,9 @@ const Journeys: React.FC = () => {
               <TabsContent value={activeTab} className="mt-0">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {currentJourneys.map((journey) => (
-                    <ProcessCard key={journey.id} {...journey} />
+                    <div key={journey.id} className="flex flex-col h-full">
+                      <ProcessCard key={journey.id} {...journey} />
+                    </div>
                   ))}
                 </div>
                 
