@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -60,7 +61,12 @@ interface JourneyExplanationsProps {
   onDismiss: () => void;
 }
 
-const JourneyExplanations: React.FC<JourneyExplanationsProps> = ({ journey, showExplanations, onDismiss }) => {
+const JourneyExplanations: React.FC<JourneyExplanationsProps> = ({ 
+  journey, 
+  showExplanations, 
+  onDismiss 
+}) => {
+  // If explanations should not be shown, return null (not rendering anything)
   if (!showExplanations) return null;
   
   const journeyExplanations = getJourneyExplanations(journey);

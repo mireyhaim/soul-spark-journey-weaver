@@ -67,6 +67,8 @@ const UserJourney: React.FC = () => {
 
   const handlePurchase = () => {
     setIsPurchased(true);
+    // Hide explanations immediately after purchase
+    setShowExplanations(false);
     toast({
       title: "Journey purchased!",
       description: `Your ${journey.title} journey has been purchased for $${price}. Enjoy your spiritual path!`,
@@ -92,12 +94,14 @@ const UserJourney: React.FC = () => {
           {/* Journey header with title, description and actions */}
           <JourneyHeader journey={journey} />
           
-          {/* Pre and Post Journey Explanations */}
-          <JourneyExplanations 
-            journey={journey}
-            showExplanations={showExplanations}
-            onDismiss={handleDismissExplanations}
-          />
+          {/* Pre and Post Journey Explanations - only show if not purchased and explanations are enabled */}
+          {!isPurchased && (
+            <JourneyExplanations 
+              journey={journey}
+              showExplanations={showExplanations}
+              onDismiss={handleDismissExplanations}
+            />
+          )}
           
           {/* Only show progress info and content if journey is purchased */}
           {isPurchased ? (
