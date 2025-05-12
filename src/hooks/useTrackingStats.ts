@@ -14,7 +14,7 @@ export const useTrackingStats = (): TrackingStats => {
   const progressQuery = useQuery({
     queryKey: ['journeyProgressDistribution'],
     queryFn: fetchJourneyProgressDistribution,
-    retry: 1,
+    retry: 0, // Don't retry automatically to avoid potential loops
     staleTime: 5 * 60 * 1000, // 5 minutes to prevent excessive refetching
     gcTime: 10 * 60 * 1000, // 10 minutes
     refetchOnWindowFocus: false, // Prevent refetching on window focus
@@ -24,7 +24,7 @@ export const useTrackingStats = (): TrackingStats => {
   const engagementQuery = useQuery({
     queryKey: ['engagementStats'],
     queryFn: fetchEngagementStats,
-    retry: 1,
+    retry: 0, // Don't retry automatically
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
     refetchOnWindowFocus: false,
@@ -34,7 +34,7 @@ export const useTrackingStats = (): TrackingStats => {
   const journeyStatsQuery = useQuery({
     queryKey: ['journeyStats'],
     queryFn: fetchJourneyStats,
-    retry: 1,
+    retry: 0, // Don't retry automatically
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
     refetchOnWindowFocus: false,

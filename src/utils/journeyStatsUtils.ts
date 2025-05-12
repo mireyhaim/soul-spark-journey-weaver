@@ -6,9 +6,9 @@ export async function fetchJourneyStats(): Promise<JourneyStat[]> {
   console.log("Fetching journey stats...");
   
   try {
-    // Add a timeout to prevent hanging requests
+    // Add a timeout to prevent hanging requests - reduced to 3 seconds
     const timeoutPromise = new Promise<never>((_, reject) => {
-      setTimeout(() => reject(new Error("Request timeout")), 5000);
+      setTimeout(() => reject(new Error("Request timeout")), 3000);
     });
 
     // Get detailed journey stats
@@ -24,13 +24,14 @@ export async function fetchJourneyStats(): Promise<JourneyStat[]> {
           completed_at
         )
       `)
-      .order('title');
+      .order('title')
+      .throwOnError(); // Will throw on PostgreSQL errors
     
     // Race the data fetch against the timeout
     const { data: journeys, error } = await Promise.race([
       dataPromise,
       timeoutPromise.then(() => {
-        throw new Error("Request timed out after 5000ms");
+        throw new Error("Request timed out after 3000ms");
       })
     ]) as any;
     

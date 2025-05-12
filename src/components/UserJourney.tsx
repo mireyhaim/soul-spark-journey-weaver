@@ -13,6 +13,7 @@ import JourneyPurchase from './journey/JourneyPurchase';
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from 'lucide-react';
+import ErrorBoundary from './ErrorBoundary';
 
 // Calculate price based on journey duration
 const getJourneyPrice = (duration: number): number => {
@@ -60,7 +61,7 @@ const UserJourney: React.FC = () => {
     }
   }, [id]);
   
-  // Simulate loading to avoid blank screens
+  // Simulate loading with a timeout, but with proper cleanup
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -136,26 +137,29 @@ const UserJourney: React.FC = () => {
     navigate('/journeys');
   };
   
+  // Create a fallback UI for journey not found
+  const JourneyNotFound = () => (
+    <div className="container mx-auto py-10 px-4 md:px-6">
+      <Alert variant="destructive" className="mb-6">
+        <AlertTitle>Journey not found</AlertTitle>
+        <AlertDescription>
+          {error || "We couldn't find the journey you were looking for."}
+          <Button 
+            variant="outline" 
+            className="mt-4"
+            onClick={handleGoBack}
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Journeys
+          </Button>
+        </AlertDescription>
+      </Alert>
+    </div>
+  );
+  
   // Show error state
   if (error) {
-    return (
-      <div className="container mx-auto py-10 px-4 md:px-6">
-        <Alert variant="destructive" className="mb-6">
-          <AlertTitle>Journey not found</AlertTitle>
-          <AlertDescription>
-            {error}
-            <Button 
-              variant="outline" 
-              className="mt-4"
-              onClick={handleGoBack}
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Journeys
-            </Button>
-          </AlertDescription>
-        </Alert>
-      </div>
-    );
+    return <JourneyNotFound />;
   }
   
   // Show loading state
@@ -166,66 +170,71 @@ const UserJourney: React.FC = () => {
           <div className="h-8 bg-slate-200 rounded w-1/3"></div>
           <div className="h-16 bg-slate-200 rounded w-full"></div>
           <div className="h-32 bg-slate-200 rounded w-full"></div>
+          <div className="h-24 bg-slate-200 rounded w-2/3"></div>
+          <div className="h-20 bg-slate-200 rounded w-full"></div>
         </div>
       </div>
     );
   }
 
+  // Wrap entire journey in an error boundary
   return (
-    <div className="container mx-auto py-10 px-4 md:px-6">
-      <div className="flex flex-col gap-8">
-        <div>
-          {/* Journey header with title, description and actions */}
-          <JourneyHeader journey={journey} />
-          
-          {/* Pre and Post Journey Explanations */}
-          <JourneyExplanations 
-            journey={journey}
-            showExplanations={showExplanations}
-            onDismiss={handleDismissExplanations}
-          />
-          
-          {/* Only show progress info and content if journey is purchased */}
-          {isPurchased ? (
-            <>
-              <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
-                {/* Progress information */}
-                <JourneyProgress 
-                  currentDay={currentDay} 
-                  duration={journey.duration}
-                  onContinue={handleContinueJourney}
-                />
-              </div>
-              <DailyPractice 
-                currentDay={currentDay} 
-                completed={completed}
-                onComplete={handleComplete}
-              />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Journey Timeline */}
-                <JourneyTimeline 
-                  currentDay={currentDay} 
-                  savedProgress={savedProgress}
-                />
-                
-                {/* AI Insights */}
-                <JourneyInsights />
-              </div>
-            </>
-          ) : (
-            <JourneyPurchase 
-              price={price}
-              journeyTitle={journey.title}
-              duration={journey.duration}
-              isPurchased={isPurchased}
-              onPurchase={handlePurchase}
-              category={journey.category}
-              journeyId={journey.id}
+    <ErrorBoundary fallback={<JourneyNotFound />}>
+      <div className="container mx-auto py-10 px-4 md:px-6">
+        <div className="flex flex-col gap-8">
+          <div>
+            {/* Journey header with title, description and actions */}
+            <JourneyHeader journey={journey} />
+            
+            {/* Pre and Post Journey Explanations */}
+            <JourneyExplanations 
+              journey={journey}
+              showExplanations={showExplanations}
+              onDismiss={handleDismissExplanations}
             />
-          )}
+            
+            {/* Only show progress info and content if journey is purchased */}
+            {isPurchased ? (
+              <>
+                <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
+                  {/* Progress information */}
+                  <JourneyProgress 
+                    currentDay={currentDay} 
+                    duration={journey.duration}
+                    onContinue={handleContinueJourney}
+                  />
+                </div>
+                <DailyPractice 
+                  currentDay={currentDay} 
+                  completed={completed}
+                  onComplete={handleComplete}
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Journey Timeline */}
+                  <JourneyTimeline 
+                    currentDay={currentDay} 
+                    savedProgress={savedProgress}
+                  />
+                  
+                  {/* AI Insights */}
+                  <JourneyInsights />
+                </div>
+              </>
+            ) : (
+              <JourneyPurchase 
+                price={price}
+                journeyTitle={journey.title}
+                duration={journey.duration}
+                isPurchased={isPurchased}
+                onPurchase={handlePurchase}
+                category={journey.category}
+                journeyId={journey.id}
+              />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </ErrorBoundary>
   );
 };
 
