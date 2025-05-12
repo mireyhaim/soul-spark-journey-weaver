@@ -73,12 +73,12 @@ const StaticChatImage: React.FC = () => {
           <div className="bg-gray-100 rounded-full flex-grow p-2 px-4 text-gray-400">
             Share your thoughts or ask for guidance...
           </div>
-          <button className="ml-2 bg-spirit-600 hover:bg-spirit-700 text-white rounded-full p-2.5">
+          <div className="ml-2 bg-spirit-600 text-white rounded-full p-2.5">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 2L11 13"></path>
               <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
             </svg>
-          </button>
+          </div>
         </div>
       </CardFooter>
     </Card>
