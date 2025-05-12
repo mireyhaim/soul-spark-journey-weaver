@@ -6,6 +6,8 @@ import { EngagementRateCard } from "@/components/admin/tracking/EngagementRateCa
 import { JourneyProgressTable } from "@/components/admin/tracking/JourneyProgressTable";
 
 const TrackingPage = () => {
+  console.log("Rendering TrackingPage");
+  
   const { 
     stageDistribution, 
     completionRate, 

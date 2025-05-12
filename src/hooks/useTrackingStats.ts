@@ -12,22 +12,16 @@ export const useTrackingStats = (): TrackingStats => {
   const progressQuery = useQuery({
     queryKey: ['journeyProgressDistribution'],
     queryFn: fetchJourneyProgressDistribution,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    refetchOnWindowFocus: false,
   });
 
   const engagementQuery = useQuery({
     queryKey: ['engagementStats'],
     queryFn: fetchEngagementStats,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    refetchOnWindowFocus: false,
   });
 
   const journeyStatsQuery = useQuery({
     queryKey: ['journeyStats'],
     queryFn: fetchJourneyStats,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    refetchOnWindowFocus: false,
   });
 
   // Determine overall loading state

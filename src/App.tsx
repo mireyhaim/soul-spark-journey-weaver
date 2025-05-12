@@ -22,7 +22,16 @@ import CreatorsPage from "./pages/admin/CreatorsPage";
 import TrackingPage from "./pages/admin/TrackingPage";
 import InteractionsPage from "./pages/admin/InteractionsPage";
 
-const queryClient = new QueryClient();
+// Create a new QueryClient instance
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
