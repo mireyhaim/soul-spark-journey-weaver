@@ -11,6 +11,7 @@ import UserJourney from "./components/UserJourney";
 import Journeys from "./pages/Journeys";
 import Signup from "./pages/Signup";
 import MentorLanding from "./pages/MentorLanding";
+import FAQ from "./pages/FAQ";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/journey/:id" element={<UserJourney />} />
           <Route path="/journeys" element={<Journeys />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/faq" element={<FAQ />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
