@@ -11,8 +11,6 @@ import QuestionnaireSection from '@/components/landing/QuestionnaireSection';
 import { featuredProcesses } from '@/components/landing/data/featuredProcesses';
 
 const Index: React.FC = () => {
-  console.log("Rendering Index page");
-  
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
