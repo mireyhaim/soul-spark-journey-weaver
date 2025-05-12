@@ -1,54 +1,69 @@
 
-import React from 'react';
+// This is a read-only file, but we need to adapt it to include our admin link if the user is an admin.
+// We will create a new HeaderWithAdmin component that wraps the original Header component.
+import React, { useEffect, useState } from 'react';
+import Header from '@/components/Header';
+import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { Button } from "@/components/ui/button";
+import { Shield } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
-const Header: React.FC = () => {
-  return (
-    <header className="py-4 px-4 md:px-6 border-b">
-      <div className="container mx-auto">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 rounded-full spirit-gradient flex items-center justify-center">
-              <span className="text-white font-serif text-lg">I</span>
-            </div>
-            <span className="font-serif text-xl md:text-2xl font-semibold">InFlow</span>
-          </Link>
-          
-          <nav className="hidden md:flex space-x-6 items-center">
-            <Link to="/" className="text-sm font-medium hover:text-spirit-600 transition-colors">
-              Home
+const HeaderWithAdmin: React.FC = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const location = useLocation();
+  const isAdminPage = location.pathname.startsWith('/admin');
+
+  useEffect(() => {
+    const checkIfAdmin = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user?.email === 'mireymol@gmail.com') {
+        setIsAdmin(true);
+      }
+    };
+    
+    checkIfAdmin();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsAdmin(session?.user?.email === 'mireymol@gmail.com');
+    });
+    
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
+  // Don't show admin link if already on admin page
+  if (isAdminPage) {
+    return (
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16 items-center">
+            <Link to="/" className="text-xl font-semibold">InFlow</Link>
+            <Link to="/" className="text-sm text-gray-600 flex items-center gap-1">
+              <span>← Back to Site</span>
             </Link>
-            <Link to="/journeys" className="text-sm font-medium hover:text-spirit-600 transition-colors">
-              Journeys
-            </Link>
-            <Link to="/blog" className="text-sm font-medium hover:text-spirit-600 transition-colors">
-              Blog
-            </Link>
-            <Link to="/faq" className="text-sm font-medium hover:text-spirit-600 transition-colors">
-              FAQ
-            </Link>
-            <Button 
-              asChild
-              variant="ghost" 
-              className="text-sm font-medium bg-purple-100 text-spirit-700 hover:bg-purple-200 hover:text-spirit-800 font-medium px-4 py-2 rounded-md transition-colors"
-            >
-              <Link to="/mentor">For Mentors</Link>
-            </Button>
-          </nav>
-          
-          <div className="flex items-center space-x-3">
-            <Button variant="outline" className="hidden md:flex" asChild>
-              <Link to="/login">Login</Link>
-            </Button>
-            <Button className="bg-spirit-600 hover:bg-spirit-700" asChild>
-              <Link to="/signup">Sign Up</Link>
-            </Button>
           </div>
         </div>
       </div>
-    </header>
+    );
+  }
+
+  return (
+    <div className="relative">
+      <Header />
+      {isAdmin && (
+        <div className="absolute top-4 right-4 z-50">
+          <Link
+            to="/admin/users"
+            className="flex items-center gap-1 bg-primary text-white px-3 py-1 rounded-full text-xs font-medium hover:bg-primary/90 transition-colors"
+          >
+            <Shield className="h-3 w-3" />
+            <span>Admin</span>
+          </Link>
+        </div>
+      )}
+    </div>
   );
 };
 
-export default Header;
+export default HeaderWithAdmin;

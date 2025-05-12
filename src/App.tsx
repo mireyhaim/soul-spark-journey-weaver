@@ -13,6 +13,14 @@ import Signup from "./pages/Signup";
 import MentorLanding from "./pages/MentorLanding";
 import FAQ from "./pages/FAQ";
 import Blog from "./pages/Blog";
+import Login from "./pages/Login";
+import AdminDashboard from "./pages/AdminDashboard";
+import UsersPage from "./pages/admin/UsersPage";
+import RevenuePage from "./pages/admin/RevenuePage";
+import JourneysPage from "./pages/admin/JourneysPage";
+import CreatorsPage from "./pages/admin/CreatorsPage";
+import TrackingPage from "./pages/admin/TrackingPage";
+import InteractionsPage from "./pages/admin/InteractionsPage";
 
 const queryClient = new QueryClient();
 
@@ -29,8 +37,21 @@ const App = () => (
           <Route path="/journey/:id" element={<UserJourney />} />
           <Route path="/journeys" element={<Journeys />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/blog" element={<Blog />} />
+          
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminDashboard />}>
+            <Route path="users" element={<UsersPage />} />
+            <Route path="revenue" element={<RevenuePage />} />
+            <Route path="journeys" element={<JourneysPage />} />
+            <Route path="creators" element={<CreatorsPage />} />
+            <Route path="tracking" element={<TrackingPage />} />
+            <Route path="interactions" element={<InteractionsPage />} />
+            <Route index element={<UsersPage />} />
+          </Route>
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -40,4 +61,3 @@ const App = () => (
 );
 
 export default App;
-
