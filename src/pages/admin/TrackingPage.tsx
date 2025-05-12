@@ -22,14 +22,14 @@ const TrackingPage = () => {
         
         <CompletionRateCard completionRate={completionRate} loading={loading} />
         
-        <JourneyProgressTable journeyStats={journeyStats} loading={loading} />
-        
         <EngagementRateCard 
           engagementRate={engagementRate} 
           engagementTrend={engagementTrend} 
           loading={loading} 
         />
       </div>
+      
+      <JourneyProgressTable journeyStats={journeyStats} loading={loading} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { TrackingStats } from "@/types/trackingStats";
 import { fetchJourneyProgressDistribution } from "@/utils/journeyProgressUtils";
 import { fetchEngagementStats } from "@/utils/engagementUtils";
@@ -14,6 +14,8 @@ export const useTrackingStats = (): TrackingStats => {
     queryFn: fetchJourneyProgressDistribution,
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: false,
+    retry: 1,
+    gcTime: 10 * 60 * 1000, // 10 minutes
   });
 
   const engagementQuery = useQuery({
@@ -21,6 +23,8 @@ export const useTrackingStats = (): TrackingStats => {
     queryFn: fetchEngagementStats,
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: false,
+    retry: 1,
+    gcTime: 10 * 60 * 1000, // 10 minutes
   });
 
   const journeyStatsQuery = useQuery({
@@ -28,6 +32,8 @@ export const useTrackingStats = (): TrackingStats => {
     queryFn: fetchJourneyStats,
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: false,
+    retry: 1,
+    gcTime: 10 * 60 * 1000, // 10 minutes
   });
 
   // Determine overall loading state
