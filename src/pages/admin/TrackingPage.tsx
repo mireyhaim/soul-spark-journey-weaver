@@ -128,7 +128,7 @@ const TrackingPage = () => {
                   <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
                 </div>
               ) : (
-                <ChartContainer config={{ totalUsers: { theme: { light: '#888888' } } }}>
+                <ChartContainer config={{ totalUsers: { theme: { light: '#888888', dark: '#cccccc' } } }}>
                   <PieChart>
                     <Pie
                       data={stageDistribution}
