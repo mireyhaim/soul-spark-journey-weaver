@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -180,4 +181,126 @@ const Blog: React.FC = () => {
   // Recent posts section
   const recentPosts = allPosts.slice(2, 6);
   
-  // Calculate current posts
+  // Calculate current posts for pagination
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = allPosts.slice(indexOfFirstPost, indexOfLastPost);
+  
+  // Calculate page numbers
+  const pageCount = Math.ceil(allPosts.length / postsPerPage);
+  
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      
+      <main className="flex-grow">
+        <BlogHero />
+        
+        <div className="container mx-auto px-4 py-12 max-w-6xl">
+          <FeaturedPosts />
+          
+          <section className="mb-16">
+            <h2 className="text-3xl font-serif font-medium mb-8">All Articles</h2>
+            
+            <div className="grid gap-8">
+              {currentPosts.map((post) => (
+                <Card key={post.id} className="overflow-hidden">
+                  <div className="md:flex">
+                    <div className="md:w-1/3 h-64 md:h-auto">
+                      <img 
+                        src={post.image} 
+                        alt={post.title} 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <CardContent className="md:w-2/3 p-6">
+                      <div className="flex items-center text-sm text-spirit-600 mb-3">
+                        <span className="bg-purple-100 text-spirit-700 px-3 py-1 rounded-full flex items-center">
+                          <Tag className="h-3 w-3 mr-1" />
+                          {post.category}
+                        </span>
+                        <span className="ml-4 flex items-center text-earth-500">
+                          <Calendar className="h-3 w-3 mr-1" />
+                          {post.date}
+                        </span>
+                      </div>
+                      
+                      <h3 className="text-2xl font-serif font-medium mb-3">
+                        {post.title}
+                      </h3>
+                      
+                      <div className="text-earth-600 mb-4 line-clamp-3">
+                        {post.content.split('\n\n')[0]}
+                      </div>
+                      
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-earth-500">{post.readTime}</span>
+                        <span className="text-sm text-earth-500">By {post.author}</span>
+                      </div>
+                      
+                      <div className="mt-8">
+                        <details className="cursor-pointer">
+                          <summary className="text-spirit-600 hover:text-spirit-700 font-medium">
+                            Continue reading
+                          </summary>
+                          <div className="mt-4 prose prose-earth max-w-none">
+                            {post.content.split('\n\n').map((paragraph, index) => (
+                              <p key={index} className="mb-4">{paragraph}</p>
+                            ))}
+                          </div>
+                        </details>
+                      </div>
+                    </CardContent>
+                  </div>
+                </Card>
+              ))}
+            </div>
+            
+            <Pagination className="mt-10">
+              <PaginationContent>
+                {currentPage > 1 && (
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      onClick={() => handlePageChange(currentPage - 1)} 
+                      className="cursor-pointer"
+                    />
+                  </PaginationItem>
+                )}
+                
+                {Array.from({ length: pageCount }, (_, i) => i + 1).map((page) => (
+                  <PaginationItem key={page}>
+                    <PaginationLink
+                      isActive={page === currentPage}
+                      onClick={() => handlePageChange(page)}
+                      className="cursor-pointer"
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                
+                {currentPage < pageCount && (
+                  <PaginationItem>
+                    <PaginationNext 
+                      onClick={() => handlePageChange(currentPage + 1)} 
+                      className="cursor-pointer"
+                    />
+                  </PaginationItem>
+                )}
+              </PaginationContent>
+            </Pagination>
+          </section>
+        </div>
+      </main>
+      
+      <Footer />
+    </div>
+  );
+};
+
+export default Blog;
