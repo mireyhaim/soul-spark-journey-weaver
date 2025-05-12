@@ -1,8 +1,30 @@
 
 import { AIResponseGeneratorProps } from './types';
 
+// Check if the user input contains inappropriate content
+const containsInappropriateContent = (input: string): boolean => {
+  const lowercaseInput = input.toLowerCase();
+  
+  // List of inappropriate topics to filter
+  const inappropriateTopics = [
+    // Sex and gender inappropriate terms
+    'sex', 'porn', 'nude', 'naked', 'nsfw',
+    // Drug related terms
+    'drugs', 'cocaine', 'heroin', 'meth', 'marijuana', 'weed',
+    // Violence related terms
+    'kill', 'murder', 'assault', 'weapon', 'gun', 'violent'
+  ];
+  
+  return inappropriateTopics.some(topic => lowercaseInput.includes(topic));
+};
+
 // Generate supportive, empathetic responses based on user input and journey context
 export const generateResponse = ({ userInput, journey }: AIResponseGeneratorProps): string => {
+  // Check for inappropriate content first
+  if (containsInappropriateContent(userInput)) {
+    return "I'm sorry, but I don't engage with questions or discussions about inappropriate topics like sex, drugs, or violence. I'm here to support your spiritual journey and personal growth. If you'd like to discuss something else related to your journey, I'd be happy to help.";
+  }
+  
   const userInputLower = userInput.toLowerCase();
   
   // Check for emotional keywords

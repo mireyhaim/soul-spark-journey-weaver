@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Message } from './types';
 import MessageBubble from './MessageBubble';
 import TypingIndicator from './TypingIndicator';
@@ -10,6 +10,13 @@ interface MessageListProps {
 }
 
 const MessageList: React.FC<MessageListProps> = ({ messages, isTyping }) => {
+  const messageEndRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isTyping]);
+
   return (
     <div className="h-[300px] overflow-y-auto p-4">
       {messages.map(message => (
@@ -17,6 +24,8 @@ const MessageList: React.FC<MessageListProps> = ({ messages, isTyping }) => {
       ))}
       
       {isTyping && <TypingIndicator />}
+      
+      <div ref={messageEndRef} />
     </div>
   );
 };

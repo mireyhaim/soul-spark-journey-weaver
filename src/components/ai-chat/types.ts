@@ -20,4 +20,8 @@ export interface AIPersonality {
   name: string;
   tone: string;
   specialties: string[];
+  boundaries: {
+    refusesTopics: string[];
+    refusalMessage: string;
+  };
 }
