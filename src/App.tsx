@@ -13,6 +13,7 @@ import Signup from "./pages/Signup";
 import MentorLanding from "./pages/MentorLanding";
 import FAQ from "./pages/FAQ";
 import Blog from "./pages/Blog";
+import BlogArchive from "./pages/BlogArchive";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/signup" element={<Signup />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/archive" element={<BlogArchive />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
