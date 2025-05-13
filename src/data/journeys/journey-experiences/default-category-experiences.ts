@@ -1,5 +1,5 @@
 
-import { JourneyExperienceContent } from './types';
+import { JourneyExperienceContent, JourneyExperienceMap } from './types';
 
 // Get default experiences content by category
 export const getCategoryExperienceContent = (category: string | undefined): JourneyExperienceContent => {
@@ -125,4 +125,9 @@ export const getCategoryExperienceContent = (category: string | undefined): Jour
         ]
       };
   }
+};
+
+// Function to get default experiences based on category and duration
+export const getDefaultExperiences = (category: string | undefined, duration: number): JourneyExperienceContent => {
+  return getCategoryExperienceContent(category);
 };

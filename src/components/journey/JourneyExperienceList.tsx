@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { ListChecks } from 'lucide-react';
-import { JourneyExperienceContent } from '@/data/journeys/journey-experiences';
+import { JourneyExperienceContent } from '@/data/journeys/journey-experiences/types';
 
 interface JourneyExperienceListProps {
   experienceContent: JourneyExperienceContent;
