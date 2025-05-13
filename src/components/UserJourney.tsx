@@ -5,7 +5,6 @@ import { useToast } from "@/hooks/use-toast";
 import { journeys } from '@/data/journeys';
 import JourneyHeader from './journey/JourneyHeader';
 import JourneyProgress from './journey/JourneyProgress';
-import JourneyTimeline from './journey/JourneyTimeline';
 import JourneyInsights from './journey/JourneyInsights';
 import JourneyExplanations from './journey/JourneyExplanations';
 import JourneyPurchase from './journey/JourneyPurchase';
@@ -160,7 +159,7 @@ const UserJourney: React.FC = () => {
               </div>
               
               <div className="grid grid-cols-1 gap-6">
-                {/* Journey Timeline and AI Chat with Practice Questions */}
+                {/* Journey AI Chat with Practice Questions */}
                 <div className="bg-white p-6 rounded-lg border shadow-sm">
                   <div>
                     <div className="flex justify-between items-center mb-4">
@@ -187,13 +186,7 @@ const UserJourney: React.FC = () => {
                   </div>
                 </div>
                 
-                {/* Journey Timeline */}
-                <div className="bg-white p-6 rounded-lg border shadow-sm">
-                  <JourneyTimeline 
-                    currentDay={currentDay} 
-                    savedProgress={savedProgress}
-                  />
-                </div>
+                {/* Timeline section removed as requested */}
               </div>
             </>
           ) : (
