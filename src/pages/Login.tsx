@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useSession } from '@supabase/auth-helpers-react';
+import { cleanupAuthState } from '@/utils/auth-utils';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -32,6 +33,9 @@ const Login: React.FC = () => {
     setIsLoading(true);
     
     try {
+      // Clean up existing auth state first to avoid conflicts
+      cleanupAuthState();
+      
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
@@ -44,7 +48,8 @@ const Login: React.FC = () => {
         description: "Welcome back to InFlow!",
       });
       
-      navigate('/');
+      // Force page reload for a clean state
+      window.location.href = '/';
     } catch (error: any) {
       toast({
         title: "Login failed",
@@ -59,10 +64,17 @@ const Login: React.FC = () => {
   const handleGoogleLogin = async () => {
     setIsGoogleLoading(true);
     try {
+      // Clean up existing auth state first to avoid conflicts
+      cleanupAuthState();
+      
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.origin
+          redirectTo: window.location.origin,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
         }
       });
       
