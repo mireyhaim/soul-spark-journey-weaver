@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { User } from 'lucide-react';
 import { useSession } from '@supabase/auth-helpers-react';
+import { supabase } from "@/integrations/supabase/client";
 
 const Header: React.FC = () => {
   const session = useSession();
