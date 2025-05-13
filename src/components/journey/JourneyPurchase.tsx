@@ -1,11 +1,10 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import JourneyDailyLessons from './JourneyDailyLessons';
 import JourneyExperienceList from './JourneyExperienceList';
 import JourneyPurchaseButton from './JourneyPurchaseButton';
 import JourneyFullProcess from './JourneyFullProcess';
 import { getJourneyExperienceContent } from '@/data/journeys/journey-experiences';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface JourneyPurchaseProps {
   price: number;
@@ -26,8 +25,6 @@ const JourneyPurchase: React.FC<JourneyPurchaseProps> = ({
   category,
   journeyId
 }) => {
-  const [showFullProcess, setShowFullProcess] = useState(false);
-  
   // If the journey is purchased, don't show this component at all
   if (isPurchased) {
     return null;
@@ -42,9 +39,6 @@ const JourneyPurchase: React.FC<JourneyPurchaseProps> = ({
         Get full access to <span className="font-medium">{journeyTitle}</span> for just ${price}.
       </p>
       
-      {/* Add the daily lessons preview with duration */}
-      <JourneyDailyLessons journeyId={journeyId} category={category} duration={duration} />
-      
       {/* Journey experience list */}
       <JourneyExperienceList experienceContent={experienceContent} />
       
@@ -53,20 +47,9 @@ const JourneyPurchase: React.FC<JourneyPurchaseProps> = ({
         journeyId={journeyId} 
         category={category} 
         duration={duration}
-        showFullProcess={showFullProcess}
+        showFullProcess={true}
       />
       
-      {/* Toggle button to show/hide full process */}
-      <div className="flex justify-center mb-6">
-        <button
-          onClick={() => setShowFullProcess(prev => !prev)}
-          className="flex items-center gap-1 text-spirit-700 hover:text-spirit-900 transition-colors"
-        >
-          <span>{showFullProcess ? 'Hide full process' : 'See full journey process'}</span>
-          {showFullProcess ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-        </button>
-      </div>
-
       {/* Purchase button */}
       <JourneyPurchaseButton onPurchase={onPurchase} />
     </div>
