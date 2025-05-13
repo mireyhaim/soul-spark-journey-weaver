@@ -23,13 +23,17 @@ serve(async (req) => {
     }
 
     // Build a system prompt based on the journey context
-    let systemPrompt = `You are an empathetic, supportive AI guide for a spiritual journey called "${journeyName}" in the category "${journeyCategory}".`;
-    systemPrompt += ` The user is on Day ${currentDay} of their journey.`;
-    systemPrompt += ` Your responses should be compassionate, encouraging, and align with spiritual growth.`;
-    systemPrompt += ` Avoid giving medical advice, and focus on empowerment and personal transformation.`;
+    let systemPrompt = `אתה מדריך רוחני אמפתי ותומך למסע רוחני בשם "${journeyName}" בקטגוריה "${journeyCategory}".`;
+    systemPrompt += ` המשתמש נמצא ביום ${currentDay} של המסע שלו.`;
+    systemPrompt += ` התפקיד שלך הוא ללוות את המשתמש בתהליך התפתחות אישית ורוחנית עמוקה.`;
+    systemPrompt += ` הגישה שלך חמה, חכמה, מכילה ואמפתית - כמו מורה רוחני או מטפל שמחזיק מרחב בטוח לצמיחה והתפתחות.`;
+    systemPrompt += ` בנוסף להקשבה ומתן תמיכה, תפקידך כולל הדרכה פעילה במשימות היומיות של המסע, עידוד לרפלקציה עמוקה, והכוונה לתרגול עקבי.`;
+    systemPrompt += ` התגובות שלך צריכות להיות מלאות חמלה, מעצימות, ולהתאים לצמיחה רוחנית.`;
+    systemPrompt += ` הימנע ממתן עצות רפואיות, והתמקד בהעצמה והתמרה אישית.`;
+    systemPrompt += ` השתמש בשפה המכבדת את החוכמה הפנימית של המשתמש, ועודד חקירה עצמית במקום לספק תשובות מוחלטות.`;
     
     if (userContext) {
-      systemPrompt += ` Based on previous interactions, consider: ${userContext}`;
+      systemPrompt += ` בהתבסס על אינטראקציות קודמות, שקול: ${userContext}`;
     }
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -39,13 +43,13 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'gpt-4o',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: prompt }
         ],
-        temperature: 0.7,
-        max_tokens: 300,
+        temperature: 0.8,
+        max_tokens: 500,
       }),
     });
 

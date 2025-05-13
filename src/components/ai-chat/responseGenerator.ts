@@ -74,7 +74,7 @@ export const generateResponse = ({ userInput, journey }: AIResponseGeneratorProp
 // Generate personalized welcome message based on journey
 export const getWelcomeMessage = (currentJourney?: any): string => {
   if (!currentJourney) {
-    return "Welcome to your spiritual journey. I'm your personal guide, here to support you every step of the way. How are you feeling today?";
+    return "ברוך הבא למסע הרוחני שלך. אני המדריך האישי שלך, נמצא כאן ללוות אותך בכל צעד בדרך. אני כאן להקשיב, לתמוך ולהציע תובנות בעת שאתה צועד בנתיב ההתפתחות האישית שלך. כיצד אתה מרגיש היום?";
   }
   
   // Get personality based on journey category
@@ -83,16 +83,23 @@ export const getWelcomeMessage = (currentJourney?: any): string => {
   // Journey-specific welcome messages with personality
   const welcomeMessages: Record<string, string> = {
     // Personal Development
-    '1': `Welcome to your self-discovery journey. I'm ${personality.name}, your personal guide with expertise in ${personality.specialties.join(', ')}. I'm here to help you uncover your authentic self and true purpose with a ${personality.tone} approach. How are you feeling about beginning this journey of self-exploration?`,
+    '1': `ברוך הבא למסע גילוי העצמי שלך. אני ${personality.name}, המדריך האישי שלך עם מומחיות ב${personality.specialties.join(', ')}. אני כאן כדי לעזור לך לגלות את העצמי האותנטי שלך והמטרה האמיתית שלך בגישה ${personality.tone}. יחד, נצא למסע של התבוננות פנימית, התפתחות והתעלות. בכל יום, אציע לך תרגילים ושאלות למחשבה שיעזרו לך להעמיק את ההבנה העצמית שלך. כיצד אתה מרגיש לקראת תחילת מסע של גילוי עצמי?`,
     
-    '2': `I'm so glad you've chosen this emotional intelligence path. I'm ${personality.name}, your supportive AI mentor with a ${personality.tone} style. I'll be with you as you develop a deeper understanding of your emotions. How are you feeling right now?`,
+    '2': `אני שמח שבחרת במסע האינטליגנציה הרגשית הזה. אני ${personality.name}, המנטור התומך שלך עם סגנון ${personality.tone}. יחד, נעבוד על פיתוח הבנה עמוקה יותר של הרגשות שלך, נלמד לזהות דפוסים רגשיים ונפתח כלים להתמודד עם אתגרים רגשיים. אני אלווה אותך בכל שלב, אקשיב בלי שיפוטיות ואציע תובנות שיעזרו לך לצמוח. איך אתה מרגיש כרגע?`,
     
     // Abundance journeys
-    '10': `Welcome to your manifestation journey. I'm ${personality.name}, your personal reality creation guide. With my focus on ${personality.specialties.join(', ')}, I'm here to help you shape your dream life with intention and purpose. How are you feeling about manifesting your desires?`,
+    '10': `ברוך הבא למסע המניפסטציה שלך. אני ${personality.name}, מדריך יצירת המציאות האישית שלך. עם התמקדות ב${personality.specialties.join(', ')}, אני כאן לעזור לך לעצב את חיי החלומות שלך בכוונה ותכלית. ביחד, נעבוד על הסרת מחסומים פנימיים, יצירת תבניות מחשבה חיוביות וחיבור לאנרגיה של שפע. כל יום יציע לך כלים ותרגילים שיעזרו לך למשוך את מה שאתה באמת רוצה לחייך. איך אתה מרגיש לגבי יצירת חיים של שפע ומשמעות?`,
     
-    '13': `I'm delighted to join you on this abundance meditation journey. I'm ${personality.name}, your abundance guide with a ${personality.tone} approach. I'll support you in opening to receive prosperity in all forms. What's your relationship with abundance like right now?`,
+    '13': `אני שמח ללוות אותך במסע מדיטציית השפע הזה. אני ${personality.name}, מדריך השפע שלך עם גישה ${personality.tone}. יחד נעבוד על פתיחת הערוצים הפנימיים שלך לקבלת שפע בכל צורותיו. בכל יום, אציע לך תרגילים, מדיטציות והנחיות שנועדו לשנות את התפיסה שלך לגבי שפע ולעזור לך לזהות את החסמים שמונעים ממך לקבל בשפע. מה מערכת היחסים שלך עם שפע כרגע?`,
   };
   
   return welcomeMessages[currentJourney.id] || 
-    `Welcome to your ${currentJourney.title} journey. I'm ${personality.name}, your personal guide with expertise in ${personality.specialties[0]}. I'll be supporting you through each step of this ${currentJourney.duration}-day process with a ${personality.tone} approach. How are you feeling as we begin?`;
+    `ברוך הבא למסע ${currentJourney.title} שלך. אני ${personality.name}, המדריך האישי שלך עם מומחיות ב${personality.specialties[0]}. 
+    
+אני כאן ללוות אותך בתהליך משנה-חיים של ${currentJourney.duration} ימים, בגישה ${personality.tone} ותומכת. יחד, נעבור תהליך של התפתחות, התעלות והתמרה אישית.
+
+בכל יום של המסע, אציע לך תרגילים, שאלות למחשבה ומשימות שנועדו לעזור לך להעמיק את החיבור עם עצמך ועם המטרות שלך. אני אהיה איתך בכל רגע של התהליך - להקשיב, לתמוך ולהציע כלים ותובנות.
+
+המטרה שלנו היא לא רק להשיג תוצאות חיצוניות, אלא גם לעבור שינוי פנימי עמוק שישפיע על כל תחומי חייך. איך אתה מרגיש כשאנחנו מתחילים?`;
 };
+
