@@ -10,6 +10,9 @@ import JourneyInsights from './journey/JourneyInsights';
 import JourneyExplanations from './journey/JourneyExplanations';
 import JourneyPurchase from './journey/JourneyPurchase';
 import ProcessesBar from './journey/ProcessesBar';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { MessageCircle, ArrowLeft } from 'lucide-react';
+import { Button } from './ui/button';
 
 // Calculate price based on journey duration
 const getJourneyPrice = (duration: number): number => {
@@ -26,6 +29,9 @@ const UserJourney: React.FC = () => {
   const [savedProgress, setSavedProgress] = useState<number[]>([]); // Days completed
   const [isPurchased, setIsPurchased] = useState(false);
   const [showExplanations, setShowExplanations] = useState(true);
+  const [showChatOnMobile, setShowChatOnMobile] = useState(false);
+  
+  const isMobile = useIsMobile();
   
   // Find the selected journey
   const journey = journeys.find(j => j.id === id) || {
@@ -51,6 +57,10 @@ const UserJourney: React.FC = () => {
       title: "Practice completed!",
       description: "Great job! Your reflections have been saved and you've completed today's practice.",
     });
+
+    if (isMobile) {
+      setShowChatOnMobile(false);
+    }
   };
 
   const handleNextDay = () => {
@@ -82,11 +92,43 @@ const UserJourney: React.FC = () => {
       title: "Continue your journey",
       description: `Day ${currentDay} of your ${journey.title} journey is ready for you.`,
     });
+    
+    if (isMobile) {
+      setShowChatOnMobile(true);
+    }
   };
 
   const handleDismissExplanations = () => {
     setShowExplanations(false);
   };
+  
+  // For mobile - toggle between chat view and journey view
+  const toggleMobileChat = () => {
+    setShowChatOnMobile(!showChatOnMobile);
+  };
+
+  // If we're on mobile and showing the chat, only render JourneyInsights
+  if (isMobile && showChatOnMobile && isPurchased) {
+    return (
+      <div className="h-screen w-screen">
+        <div className="absolute top-0 left-0 z-20 p-4">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="bg-white/80 backdrop-blur-sm rounded-full shadow-md"
+            onClick={() => setShowChatOnMobile(false)}
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+        </div>
+        <JourneyInsights
+          currentDay={currentDay}
+          completed={completed}
+          onComplete={handleComplete}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto py-10 px-4 md:px-6">
@@ -129,12 +171,27 @@ const UserJourney: React.FC = () => {
                 {/* Journey Timeline and AI Chat with Practice Questions */}
                 <div className="bg-white p-6 rounded-lg border shadow-sm">
                   <div>
-                    <h2 className="text-2xl font-sans font-semibold mb-4">Your Spirit Guide</h2>
-                    <JourneyInsights 
-                      currentDay={currentDay} 
-                      completed={completed} 
-                      onComplete={handleComplete} 
-                    />
+                    <div className="flex justify-between items-center mb-4">
+                      <h2 className="text-2xl font-sans font-semibold">Your Spirit Guide</h2>
+                      {isMobile && (
+                        <Button 
+                          variant="outline" 
+                          onClick={toggleMobileChat}
+                          className="flex items-center gap-2"
+                        >
+                          <MessageCircle className="h-4 w-4" />
+                          Open Chat
+                        </Button>
+                      )}
+                    </div>
+                    
+                    {!isMobile && (
+                      <JourneyInsights 
+                        currentDay={currentDay} 
+                        completed={completed} 
+                        onComplete={handleComplete} 
+                      />
+                    )}
                   </div>
                 </div>
                 

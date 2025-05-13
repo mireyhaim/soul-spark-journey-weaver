@@ -7,9 +7,10 @@ import TypingIndicator from './TypingIndicator';
 interface MessageListProps {
   messages: Message[];
   isTyping: boolean;
+  isMobile?: boolean;
 }
 
-const MessageList: React.FC<MessageListProps> = ({ messages, isTyping }) => {
+const MessageList: React.FC<MessageListProps> = ({ messages, isTyping, isMobile = false }) => {
   const messageEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom when messages change
@@ -18,7 +19,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages, isTyping }) => {
   }, [messages, isTyping]);
 
   return (
-    <div className="h-[400px] overflow-y-auto p-4">
+    <div className={isMobile ? "h-full overflow-y-auto p-4 pb-6 bg-earth-50" : "h-[400px] overflow-y-auto p-4"}>
       {messages.map(message => (
         <MessageBubble key={message.id} message={message} />
       ))}

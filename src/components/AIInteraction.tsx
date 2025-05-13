@@ -7,6 +7,7 @@ import { journeys } from '@/data/journeys';
 import MessageList from './ai-chat/MessageList';
 import MessageInput from './ai-chat/MessageInput';
 import { useChatMessages } from './ai-chat/hooks/useChatMessages';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface AIInteractionProps {
   currentDay?: number;
@@ -22,6 +23,7 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
   isPracticeMode = false 
 }) => {
   const { id } = useParams<{ id: string }>();
+  const isMobile = useIsMobile();
   
   // Get current journey information for contextual responses
   const currentJourney = journeys.find(j => j.id === id);
@@ -39,6 +41,35 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
     isPracticeMode,
     currentJourney
   });
+
+  if (isMobile) {
+    return (
+      <div className="flex flex-col h-[calc(100vh-150px)] w-full bg-white">
+        <div className="p-4 bg-gradient-to-r from-spirit-50 to-calm-50 flex items-center space-x-3 shadow-sm">
+          <Avatar>
+            <AvatarFallback className="bg-spirit-100 text-spirit-700">AI</AvatarFallback>
+            <AvatarImage src="/placeholder.svg" />
+          </Avatar>
+          <div>
+            <h2 className="text-lg font-medium">Spirit Guide</h2>
+            <p className="text-sm text-earth-500">Your personal growth companion</p>
+          </div>
+        </div>
+        
+        <div className="flex-grow overflow-hidden">
+          <MessageList messages={messages} isTyping={isTyping} isMobile={true} />
+        </div>
+        
+        <div className="border-t p-3 bg-white">
+          <MessageInput 
+            input={input}
+            setInput={setInput}
+            onSendMessage={handleSend}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Card className="w-full shadow-lg border-spirit-100">
