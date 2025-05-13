@@ -22,7 +22,7 @@ export const getCategoryExperienceContent = (category: string | undefined): Jour
         experiences: [
           'Daily meditation and mindfulness practices',
           'Connection with your higher self and spiritual guides',
-          'Exploration of your soul's purpose and divine gifts',
+          'Exploration of your soul\'s purpose and divine gifts',
           'Techniques to raise your vibration and spiritual awareness'
         ]
       };
