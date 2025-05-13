@@ -1,4 +1,5 @@
 import * as React from "react"
+import { toast as sonnerToast } from "sonner"
 
 import type {
   ToastActionElement,
@@ -137,35 +138,19 @@ function dispatch(action: Action) {
   })
 }
 
-type Toast = Omit<ToasterToast, "id">
+// Define the type for Sonner toast options to match our implementation
+interface SonnerToastOptions {
+  description?: React.ReactNode
+  variant?: "default" | "destructive"
+}
 
-function toast({ ...props }: Toast) {
-  const id = genId()
-
-  const update = (props: ToasterToast) =>
-    dispatch({
-      type: "UPDATE_TOAST",
-      toast: { ...props, id },
-    })
-  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id })
-
-  dispatch({
-    type: "ADD_TOAST",
-    toast: {
-      ...props,
-      id,
-      open: true,
-      onOpenChange: (open) => {
-        if (!open) dismiss()
-      },
-    },
-  })
-
-  return {
-    id: id,
-    dismiss,
-    update,
-  }
+// Update the toast function to match Sonner's API
+function toast(options: SonnerToastOptions) {
+  // Map our options to Sonner's options
+  return sonnerToast(options.description as string, {
+    // Style based on variant
+    className: options.variant === "destructive" ? "bg-destructive text-destructive-foreground" : "",
+  });
 }
 
 function useToast() {

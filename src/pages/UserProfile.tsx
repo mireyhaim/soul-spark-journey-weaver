@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Clock, Award, BookOpen, BookOpenCheck, Star } from 'lucide-react';
 import { journeys } from '@/data/journeys';
 import { Link } from 'react-router-dom';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from '@/hooks/use-toast';
 
 // Import Supabase client
 import { supabase } from "@/integrations/supabase/client";
@@ -38,8 +39,8 @@ const UserProfile: React.FC = () => {
     // Check if user is logged in
     if (!session) {
       toast({
-        variant: "destructive",
         description: "You need to login to access your profile.",
+        variant: "destructive",
       });
       // Redirect to login page
       navigate('/login');

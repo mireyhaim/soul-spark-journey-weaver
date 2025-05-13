@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from '@/components/ui/label';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useSession } from '@supabase/auth-helpers-react';
 import { cleanupAuthState } from '@/utils/auth-utils';
@@ -50,8 +50,8 @@ const Login: React.FC = () => {
       window.location.href = '/';
     } catch (error: any) {
       toast({
-        variant: "destructive",
         description: error.message || "Please check your credentials and try again.",
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
@@ -80,8 +80,8 @@ const Login: React.FC = () => {
       // No need for success toast here as the page will redirect to Google
     } catch (error: any) {
       toast({
-        variant: "destructive",
         description: error.message || "There was a problem connecting to Google.",
+        variant: "destructive",
       });
       setIsGoogleLoading(false);
     }

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from '@/components/ui/label';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useSession } from '@supabase/auth-helpers-react';
 import { cleanupAuthState } from '@/utils/auth-utils';
@@ -51,8 +51,8 @@ const Signup: React.FC = () => {
       navigate('/login');
     } catch (error: any) {
       toast({
-        variant: "destructive",
         description: error.message || "There was a problem signing up. Please try again.",
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
