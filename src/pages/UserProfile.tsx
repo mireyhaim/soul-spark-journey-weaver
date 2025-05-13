@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -33,19 +33,29 @@ const UserProfile: React.FC = () => {
   const userId = id || mockUser.id; // Use param if available, otherwise use mock
   const navigate = useNavigate();
   const session = useSession();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Check if user is logged in
     if (!session) {
-      toast("You need to login to access your profile.", {
-        className: "bg-destructive text-destructive-foreground"
-      });
+      toast("You need to login to access your profile.");
       // Redirect to login page
       navigate('/login');
+    } else {
+      setIsLoading(false);
     }
   }, [session, navigate]);
 
-  // If no session, don't render the profile content
+  // If loading or no session, show a loading message
+  if (isLoading) {
+    return (
+      <div className="container mx-auto py-10 px-4 md:px-6 text-center">
+        <p>Loading profile...</p>
+      </div>
+    );
+  }
+  
+  // If no session after loading, don't render the profile content
   if (!session) {
     return null;
   }
@@ -315,7 +325,11 @@ const UserProfile: React.FC = () => {
                 </div>
                 
                 <div>
-                  <Button variant="destructive">Logout</Button>
+                  <Button variant="destructive" onClick={async () => {
+                    await supabase.auth.signOut();
+                    toast("You have been logged out.");
+                    navigate('/');
+                  }}>Logout</Button>
                 </div>
               </CardContent>
             </Card>
