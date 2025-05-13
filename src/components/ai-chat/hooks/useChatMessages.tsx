@@ -33,6 +33,7 @@ export const useChatMessages = ({
   const [initialMessageSent, setInitialMessageSent] = useState<boolean>(false);
   const [firstQuestionSent, setFirstQuestionSent] = useState<boolean>(false);
   const [conversationStarted, setConversationStarted] = useState<boolean>(false);
+  const [hasGreetedUser, setHasGreetedUser] = useState<boolean>(false);
   
   const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null);
   const supabase = useSupabaseClient();
@@ -255,12 +256,11 @@ export const useChatMessages = ({
       setTimeout(async () => {
         const dailyQuestions = getDailyQuestions(currentDay);
         
-        // First user message - respond with welcome but don't send the first question yet
-        if (!firstQuestionSent && initialMessageSent) {
-          // Generate AI response to the user's first message (greeting)
+        // First user message - respond and handle greeting
+        if (conversationStarted && !hasGreetedUser) {
+          // Generate AI response to the user's first message
           const aiResponse = await generateAIResponse(input);
           
-          // Add AI's response to the user's greeting
           const responseMessage: Message = {
             id: (Date.now() + 1).toString(),
             content: aiResponse,
@@ -269,107 +269,115 @@ export const useChatMessages = ({
           };
           
           setMessages(prev => [...prev, responseMessage]);
-          setFirstQuestionSent(true);
-          setWaitingForResponse(true); // Waiting for the next user message before sending question
+          setHasGreetedUser(true);
+          setWaitingForResponse(true);
           updateLastActivity();
-        } 
-        // Second user message - now we can send the first practice question after responding
-        else if (firstQuestionSent && !questionAnswered) {
-          // If this is the second user message and we haven't yet sent a question
-          if (!questionAnswered && currentQuestionIndex === 0) {
-            // First respond to the user's message
-            const aiResponse = await generateAIResponse(input);
-            
-            const responseMessage: Message = {
-              id: (Date.now() + 1).toString(),
-              content: aiResponse,
-              sender: 'ai',
-              timestamp: new Date()
-            };
-            
-            setMessages(prev => [...prev, responseMessage]);
-            
-            // After a short delay, send the first practice question
-            setTimeout(() => {
-              const firstQuestion: Message = {
-                id: (Date.now() + 2).toString(),
-                content: `It's Day ${currentDay} of your journey. ${dailyQuestions[0].question}`,
-                sender: 'ai',
-                timestamp: new Date()
-              };
-              
-              setMessages(prev => [...prev, firstQuestion]);
-              setWaitingForResponse(true); // Waiting for response to the question
-              updateLastActivity();
-            }, 1500);
-          } else {
-            // This is a response to the question that was sent
-            // Generate AI response to the user's answer
-            const aiResponse = await generateAIResponse(input, currentQuestionIndex);
-            
-            // Respond to the user's answer
-            const responseMessage: Message = {
-              id: (Date.now() + 1).toString(),
-              content: aiResponse,
-              sender: 'ai',
-              timestamp: new Date()
-            };
-            
-            setMessages(prev => [...prev, responseMessage]);
-            setQuestionAnswered(true);
-            
-            // After a short delay, check if there are more questions
-            setTimeout(() => {
-              if (currentQuestionIndex < dailyQuestions.length - 1) {
-                // Send the next question
-                const nextQuestionIndex = currentQuestionIndex + 1;
-                setCurrentQuestionIndex(nextQuestionIndex);
-                setQuestionAnswered(false);
-                
-                const nextQuestion: Message = {
-                  id: (Date.now() + 2).toString(),
-                  content: dailyQuestions[nextQuestionIndex].question,
-                  sender: 'ai',
-                  timestamp: new Date()
-                };
-                
-                setMessages(prev => [...prev, nextQuestion]);
-                setWaitingForResponse(true); // Waiting for response to the new question
-                updateLastActivity();
-              } else {
-                // This was the last question, send completion message
-                const completionMessage: Message = {
-                  id: (Date.now() + 2).toString(),
-                  content: "You've completed today's practice! Your reflections have been saved. Feel free to continue our conversation about your journey.",
-                  sender: 'ai',
-                  timestamp: new Date()
-                };
-                
-                setMessages(prev => [...prev, completionMessage]);
-                setPracticeComplete(true);
-                onComplete(); // Notify parent component that practice is complete
-                setWaitingForResponse(true); // Waiting for any further user input
-                updateLastActivity();
-              }
-            }, 1500);
-          }
-        } else {
-          // User is continuing conversation after answering a question or completing practice
+          setIsTyping(false);
+          return;
+        }
+        
+        // Second user message - now we can send the first practice question
+        if (hasGreetedUser && !firstQuestionSent) {
+          // First respond to the user's message
           const aiResponse = await generateAIResponse(input);
           
-          const aiMessage: Message = {
+          const responseMessage: Message = {
             id: (Date.now() + 1).toString(),
             content: aiResponse,
             sender: 'ai',
             timestamp: new Date()
           };
           
-          setMessages(prev => [...prev, aiMessage]);
-          setWaitingForResponse(true); // Waiting for response after AI message
-          updateLastActivity();
+          setMessages(prev => [...prev, responseMessage]);
+          
+          // After a short delay, send the first practice question
+          setTimeout(() => {
+            const firstQuestion: Message = {
+              id: (Date.now() + 2).toString(),
+              content: `It's Day ${currentDay} of your journey. ${dailyQuestions[0].question}`,
+              sender: 'ai',
+              timestamp: new Date()
+            };
+            
+            setMessages(prev => [...prev, firstQuestion]);
+            setFirstQuestionSent(true);
+            setWaitingForResponse(true);
+            updateLastActivity();
+          }, 1500);
+          
+          setIsTyping(false);
+          return;
         }
         
+        // Handle responses to practice questions
+        if (firstQuestionSent) {
+          // Generate AI response to the user's answer
+          const aiResponse = await generateAIResponse(input, currentQuestionIndex);
+          
+          // Respond to the user's answer
+          const responseMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            content: aiResponse,
+            sender: 'ai',
+            timestamp: new Date()
+          };
+          
+          setMessages(prev => [...prev, responseMessage]);
+          setQuestionAnswered(true);
+          
+          // After a short delay, check if there are more questions
+          setTimeout(() => {
+            if (currentQuestionIndex < dailyQuestions.length - 1) {
+              // Send the next question
+              const nextQuestionIndex = currentQuestionIndex + 1;
+              setCurrentQuestionIndex(nextQuestionIndex);
+              setQuestionAnswered(false);
+              
+              const nextQuestion: Message = {
+                id: (Date.now() + 2).toString(),
+                content: dailyQuestions[nextQuestionIndex].question,
+                sender: 'ai',
+                timestamp: new Date()
+              };
+              
+              setMessages(prev => [...prev, nextQuestion]);
+              setWaitingForResponse(true);
+              updateLastActivity();
+            } else {
+              // This was the last question, send completion message
+              const completionMessage: Message = {
+                id: (Date.now() + 2).toString(),
+                content: "You've completed today's practice! Your reflections have been saved. Feel free to continue our conversation about your journey.",
+                sender: 'ai',
+                timestamp: new Date()
+              };
+              
+              setMessages(prev => [...prev, completionMessage]);
+              setPracticeComplete(true);
+              onComplete(); // Notify parent component that practice is complete
+              setWaitingForResponse(true);
+              updateLastActivity();
+            }
+          }, 1500);
+          
+          setIsTyping(false);
+          return;
+        }
+        
+        // General conversation after practice is completed
+        const aiResponse = await generateAIResponse(input);
+          
+        const aiMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          content: aiResponse,
+          sender: 'ai',
+          timestamp: new Date()
+        };
+        
+        setMessages(prev => [...prev, aiMessage]);
         setIsTyping(false);
+        setWaitingForResponse(true);
+        updateLastActivity();
       }, 1500);
     } else {
       // Normal chat mode
@@ -407,4 +415,3 @@ export const useChatMessages = ({
     handleSend
   };
 };
-
