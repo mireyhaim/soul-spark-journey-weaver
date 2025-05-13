@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { Message } from '../types';
 import { getWelcomeMessage } from '../responseGenerator';
@@ -110,13 +109,17 @@ export const useChatMessages = ({
     
     let followUpContent = "";
     
-    // Choose the appropriate language for the follow-up
+    // Choose the appropriate language for the follow-up based on detected user language
     if (userLanguage === 'he') {
       followUpContent = "אתה עדיין שם? אשמח לשמוע את התשובה שלך כשתהיה מוכן.";
     } else if (userLanguage === 'ar') {
       followUpContent = "هل أنت ما زلت هنا؟ أتطلع إلى سماع إجابتك عندما تكون مستعدًا.";
     } else if (userLanguage === 'ru') {
       followUpContent = "Вы все еще здесь? Я буду рад услышать ваш ответ, когда вы будете готовы.";
+    } else if (userLanguage === 'es') {
+      followUpContent = "¿Sigues ahí? Espero escuchar tu respuesta cuando estés listo.";
+    } else if (userLanguage === 'fr') {
+      followUpContent = "Es-tu toujours là ? J'attends ta réponse quand tu seras prêt.";
     } else {
       followUpContent = "Are you still there? I'm looking forward to hearing your answer when you're ready.";
     }
@@ -132,21 +135,57 @@ export const useChatMessages = ({
     updateLastActivity(); // Update activity time after sending follow-up
   };
 
-  // Detect user language from their input
+  // Enhanced language detection function
   const detectLanguage = (text: string): string => {
-    // Simple language detection - can be expanded for more languages
-    if (/[\u0590-\u05FF]/.test(text)) {
-      return 'he'; // Hebrew
-    }
-    if (/[\u0600-\u06FF]/.test(text)) {
-      return 'ar'; // Arabic
-    }
-    if (/[\u0400-\u04FF]/.test(text)) {
-      return 'ru'; // Russian
-    }
-    // Add more language detection as needed
+    // Detect various languages by their unicode character ranges
     
-    return 'en'; // Default to English
+    // Hebrew
+    if (/[\u0590-\u05FF]/.test(text)) {
+      return 'he';
+    }
+    
+    // Arabic
+    if (/[\u0600-\u06FF]/.test(text)) {
+      return 'ar';
+    }
+    
+    // Russian/Cyrillic
+    if (/[\u0400-\u04FF]/.test(text)) {
+      return 'ru';
+    }
+    
+    // Spanish/Portuguese likely indicators (not perfect but a simple heuristic)
+    if (/[áéíóúñ¿¡]/.test(text.toLowerCase())) {
+      return 'es';
+    }
+    
+    // French likely indicators
+    if (/[àâçéèêëîïôùûüÿœ]/.test(text.toLowerCase())) {
+      return 'fr';
+    }
+    
+    // Chinese characters
+    if (/[\u4E00-\u9FFF]/.test(text)) {
+      return 'zh';
+    }
+    
+    // Japanese characters (Hiragana and Katakana)
+    if (/[\u3040-\u30FF]/.test(text)) {
+      return 'ja';
+    }
+    
+    // Korean characters
+    if (/[\uAC00-\uD7AF\u1100-\u11FF]/.test(text)) {
+      return 'ko';
+    }
+    
+    // Thai characters
+    if (/[\u0E00-\u0E7F]/.test(text)) {
+      return 'th';
+    }
+    
+    // Default to English for Latin script or when language can't be confidently determined
+    return 'en';
   };
 
   // Generate responses to practice question answers

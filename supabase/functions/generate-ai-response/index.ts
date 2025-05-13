@@ -36,13 +36,7 @@ serve(async (req) => {
     systemPrompt += `Act like a real human spiritual guide who is genuinely interested in the user's journey and responses. `;
     systemPrompt += `IMPORTANT: You should respond in English initially. If the user responds in a different language, adapt and continue the conversation in that language.`;
     
-    // Add Hebrew system prompt as well to help with Hebrew responses
-    systemPrompt += ` אם המשתמש כותב בעברית, עליך להשיב גם בעברית. אתה מדריך רוחני אמפתי ותומך למסע רוחני, `;
-    systemPrompt += `התפקיד שלך הוא ללוות את המשתמש בתהליך התפתחות אישית ורוחנית עמוקה. `;
-    systemPrompt += `הגישה שלך חמה, חכמה, מכילה ואמפתית - כמו מורה רוחני או מטפל שמחזיק מרחב בטוח לצמיחה והתפתחות.`;
-    systemPrompt += `בסוף כל הודעה שלך, כלול שאלה מחשבתית כדי לעודד רפלקציה נוספת ודיאלוג. `;
-    systemPrompt += `התנהג כמו מדריך רוחני אמיתי שמתעניין באמת במסע של המשתמש ובתשובות שלו.`;
-    
+    // If user has sent previous messages, consider their context
     if (userContext) {
       systemPrompt += ` Based on previous interactions, consider: ${userContext}`;
     }
