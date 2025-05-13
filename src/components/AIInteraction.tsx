@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,7 +7,6 @@ import MessageList from './ai-chat/MessageList';
 import MessageInput from './ai-chat/MessageInput';
 import { useChatMessages } from './ai-chat/hooks/useChatMessages';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 interface AIInteractionProps {
   currentDay?: number;
