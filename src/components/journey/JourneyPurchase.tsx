@@ -1,9 +1,11 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import JourneyDailyLessons from './JourneyDailyLessons';
 import JourneyExperienceList from './JourneyExperienceList';
 import JourneyPurchaseButton from './JourneyPurchaseButton';
+import JourneyFullProcess from './JourneyFullProcess';
 import { getJourneyExperienceContent } from '@/data/journeys/journey-experiences';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface JourneyPurchaseProps {
   price: number;
@@ -24,6 +26,8 @@ const JourneyPurchase: React.FC<JourneyPurchaseProps> = ({
   category,
   journeyId
 }) => {
+  const [showFullProcess, setShowFullProcess] = useState(false);
+  
   // If the journey is purchased, don't show this component at all
   if (isPurchased) {
     return null;
@@ -43,6 +47,25 @@ const JourneyPurchase: React.FC<JourneyPurchaseProps> = ({
       
       {/* Journey experience list */}
       <JourneyExperienceList experienceContent={experienceContent} />
+      
+      {/* Full journey process (day by day) */}
+      <JourneyFullProcess 
+        journeyId={journeyId} 
+        category={category} 
+        duration={duration}
+        showFullProcess={showFullProcess}
+      />
+      
+      {/* Toggle button to show/hide full process */}
+      <div className="flex justify-center mb-6">
+        <button
+          onClick={() => setShowFullProcess(prev => !prev)}
+          className="flex items-center gap-1 text-spirit-700 hover:text-spirit-900 transition-colors"
+        >
+          <span>{showFullProcess ? 'Hide full process' : 'See full journey process'}</span>
+          {showFullProcess ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+        </button>
+      </div>
 
       {/* Purchase button */}
       <JourneyPurchaseButton onPurchase={onPurchase} />
