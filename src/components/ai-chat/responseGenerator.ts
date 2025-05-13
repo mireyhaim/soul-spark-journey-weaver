@@ -91,6 +91,13 @@ export const getWelcomeMessage = (currentJourney?: any): string => {
     '10': `Welcome to your manifestation journey. I am ${personality.name}, your personal reality creation guide. With a focus on ${personality.specialties.join(', ')}, I'm here to help you shape your dream life with intention and purpose. Together, we'll work on removing inner blocks, creating positive thought patterns, and connecting to the energy of abundance. Each day will offer you tools and exercises to help you attract what you truly desire into your life. How do you feel about creating a life of abundance and meaning?`,
     
     '13': `I'm pleased to accompany you on this abundance meditation journey. I am ${personality.name}, your abundance guide with a ${personality.tone} approach. Together we'll work on opening your inner channels for receiving abundance in all its forms. Each day, I'll offer exercises, meditations, and guidance designed to shift your perception about abundance and help you identify blocks preventing you from receiving in abundance. What is your relationship with abundance right now?`,
+    
+    // Reality Manifestation journey (id 9)
+    '9': `Welcome to your Reality Manifestation journey. I am ${personality.name}, your dedicated guide in the art of conscious creation. I bring expertise in ${personality.specialties.join(', ')} with a ${personality.tone} approach that honors where you are while guiding you forward. 
+    
+Over the next days, we'll work together to help you understand and harness the power of your consciousness to shape your reality. I'll be with you every step of the way, offering personalized guidance, reflections, and practical exercises. 
+
+The journey we're beginning is transformative—a path to understanding how your thoughts, emotions, and energy directly influence the reality you experience. Think of me as your companion in this sacred exploration. How are you feeling as we begin?`,
   };
   
   return welcomeMessages[currentJourney.id] || 

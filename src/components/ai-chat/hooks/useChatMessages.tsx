@@ -1,9 +1,10 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Message } from '../types';
 import { getWelcomeMessage } from '../responseGenerator';
 import { getDailyQuestions } from '../practiceQuestions';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { toast } from '@/hooks/use-toast';
 
 interface UseChatMessagesProps {
   currentDay: number;
@@ -27,7 +28,10 @@ export const useChatMessages = ({
   const [questionAnswered, setQuestionAnswered] = useState<boolean>(false);
   const [practiceComplete, setPracticeComplete] = useState<boolean>(completed);
   const [userLanguage, setUserLanguage] = useState<string>('en'); // Default to English
+  const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
+  const [lastActivityTime, setLastActivityTime] = useState<number>(Date.now());
   
+  const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null);
   const supabase = useSupabaseClient();
   const userResponses: string[] = [];
 
@@ -41,6 +45,8 @@ export const useChatMessages = ({
     };
     
     setMessages([initialMessage]);
+    setWaitingForResponse(true); // Set waiting for response after welcome message
+    updateLastActivity();
 
     // If in practice mode and not completed, send the first question after a short delay
     if (isPracticeMode && !completed) {
@@ -53,9 +59,78 @@ export const useChatMessages = ({
           timestamp: new Date(Date.now() + 100)
         };
         setMessages(prev => [...prev, firstQuestion]);
+        setWaitingForResponse(true); // Also waiting for response after the question
+        updateLastActivity();
       }, 1000);
     }
+    
+    // Setup inactivity checker when component mounts
+    startInactivityTimer();
+    
+    // Cleanup inactivity timer when component unmounts
+    return () => {
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
+    };
   }, [currentDay, isPracticeMode, completed, currentJourney]);
+
+  // Update last activity time
+  const updateLastActivity = () => {
+    setLastActivityTime(Date.now());
+  };
+  
+  // Start or reset the inactivity timer
+  const startInactivityTimer = () => {
+    if (inactivityTimerRef.current) {
+      clearTimeout(inactivityTimerRef.current);
+    }
+    
+    inactivityTimerRef.current = setTimeout(checkUserInactivity, 30000); // Check every 30 seconds
+  };
+  
+  // Check if user has been inactive and is expected to respond
+  const checkUserInactivity = () => {
+    const currentTime = Date.now();
+    const inactiveTime = currentTime - lastActivityTime;
+    
+    // If waiting for response and inactive for more than 45 seconds, send a follow-up message
+    if (waitingForResponse && inactiveTime > 45000) {
+      sendFollowUpMessage();
+    }
+    
+    // Restart the timer
+    startInactivityTimer();
+  };
+  
+  // Send a follow-up message if the user is inactive
+  const sendFollowUpMessage = async () => {
+    // Only send follow-up if we're still waiting for a response
+    if (!waitingForResponse) return;
+    
+    let followUpContent = "";
+    
+    // Choose the appropriate language for the follow-up
+    if (userLanguage === 'he') {
+      followUpContent = "אתה עדיין שם? אשמח לשמוע את התשובה שלך כשתהיה מוכן.";
+    } else if (userLanguage === 'ar') {
+      followUpContent = "هل أنت ما زلت هنا؟ أتطلع إلى سماع إجابتك عندما تكون مستعدًا.";
+    } else if (userLanguage === 'ru') {
+      followUpContent = "Вы все еще здесь? Я буду рад услышать ваш ответ, когда вы будете готовы.";
+    } else {
+      followUpContent = "Are you still there? I'm looking forward to hearing your answer when you're ready.";
+    }
+    
+    const followUpMessage: Message = {
+      id: Date.now().toString(),
+      content: followUpContent,
+      sender: 'ai',
+      timestamp: new Date()
+    };
+    
+    setMessages(prev => [...prev, followUpMessage]);
+    updateLastActivity(); // Update activity time after sending follow-up
+  };
 
   // Detect user language from their input
   const detectLanguage = (text: string): string => {
@@ -137,6 +212,8 @@ export const useChatMessages = ({
     
     setMessages(prev => [...prev, userMessage]);
     setInput('');
+    setWaitingForResponse(false); // User has responded
+    updateLastActivity();
     
     // Handle practice mode questions logic
     if (isPracticeMode && !practiceComplete) {
@@ -174,6 +251,8 @@ export const useChatMessages = ({
               setMessages(prev => [...prev, nextQuestion]);
               setCurrentQuestionIndex(nextQuestionIndex);
               setQuestionAnswered(false);
+              setWaitingForResponse(true); // Waiting for response to the new question
+              updateLastActivity();
             } else {
               // This was the last question, send completion message
               const completionMessage: Message = {
@@ -200,6 +279,8 @@ export const useChatMessages = ({
           };
           
           setMessages(prev => [...prev, aiMessage]);
+          setWaitingForResponse(true); // Waiting for response after AI message
+          updateLastActivity();
         }
         
         setIsTyping(false);
@@ -219,9 +300,18 @@ export const useChatMessages = ({
         
         setMessages(prev => [...prev, aiMessage]);
         setIsTyping(false);
+        setWaitingForResponse(true); // Waiting for response after AI message
+        updateLastActivity();
       }, 1500);
     }
   };
+
+  // Update lastActivityTime whenever there's user interaction
+  useEffect(() => {
+    if (input) {
+      updateLastActivity();
+    }
+  }, [input]);
 
   return {
     input,
