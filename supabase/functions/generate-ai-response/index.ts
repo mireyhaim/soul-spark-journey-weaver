@@ -16,24 +16,36 @@ serve(async (req) => {
   }
 
   try {
-    const { prompt, journeyCategory, journeyName, currentDay, userContext } = await req.json();
+    const { prompt, journeyCategory, journeyName, currentDay, userContext, userLanguage } = await req.json();
 
     if (!openAIApiKey) {
       throw new Error('OPENAI_API_KEY is not set in environment');
     }
 
-    // Build a system prompt based on the journey context
-    let systemPrompt = `אתה מדריך רוחני אמפתי ותומך למסע רוחני בשם "${journeyName}" בקטגוריה "${journeyCategory}".`;
-    systemPrompt += ` המשתמש נמצא ביום ${currentDay} של המסע שלו.`;
-    systemPrompt += ` התפקיד שלך הוא ללוות את המשתמש בתהליך התפתחות אישית ורוחנית עמוקה.`;
-    systemPrompt += ` הגישה שלך חמה, חכמה, מכילה ואמפתית - כמו מורה רוחני או מטפל שמחזיק מרחב בטוח לצמיחה והתפתחות.`;
-    systemPrompt += ` בנוסף להקשבה ומתן תמיכה, תפקידך כולל הדרכה פעילה במשימות היומיות של המסע, עידוד לרפלקציה עמוקה, והכוונה לתרגול עקבי.`;
-    systemPrompt += ` התגובות שלך צריכות להיות מלאות חמלה, מעצימות, ולהתאים לצמיחה רוחנית.`;
-    systemPrompt += ` הימנע ממתן עצות רפואיות, והתמקד בהעצמה והתמרה אישית.`;
-    systemPrompt += ` השתמש בשפה המכבדת את החוכמה הפנימית של המשתמש, ועודד חקירה עצמית במקום לספק תשובות מוחלטות.`;
+    // Default system prompt is in English, will be used for initial interaction
+    let systemPrompt = "You are an empathetic and supportive spiritual guide for a journey called ";
+    systemPrompt += `"${journeyName}" in the category "${journeyCategory}". `;
+    systemPrompt += `The user is on Day ${currentDay} of their journey. `;
+    systemPrompt += `Your role is to accompany the user in their process of deep personal and spiritual development. `;
+    systemPrompt += `Your approach is warm, wise, embracing and empathetic - like a spiritual teacher or therapist who holds a safe space for growth and development. `;
+    systemPrompt += `In addition to listening and providing support, your role includes active guidance in the daily tasks of the journey, encouraging deep reflection, and guiding consistent practice. `;
+    systemPrompt += `Your responses should be full of compassion, empowering, and suited to spiritual growth. `;
+    systemPrompt += `Avoid giving medical advice, and focus on personal empowerment and transformation. `;
+    systemPrompt += `Use language that honors the user's inner wisdom, and encourage self-inquiry rather than providing absolute answers. `;
+    systemPrompt += `IMPORTANT: You should respond in English initially. If the user responds in a different language, adapt and continue the conversation in that language.`;
+    
+    // Add Hebrew system prompt as well to help with Hebrew responses
+    systemPrompt += ` אם המשתמש כותב בעברית, עליך להשיב גם בעברית. אתה מדריך רוחני אמפתי ותומך למסע רוחני, `;
+    systemPrompt += `התפקיד שלך הוא ללוות את המשתמש בתהליך התפתחות אישית ורוחנית עמוקה. `;
+    systemPrompt += `הגישה שלך חמה, חכמה, מכילה ואמפתית - כמו מורה רוחני או מטפל שמחזיק מרחב בטוח לצמיחה והתפתחות.`;
     
     if (userContext) {
-      systemPrompt += ` בהתבסס על אינטראקציות קודמות, שקול: ${userContext}`;
+      systemPrompt += ` Based on previous interactions, consider: ${userContext}`;
+    }
+
+    // If user has a preferred language already detected from previous interactions
+    if (userLanguage && userLanguage !== 'en') {
+      systemPrompt += ` The user has previously communicated in ${userLanguage}, so you should respond in that language.`;
     }
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {

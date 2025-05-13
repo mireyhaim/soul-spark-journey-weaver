@@ -26,6 +26,7 @@ export const useChatMessages = ({
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [questionAnswered, setQuestionAnswered] = useState<boolean>(false);
   const [practiceComplete, setPracticeComplete] = useState<boolean>(completed);
+  const [userLanguage, setUserLanguage] = useState<string>('en'); // Default to English
   
   const supabase = useSupabaseClient();
   const userResponses: string[] = [];
@@ -56,12 +57,35 @@ export const useChatMessages = ({
     }
   }, [currentDay, isPracticeMode, completed, currentJourney]);
 
+  // Detect user language from their input
+  const detectLanguage = (text: string): string => {
+    // Simple language detection - can be expanded for more languages
+    if (/[\u0590-\u05FF]/.test(text)) {
+      return 'he'; // Hebrew
+    }
+    if (/[\u0600-\u06FF]/.test(text)) {
+      return 'ar'; // Arabic
+    }
+    if (/[\u0400-\u04FF]/.test(text)) {
+      return 'ru'; // Russian
+    }
+    // Add more language detection as needed
+    
+    return 'en'; // Default to English
+  };
+
   // Generate responses to practice question answers
   const generateAIResponse = async (userInput: string, questionIndex: number = -1): Promise<string> => {
     try {
       // For very short responses, prompt for more detail
       if (userInput.length < 5) {
         return "I'd love to hear more about that. Could you please elaborate a bit?";
+      }
+      
+      // Detect language from user input
+      const detectedLanguage = detectLanguage(userInput);
+      if (detectedLanguage !== userLanguage) {
+        setUserLanguage(detectedLanguage);
       }
       
       // Store user response for context
@@ -83,7 +107,8 @@ export const useChatMessages = ({
           journeyCategory: currentJourney?.category || 'Spiritual Growth',
           journeyName: currentJourney?.title || 'Personal Development',
           currentDay: currentDay,
-          userContext: userResponses.slice(-3).join('\n')
+          userContext: userResponses.slice(-3).join('\n'),
+          userLanguage: detectedLanguage // Pass detected language to function
         }
       });
       
