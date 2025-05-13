@@ -3,6 +3,7 @@ import { LessonTopic } from './types';
 import { spiritualityLessonTopics } from './spirituality-lessons';
 import { personalDevelopmentLessonTopics } from './personal-development-lessons';
 import { abundanceManifestationLessonTopics } from './abundance-manifestation-lessons';
+import { femininePowerLessonTopics } from './feminine-power-lessons';
 import { getCategoryLessonTopics } from './default-category-lessons';
 
 // Combine all journey lesson topics
@@ -10,6 +11,7 @@ export const journeyLessonTopics = {
   ...spiritualityLessonTopics,
   ...personalDevelopmentLessonTopics,
   ...abundanceManifestationLessonTopics,
+  ...femininePowerLessonTopics,
   // Add more category imports as needed
 };
 

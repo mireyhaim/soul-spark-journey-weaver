@@ -1,31 +1,33 @@
 
-import { JourneyExperienceContent } from './types';
+import { JourneyExperience } from './types';
 import { personalDevelopmentExperiences } from './personal-development-experiences';
 import { abundanceExperiences } from './abundance-experiences';
-import { relationshipsExperiences } from './relationships-experiences';
 import { careerExperiences } from './career-experiences';
-import { getCategoryExperienceContent } from './default-category-experiences';
+import { relationshipsExperiences } from './relationships-experiences';
+import { femininePowerExperiences } from './feminine-power-experiences';
+import { getDefaultExperiences } from './default-category-experiences';
 
-// Combine all journey experiences
-export const journeySpecificExperiences = {
+// Combined journey experiences
+export const journeyExperiences = {
   ...personalDevelopmentExperiences,
   ...abundanceExperiences,
-  ...relationshipsExperiences,
   ...careerExperiences,
+  ...relationshipsExperiences,
+  ...femininePowerExperiences,
   // Add more category imports as needed
 };
 
-// Helper function to get journey-specific experience content
-export const getJourneyExperienceContent = (journeyId: string, category: string | undefined): JourneyExperienceContent => {
-  // Return journey-specific content if available
-  if (journeySpecificExperiences[journeyId]) {
-    return journeySpecificExperiences[journeyId];
+// Function to get experiences for a journey by ID or category
+export const getJourneyExperiences = (journeyId: string, category: string | undefined, duration: number): JourneyExperience[] => {
+  // Return journey-specific experiences if available
+  if (journeyExperiences[journeyId] && journeyExperiences[journeyId].length > 0) {
+    return journeyExperiences[journeyId];
   }
   
-  // Fall back to category-based content
-  return getCategoryExperienceContent(category);
+  // Fall back to default category-based experiences
+  return getDefaultExperiences(category, duration);
 };
 
-// Re-export types and functions
-export type { JourneyExperienceContent };
-export { getCategoryExperienceContent };
+// Export all helper functions and types
+export { getDefaultExperiences };
+export type { JourneyExperience };
