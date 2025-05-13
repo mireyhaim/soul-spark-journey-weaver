@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from "@/components/Header";
@@ -106,9 +105,8 @@ const BlogPost: React.FC = () => {
       } else {
         // If post is not found, show error toast and navigate back
         toast({
-          title: "Post not found",
-          description: "The blog post you're looking for doesn't exist.",
           variant: "destructive",
+          description: "The blog post you're looking for doesn't exist.",
         });
         navigate('/blog');
         setLoading(false);

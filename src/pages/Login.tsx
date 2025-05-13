@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -42,7 +43,6 @@ const Login: React.FC = () => {
       if (error) throw error;
       
       toast({
-        title: "Login successful",
         description: "Welcome back to InFlow!",
       });
       
@@ -50,7 +50,7 @@ const Login: React.FC = () => {
       window.location.href = '/';
     } catch (error: any) {
       toast({
-        title: "Login failed",
+        variant: "destructive",
         description: error.message || "Please check your credentials and try again.",
       });
     } finally {
@@ -80,7 +80,7 @@ const Login: React.FC = () => {
       // No need for success toast here as the page will redirect to Google
     } catch (error: any) {
       toast({
-        title: "Google login failed",
+        variant: "destructive",
         description: error.message || "There was a problem connecting to Google.",
       });
       setIsGoogleLoading(false);

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -15,7 +16,7 @@ const Signup: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { session } = useSession();
+  const session = useSession();
   const navigate = useNavigate();
 
   // If already logged in, redirect to home page
@@ -44,16 +45,14 @@ const Signup: React.FC = () => {
       if (error) throw error;
       
       toast({
-        title: "Signup successful",
         description: "Please check your email to verify your account.",
       });
       
       navigate('/login');
     } catch (error: any) {
       toast({
-        title: "Signup failed",
+        variant: "destructive",
         description: error.message || "There was a problem signing up. Please try again.",
-        variant: "destructive"
       });
     } finally {
       setIsLoading(false);
