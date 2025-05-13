@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { useSession } from '@supabase/auth-helpers-react';
+import { cleanupAuthState } from '@/utils/auth-utils';
 
 const Signup: React.FC = () => {
   const [name, setName] = useState('');
@@ -15,22 +18,53 @@ const Signup: React.FC = () => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const session = useSession();
+  
+  // If already logged in, redirect to home page
+  useEffect(() => {
+    if (session) {
+      navigate('/');
+    }
+  }, [session, navigate]);
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate API request
-    setTimeout(() => {
+    try {
+      // Clean up existing auth state first
+      cleanupAuthState();
+      
+      // Attempt to create a new user
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: name,
+          }
+        }
+      });
+      
+      if (error) throw error;
+      
       toast({
         title: "Account created",
-        description: "Your account has been created successfully. Explore our journeys now!",
+        description: "Your account has been created successfully. You can now log in!",
       });
-      setIsLoading(false);
       
-      // In a real app, we would redirect after successful signup
-      window.location.href = '/journeys';
-    }, 1500);
+      // Navigate to login page
+      navigate('/login');
+    } catch (error: any) {
+      toast({
+        title: "Signup failed",
+        description: error.message || "There was an error creating your account. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -74,9 +108,10 @@ const Signup: React.FC = () => {
                   <Input 
                     id="password"
                     type="password" 
-                    placeholder="Create a password" 
+                    placeholder="Create a password (min 6 characters)" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    minLength={6}
                     required
                   />
                 </div>
