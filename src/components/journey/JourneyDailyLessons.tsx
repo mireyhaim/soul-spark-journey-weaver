@@ -27,10 +27,10 @@ const JourneyDailyLessons: React.FC<JourneyDailyLessonsProps> = ({
         <BookOpen size={18} />
         <span>Daily Lessons:</span>
       </h3>
-      <ul className="text-earth-700 space-y-2 ml-2">
+      <ul className="space-y-2 ml-2">
         {previewLessons.map((lesson) => (
           <li key={lesson.day} className="flex items-start gap-2">
-            <span className="text-earth-900 font-bold">Day {lesson.day}:</span>
+            <span className="font-bold">Day {lesson.day}:</span>
             <span>{lesson.title}</span>
           </li>
         ))}
