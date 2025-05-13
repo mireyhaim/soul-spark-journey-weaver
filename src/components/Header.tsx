@@ -3,8 +3,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { User } from 'lucide-react';
+import { useSession } from '@supabase/auth-helpers-react';
 
 const Header: React.FC = () => {
+  const session = useSession();
+  const isLoggedIn = !!session;
+
   return (
     <header className="py-4 px-4 md:px-6 border-b">
       <div className="container mx-auto">
@@ -39,15 +43,31 @@ const Header: React.FC = () => {
           </nav>
           
           <div className="flex items-center space-x-3">
-            <Link to="/profile" className="hidden md:flex hover:text-spirit-600">
-              <User size={20} />
-            </Link>
-            <Button variant="outline" className="hidden md:flex" asChild>
-              <Link to="/login">Login</Link>
-            </Button>
-            <Button className="bg-spirit-600 hover:bg-spirit-700" asChild>
-              <Link to="/signup">Sign Up</Link>
-            </Button>
+            {isLoggedIn && (
+              <Link to="/profile" className="hidden md:flex hover:text-spirit-600">
+                <User size={20} />
+              </Link>
+            )}
+            {!isLoggedIn ? (
+              <>
+                <Button variant="outline" className="hidden md:flex" asChild>
+                  <Link to="/login">Login</Link>
+                </Button>
+                <Button className="bg-spirit-600 hover:bg-spirit-700" asChild>
+                  <Link to="/signup">Sign Up</Link>
+                </Button>
+              </>
+            ) : (
+              <Button 
+                className="bg-spirit-600 hover:bg-spirit-700"
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  window.location.href = '/';
+                }}
+              >
+                Logout
+              </Button>
+            )}
           </div>
         </div>
       </div>
