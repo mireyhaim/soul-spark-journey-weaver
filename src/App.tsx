@@ -1,43 +1,55 @@
 
 import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import TeacherPortal from "./components/TeacherPortal";
-import UserJourney from "./components/UserJourney";
-import Journeys from "./pages/Journeys";
-import Signup from "./pages/Signup";
-import MentorLanding from "./pages/MentorLanding";
-import FAQ from "./pages/FAQ";
-import Blog from "./pages/Blog";
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { createClient } from '@supabase/supabase-js';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
 
-const queryClient = new QueryClient();
+// Pages
+import Index from './pages/Index';
+import FAQ from './pages/FAQ';
+import NotFound from './pages/NotFound';
+import Journeys from './pages/Journeys';
+import UserJourney from './components/UserJourney';
+import Blog from './pages/Blog';
+import BlogArchive from './pages/BlogArchive';
+import Signup from './pages/Signup';
+import MentorLanding from './pages/MentorLanding';
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/mentor" element={<MentorLanding />} />
-          <Route path="/teacher" element={<TeacherPortal />} />
-          <Route path="/journey/:id" element={<UserJourney />} />
-          <Route path="/journeys" element={<Journeys />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/blog" element={<Blog />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+// Components
+import Header from './components/Header';
+import Footer from './components/Footer';
+
+// Define Supabase client
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL || '',
+  import.meta.env.VITE_SUPABASE_ANON_KEY || ''
 );
 
-export default App;
+function App() {
+  return (
+    <SessionContextProvider supabaseClient={supabase}>
+      <Router>
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/archive" element={<BlogArchive />} />
+              <Route path="/journeys" element={<Journeys />} />
+              <Route path="/journey/:id" element={<UserJourney />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/for-teachers" element={<MentorLanding />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+        <Toaster />
+      </Router>
+    </SessionContextProvider>
+  );
+}
 
+export default App;

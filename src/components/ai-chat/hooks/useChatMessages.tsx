@@ -1,8 +1,9 @@
 
 import { useState, useEffect } from 'react';
 import { Message } from '../types';
-import { generateResponse, getWelcomeMessage } from '../responseGenerator';
+import { getWelcomeMessage } from '../responseGenerator';
 import { getDailyQuestions } from '../practiceQuestions';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 interface UseChatMessagesProps {
   currentDay: number;
@@ -25,6 +26,9 @@ export const useChatMessages = ({
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [questionAnswered, setQuestionAnswered] = useState<boolean>(false);
   const [practiceComplete, setPracticeComplete] = useState<boolean>(completed);
+  
+  const supabase = useSupabaseClient();
+  const userResponses: string[] = [];
 
   // Initialize with welcome message when component mounts
   useEffect(() => {
@@ -53,35 +57,46 @@ export const useChatMessages = ({
   }, [currentDay, isPracticeMode, completed, currentJourney]);
 
   // Generate responses to practice question answers
-  const generatePracticeResponse = (userAnswer: string, questionIndex: number): string => {
-    // Simple validation - don't accept very short answers
-    if (userAnswer.length < 5) {
-      return "I'd love to hear more about that. Could you please elaborate a bit?";
+  const generateAIResponse = async (userInput: string, questionIndex: number = -1): Promise<string> => {
+    try {
+      // For very short responses, prompt for more detail
+      if (userInput.length < 5) {
+        return "I'd love to hear more about that. Could you please elaborate a bit?";
+      }
+      
+      // Store user response for context
+      userResponses.push(userInput);
+      
+      // If we're in the practice flow, create a prompt specific to the question
+      let contextPrompt = '';
+      if (questionIndex >= 0) {
+        const dailyQuestions = getDailyQuestions(currentDay);
+        contextPrompt = `The user is answering this question: "${dailyQuestions[questionIndex].question}". Their answer is: "${userInput}". Provide a supportive, empathetic response that acknowledges their reflection and gently guides them deeper.`;
+      } else {
+        // General conversation
+        contextPrompt = `The user said: "${userInput}". Provide a supportive, empathetic response related to their spiritual journey.`;
+      }
+      
+      const { data, error } = await supabase.functions.invoke('generate-ai-response', {
+        body: {
+          prompt: contextPrompt,
+          journeyCategory: currentJourney?.category || 'Spiritual Growth',
+          journeyName: currentJourney?.title || 'Personal Development',
+          currentDay: currentDay,
+          userContext: userResponses.slice(-3).join('\n')
+        }
+      });
+      
+      if (error) {
+        console.error('Error calling AI function:', error);
+        return "I'm reflecting on what you shared. While I process that, would you like to tell me more about your experience?";
+      }
+      
+      return data.message;
+    } catch (error) {
+      console.error('Error generating AI response:', error);
+      return "Thank you for sharing. I'm here to support you on this journey. Would you like to explore this topic further?";
     }
-    
-    const positiveResponses = [
-      "Thank you for sharing that insight. I really appreciate your depth of reflection.",
-      "That's a thoughtful response. I can see you're engaging deeply with this process.",
-      "What a beautiful reflection. Your awareness in this area is growing.",
-      "I appreciate your honesty. This kind of reflection is exactly what helps deepen your journey.",
-      "That's a powerful insight. Thank you for sharing your truth."
-    ];
-    
-    const encouragementByQuestion = [
-      "I see your vision for abundance clearly forming.",
-      "Recognizing these beliefs is the first step to transforming them.",
-      "Releasing limitations opens space for new possibilities.",
-      "Your meditation practice is deepening beautifully.",
-      "Gratitude is such a powerful force for manifestation."
-    ];
-    
-    const questionSpecificResponse = questionIndex < encouragementByQuestion.length 
-      ? encouragementByQuestion[questionIndex]
-      : "Your reflection shows real growth.";
-    
-    const randomPositive = positiveResponses[Math.floor(Math.random() * positiveResponses.length)];
-    
-    return `${randomPositive} ${questionSpecificResponse}`;
   };
 
   const handleSend = () => {
@@ -101,15 +116,18 @@ export const useChatMessages = ({
     // Handle practice mode questions logic
     if (isPracticeMode && !practiceComplete) {
       setIsTyping(true);
-      setTimeout(() => {
+      setTimeout(async () => {
         const dailyQuestions = getDailyQuestions(currentDay);
         
         // If this is a response to a question and not the last question
         if (!questionAnswered) {
+          // Generate AI response to the user's answer
+          const aiResponse = await generateAIResponse(input, currentQuestionIndex);
+          
           // Respond to the user's answer
           const responseMessage: Message = {
             id: (Date.now() + 1).toString(),
-            content: generatePracticeResponse(input, currentQuestionIndex),
+            content: aiResponse,
             sender: 'ai',
             timestamp: new Date()
           };
@@ -147,9 +165,11 @@ export const useChatMessages = ({
           }, 1500);
         } else {
           // If user is continuing conversation after completing practice
+          const aiResponse = await generateAIResponse(input);
+          
           const aiMessage: Message = {
             id: (Date.now() + 1).toString(),
-            content: generateResponse({ userInput: input, journey: currentJourney }),
+            content: aiResponse,
             sender: 'ai',
             timestamp: new Date()
           };
@@ -162,10 +182,12 @@ export const useChatMessages = ({
     } else {
       // Normal chat mode
       setIsTyping(true);
-      setTimeout(() => {
+      setTimeout(async () => {
+        const aiResponse = await generateAIResponse(input);
+        
         const aiMessage: Message = {
           id: (Date.now() + 1).toString(),
-          content: generateResponse({ userInput: input, journey: currentJourney }),
+          content: aiResponse,
           sender: 'ai',
           timestamp: new Date()
         };
