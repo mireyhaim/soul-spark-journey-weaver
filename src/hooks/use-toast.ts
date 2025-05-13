@@ -1,5 +1,5 @@
 import * as React from "react"
-import { toast as sonnerToast, type ToastOptions as SonnerToastOptions } from "sonner"
+import { toast as sonnerToast } from "sonner"
 
 import type {
   ToastActionElement,
@@ -138,13 +138,32 @@ function dispatch(action: Action) {
   })
 }
 
+// Define a type for optional toast parameters
+type ToastOptions = {
+  className?: string
+  description?: string
+  variant?: "default" | "destructive"
+}
+
 /**
- * Simplified toast function that works with Sonner
- * @param message The message to display or options object
- * @param options Optional toast options
+ * Flexible toast function that works with different parameter types
+ * @param messageOrOptions Either a string message or options object
+ * @param options Optional toast options when first parameter is a string
  */
-function toast(message: string, options?: SonnerToastOptions) {
-  return sonnerToast(message, options);
+function toast(messageOrOptions: string | ToastOptions, options?: object) {
+  if (typeof messageOrOptions === 'string') {
+    return sonnerToast(messageOrOptions, options);
+  } else {
+    // Handle legacy format where an object with description is passed
+    const message = messageOrOptions.description || '';
+    const toastOptions = { 
+      ...options,
+      className: messageOrOptions.variant === "destructive" 
+        ? "bg-destructive text-destructive-foreground" 
+        : messageOrOptions.className || ''
+    };
+    return sonnerToast(message, toastOptions);
+  }
 }
 
 function useToast() {

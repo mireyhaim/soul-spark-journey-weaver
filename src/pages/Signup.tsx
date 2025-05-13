@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -44,15 +43,12 @@ const Signup: React.FC = () => {
       
       if (error) throw error;
       
-      toast({
-        description: "Please check your email to verify your account.",
-      });
+      toast("Please check your email to verify your account.");
       
       navigate('/login');
     } catch (error: any) {
-      toast({
-        description: error.message || "There was a problem signing up. Please try again.",
-        variant: "destructive",
+      toast(error.message || "There was a problem signing up. Please try again.", {
+        className: "bg-destructive text-destructive-foreground"
       });
     } finally {
       setIsLoading(false);

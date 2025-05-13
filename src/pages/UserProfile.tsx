@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -38,9 +37,8 @@ const UserProfile: React.FC = () => {
   useEffect(() => {
     // Check if user is logged in
     if (!session) {
-      toast({
-        description: "You need to login to access your profile.",
-        variant: "destructive",
+      toast("You need to login to access your profile.", {
+        className: "bg-destructive text-destructive-foreground"
       });
       // Redirect to login page
       navigate('/login');
