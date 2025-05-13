@@ -6,7 +6,7 @@ export const consciousnessJourneys: Journey[] = [
     id: '7',
     title: 'Expanding Consciousness',
     description: 'Move beyond limiting beliefs and expand your awareness of reality and possibility.',
-    teacher: 'Dr. Robert James',
+    teacher: '',
     duration: 14,
     category: 'Consciousness',
     image: 'https://images.unsplash.com/photo-1510797215324-95aa89f43c33?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
