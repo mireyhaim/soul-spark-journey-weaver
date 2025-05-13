@@ -19,7 +19,7 @@ const FeaturedPosts: React.FC = () => {
       id: 2,
       title: "Why Short 7-21 Day Processes Work Better Than Long Courses",
       excerpt: "In the world of learning and personal growth, we're seeing an increasing shift from traditional long courses to short, focused processes. We've understood why this works better.",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600",
+      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600",
       author: "Daniel Cohen",
       date: "May 10, 2025",
       category: "Learning"

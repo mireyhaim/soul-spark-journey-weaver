@@ -9,7 +9,7 @@ const RecentPosts: React.FC = () => {
       id: 3,
       title: "What's the Difference Between Spiritual Consciousness and Positive Thinking?",
       excerpt: "Explore the key differences between spiritual awareness and mere positive thinking, and how to cultivate each for personal growth.",
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=300",
+      image: "https://images.unsplash.com/photo-1500673922987-e212871fec22?auto=format&fit=crop&w=300",
       author: "Sarah Williams",
       date: "April 28, 2025",
       category: "Spirituality"
@@ -18,7 +18,7 @@ const RecentPosts: React.FC = () => {
       id: 4,
       title: "Abundance Mindset – Is It Just a Catchphrase?",
       excerpt: "Dive deep into what abundance consciousness really means beyond the surface-level interpretations popular in self-help circles.",
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=300",
+      image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=300",
       author: "Michael Rivera",
       date: "April 22, 2025",
       category: "Mindset"
@@ -27,7 +27,7 @@ const RecentPosts: React.FC = () => {
       id: 5,
       title: "How to Use Vision Boards Intelligently, Not Superficially",
       excerpt: "Learn practical techniques to create vision boards that connect with your deeper intentions rather than just surface-level desires.",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=300",
+      image: "https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=300",
       author: "Emma Thompson",
       date: "April 15, 2025",
       category: "Manifestation"
