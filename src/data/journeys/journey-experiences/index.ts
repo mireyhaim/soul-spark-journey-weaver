@@ -5,7 +5,7 @@ import { abundanceExperiences } from './abundance-experiences';
 import { careerExperiences } from './career-experiences';
 import { relationshipsExperiences } from './relationships-experiences';
 import { femininePowerExperiences } from './feminine-power-experiences';
-import { getDefaultExperiences } from './default-category-experiences';
+import { getCategoryExperienceContent, getDefaultExperiences } from './default-category-experiences';
 
 // Combined journey experiences
 export const journeyExperiences: JourneyExperienceMap = {

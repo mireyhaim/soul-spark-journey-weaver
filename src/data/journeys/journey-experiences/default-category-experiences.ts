@@ -1,5 +1,5 @@
 
-import { JourneyExperienceContent, JourneyExperienceMap } from './types';
+import { JourneyExperienceContent } from './types';
 
 // Get default experiences content by category
 export const getCategoryExperienceContent = (category: string | undefined): JourneyExperienceContent => {
