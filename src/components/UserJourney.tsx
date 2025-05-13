@@ -9,6 +9,7 @@ import JourneyTimeline from './journey/JourneyTimeline';
 import JourneyInsights from './journey/JourneyInsights';
 import JourneyExplanations from './journey/JourneyExplanations';
 import JourneyPurchase from './journey/JourneyPurchase';
+import ProcessesBar from './journey/ProcessesBar';
 
 // Calculate price based on journey duration
 const getJourneyPrice = (duration: number): number => {
@@ -115,12 +116,19 @@ const UserJourney: React.FC = () => {
                   completed={completed}
                   onNext={handleNextDay}
                 />
+                
+                {/* Processes bar */}
+                <ProcessesBar 
+                  currentDay={currentDay}
+                  duration={journey.duration}
+                  savedProgress={savedProgress}
+                />
               </div>
               
               <div className="grid grid-cols-1 gap-6">
                 {/* Journey Timeline and AI Chat with Practice Questions */}
                 <div className="bg-white p-6 rounded-lg border shadow-sm">
-                  <div className="mb-6">
+                  <div>
                     <h2 className="text-2xl font-sans font-semibold mb-4">Your Spirit Guide</h2>
                     <JourneyInsights 
                       currentDay={currentDay} 

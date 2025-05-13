@@ -41,7 +41,7 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
   });
 
   return (
-    <Card className="w-full max-w-xl mx-auto shadow-lg border-spirit-100">
+    <Card className="w-full shadow-lg border-spirit-100">
       <CardHeader className="bg-gradient-to-r from-spirit-50 to-calm-50">
         <div className="flex items-center space-x-3">
           <Avatar>

@@ -18,7 +18,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages, isTyping }) => {
   }, [messages, isTyping]);
 
   return (
-    <div className="h-[300px] overflow-y-auto p-4">
+    <div className="h-[400px] overflow-y-auto p-4">
       {messages.map(message => (
         <MessageBubble key={message.id} message={message} />
       ))}

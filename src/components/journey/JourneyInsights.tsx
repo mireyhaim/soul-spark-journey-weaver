@@ -14,7 +14,7 @@ const JourneyInsights: React.FC<JourneyInsightsProps> = ({
   onComplete
 }) => {
   return (
-    <div>
+    <div className="w-full">
       <AIInteraction 
         currentDay={currentDay}
         completed={completed}
