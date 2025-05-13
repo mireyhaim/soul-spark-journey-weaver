@@ -1,5 +1,5 @@
 import * as React from "react"
-import { toast as sonnerToast } from "sonner"
+import { toast as sonnerToast, type ToastOptions as SonnerToastOptions } from "sonner"
 
 import type {
   ToastActionElement,
@@ -138,19 +138,13 @@ function dispatch(action: Action) {
   })
 }
 
-// Define the type for Sonner toast options to match our implementation
-interface SonnerToastOptions {
-  description?: React.ReactNode
-  variant?: "default" | "destructive"
-}
-
-// Update the toast function to match Sonner's API
-function toast(options: SonnerToastOptions) {
-  // Map our options to Sonner's options
-  return sonnerToast(options.description as string, {
-    // Style based on variant
-    className: options.variant === "destructive" ? "bg-destructive text-destructive-foreground" : "",
-  });
+/**
+ * Simplified toast function that works with Sonner
+ * @param message The message to display or options object
+ * @param options Optional toast options
+ */
+function toast(message: string, options?: SonnerToastOptions) {
+  return sonnerToast(message, options);
 }
 
 function useToast() {

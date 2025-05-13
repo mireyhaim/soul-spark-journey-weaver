@@ -35,10 +35,7 @@ const MentorLanding: React.FC = () => {
     setDialogOpen(false);
     
     // Show success toast - Changed from Hebrew to English
-    toast({
-      title: "Your details were received successfully!",
-      description: "We will contact you by email soon.",
-    });
+    toast("We will contact you by email soon.");
   };
 
   return (

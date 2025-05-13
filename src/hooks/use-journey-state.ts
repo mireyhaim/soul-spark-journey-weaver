@@ -29,10 +29,7 @@ export const useJourneyState = (journeyData: any) => {
     }
     
     setCompleted(true);
-    toast({
-      title: "Practice completed!",
-      description: "Great job! Your reflections have been saved and you've completed today's practice.",
-    });
+    toast("Great job! Your reflections have been saved and you've completed today's practice.");
 
     if (isMobile) {
       setShowChatOnMobile(false);
@@ -45,10 +42,7 @@ export const useJourneyState = (journeyData: any) => {
       setCurrentDay(prev => prev + 1);
       setCompleted(false); // Reset completed state for the new day
       
-      toast({
-        title: "Moving to next day",
-        description: `You're now on Day ${currentDay + 1} of your journey. Keep up the great work!`,
-      });
+      toast(`You're now on Day ${currentDay + 1} of your journey. Keep up the great work!`);
     }
   };
 
@@ -56,18 +50,12 @@ export const useJourneyState = (journeyData: any) => {
     setIsPurchased(true);
     // Hide explanations immediately after purchase
     setShowExplanations(false);
-    toast({
-      title: "Journey purchased!",
-      description: `Your ${journeyData.title} journey has been purchased for $${price}. Enjoy your spiritual path!`,
-    });
+    toast(`Your ${journeyData.title} journey has been purchased for $${price}. Enjoy your spiritual path!`);
   };
 
   const handleContinueJourney = () => {
     setCompleted(false); // Reset completed state for the current day
-    toast({
-      title: "Continue your journey",
-      description: `Day ${currentDay} of your ${journeyData.title} journey is ready for you.`,
-    });
+    toast(`Day ${currentDay} of your ${journeyData.title} journey is ready for you.`);
     
     if (isMobile) {
       setShowChatOnMobile(true);

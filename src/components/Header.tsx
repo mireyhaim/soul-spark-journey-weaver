@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -22,18 +21,13 @@ const Header: React.FC = () => {
       // Attempt to sign out
       await supabase.auth.signOut({ scope: 'global' });
       
-      toast({
-        title: "Logged out successfully",
-        description: "You have been signed out of your account."
-      });
+      toast("You have been signed out of your account.");
       
       // Force page reload for a clean state
       window.location.href = '/';
     } catch (error: any) {
-      toast({
-        title: "Logout failed",
-        description: error.message || "There was a problem signing out.",
-        variant: "destructive"
+      toast(error.message || "There was a problem signing out.", {
+        className: "bg-destructive text-destructive-foreground"
       });
     }
   };
