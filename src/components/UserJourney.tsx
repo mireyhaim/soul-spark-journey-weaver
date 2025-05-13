@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
@@ -8,7 +9,6 @@ import JourneyTimeline from './journey/JourneyTimeline';
 import JourneyInsights from './journey/JourneyInsights';
 import JourneyExplanations from './journey/JourneyExplanations';
 import JourneyPurchase from './journey/JourneyPurchase';
-import ProcessesBar from './journey/ProcessesBar';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { MessageCircle, ArrowLeft } from 'lucide-react';
 import { Button } from './ui/button';
@@ -148,7 +148,7 @@ const UserJourney: React.FC = () => {
           {/* Only show progress info and content if journey is purchased */}
           {isPurchased ? (
             <>
-              <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
+              <div className="mb-6">
                 {/* Progress information */}
                 <JourneyProgress 
                   currentDay={currentDay} 
@@ -156,13 +156,6 @@ const UserJourney: React.FC = () => {
                   onContinue={handleContinueJourney}
                   completed={completed}
                   onNext={handleNextDay}
-                />
-                
-                {/* Processes bar */}
-                <ProcessesBar 
-                  currentDay={currentDay}
-                  duration={journey.duration}
-                  savedProgress={savedProgress}
                 />
               </div>
               
