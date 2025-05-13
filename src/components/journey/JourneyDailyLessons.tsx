@@ -25,7 +25,7 @@ const JourneyDailyLessons: React.FC<JourneyDailyLessonsProps> = ({
     <div className="bg-earth-50 p-4 rounded-md mb-6">
       <h3 className="font-medium text-earth-800 flex items-center gap-2 mb-3">
         <BookOpen size={18} />
-        <span>Daily Lessons Preview:</span>
+        <span>Daily Lessons:</span>
       </h3>
       <ul className="text-earth-700 space-y-2 ml-2">
         {previewLessons.map((lesson) => (
@@ -34,11 +34,6 @@ const JourneyDailyLessons: React.FC<JourneyDailyLessonsProps> = ({
             <span>{lesson.title}</span>
           </li>
         ))}
-        {lessonTopics.length > maxPreview && (
-          <li className="text-earth-500 italic text-sm mt-2">
-            ...and {lessonTopics.length - maxPreview} more lessons throughout the journey
-          </li>
-        )}
       </ul>
     </div>
   );
