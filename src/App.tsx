@@ -1,7 +1,6 @@
 
 import { Toaster } from "@/components/ui/toaster";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 
 // Pages
@@ -19,11 +18,8 @@ import MentorLanding from './pages/MentorLanding';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
-// Define Supabase client
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL || '',
-  import.meta.env.VITE_SUPABASE_ANON_KEY || ''
-);
+// Import the supabase client directly from our client file
+import { supabase } from "@/integrations/supabase/client";
 
 function App() {
   return (
