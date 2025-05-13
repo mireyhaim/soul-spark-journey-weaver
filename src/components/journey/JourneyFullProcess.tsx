@@ -19,9 +19,10 @@ const JourneyFullProcess: React.FC<JourneyFullProcessProps> = ({
 }) => {
   const lessonTopics = getJourneyLessonTopics(journeyId, category, duration);
   
-  // Group lessons by week for easier navigation
+  // Group lessons by week for easier navigation - ensure each week has up to 7 days
   const weeks: { [key: string]: typeof lessonTopics } = {};
   lessonTopics.forEach(lesson => {
+    // Calculate week number (1-based) - each week has exactly 7 days
     const weekNumber = Math.ceil(lesson.day / 7);
     const weekKey = `Week ${weekNumber}`;
     if (!weeks[weekKey]) {
@@ -61,15 +62,22 @@ const JourneyFullProcess: React.FC<JourneyFullProcessProps> = ({
       
       <Tabs defaultValue={Object.keys(weeks)[0]} className="w-full">
         <TabsList className="mb-4 w-full justify-start bg-earth-50 p-1 h-auto overflow-auto flex flex-wrap">
-          {Object.keys(weeks).map((weekKey) => (
-            <TabsTrigger 
-              key={weekKey} 
-              value={weekKey}
-              className="py-2 px-4 data-[state=active]:bg-spirit-100 data-[state=active]:text-spirit-800"
-            >
-              {weekKey}
-            </TabsTrigger>
-          ))}
+          {Object.keys(weeks).map((weekKey) => {
+            const weekLessons = weeks[weekKey];
+            const firstDay = weekLessons[0]?.day || 0;
+            const lastDay = weekLessons[weekLessons.length - 1]?.day || 0;
+            
+            return (
+              <TabsTrigger 
+                key={weekKey} 
+                value={weekKey}
+                className="py-2 px-4 data-[state=active]:bg-spirit-100 data-[state=active]:text-spirit-800"
+              >
+                <span>{weekKey}</span>
+                <span className="ml-1 text-xs text-earth-500">(Day {firstDay}-{lastDay})</span>
+              </TabsTrigger>
+            );
+          })}
         </TabsList>
         
         {Object.entries(weeks).map(([weekKey, weekLessons]) => (
