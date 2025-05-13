@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
@@ -10,6 +10,11 @@ import { Button } from "@/components/ui/button";
 import { Check, Clock, Award, BookOpen, BookOpenCheck, Star } from 'lucide-react';
 import { journeys } from '@/data/journeys';
 import { Link } from 'react-router-dom';
+import { toast } from '@/components/ui/use-toast';
+
+// Import Supabase client
+import { supabase } from "@/integrations/supabase/client";
+import { useSession } from '@supabase/auth-helpers-react';
 
 // Mock user data - to be replaced with actual user data from Supabase
 const mockUser = {
@@ -27,6 +32,26 @@ const mockUser = {
 const UserProfile: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const userId = id || mockUser.id; // Use param if available, otherwise use mock
+  const navigate = useNavigate();
+  const session = useSession();
+
+  useEffect(() => {
+    // Check if user is logged in
+    if (!session) {
+      toast({
+        title: "Authentication Required",
+        description: "You need to login to access your profile.",
+        variant: "destructive",
+      });
+      // Redirect to login page
+      navigate('/login');
+    }
+  }, [session, navigate]);
+
+  // If no session, don't render the profile content
+  if (!session) {
+    return null;
+  }
   
   // Get completed journeys
   const completedJourneyData = mockUser.completedJourneys.map(
