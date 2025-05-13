@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { Message } from '../types';
 import { getWelcomeMessage } from '../responseGenerator';
@@ -29,12 +30,13 @@ export const useChatMessages = ({
   const [userLanguage, setUserLanguage] = useState<string>('en'); // Default to English
   const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
   const [lastActivityTime, setLastActivityTime] = useState<number>(Date.now());
+  const [initialMessageSent, setInitialMessageSent] = useState<boolean>(false);
   
   const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null);
   const supabase = useSupabaseClient();
   const userResponses: string[] = [];
 
-  // Initialize with welcome message when component mounts
+  // Initialize with welcome message when component mounts - but only the welcome message
   useEffect(() => {
     const initialMessage: Message = {
       id: '1',
@@ -45,23 +47,8 @@ export const useChatMessages = ({
     
     setMessages([initialMessage]);
     setWaitingForResponse(true); // Set waiting for response after welcome message
+    setInitialMessageSent(true);
     updateLastActivity();
-
-    // If in practice mode and not completed, send the first question after a short delay
-    if (isPracticeMode && !completed) {
-      setTimeout(() => {
-        const dailyQuestions = getDailyQuestions(currentDay);
-        const firstQuestion: Message = {
-          id: '2',
-          content: `It's Day ${currentDay} of your journey. ${dailyQuestions[0].question}`,
-          sender: 'ai',
-          timestamp: new Date(Date.now() + 100)
-        };
-        setMessages(prev => [...prev, firstQuestion]);
-        setWaitingForResponse(true); // Also waiting for response after the question
-        updateLastActivity();
-      }, 1000);
-    }
     
     // Setup inactivity checker when component mounts
     startInactivityTimer();
@@ -257,11 +244,41 @@ export const useChatMessages = ({
     // Handle practice mode questions logic
     if (isPracticeMode && !practiceComplete) {
       setIsTyping(true);
+      
       setTimeout(async () => {
         const dailyQuestions = getDailyQuestions(currentDay);
         
-        // If this is a response to a question and not the last question
-        if (!questionAnswered) {
+        // Send first question if this is the first user message and we haven't sent a question yet
+        if (!questionAnswered && currentQuestionIndex === 0 && initialMessageSent) {
+          // Generate AI response to the user's first message (greeting)
+          const aiResponse = await generateAIResponse(input);
+          
+          // Add AI's response to the user's greeting
+          const responseMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            content: aiResponse,
+            sender: 'ai',
+            timestamp: new Date()
+          };
+          
+          setMessages(prev => [...prev, responseMessage]);
+          
+          // After a short delay, send the first practice question
+          setTimeout(() => {
+            const firstQuestion: Message = {
+              id: (Date.now() + 2).toString(),
+              content: `It's Day ${currentDay} of your journey. ${dailyQuestions[0].question}`,
+              sender: 'ai',
+              timestamp: new Date()
+            };
+            
+            setMessages(prev => [...prev, firstQuestion]);
+            setWaitingForResponse(true); // Waiting for response to the question
+            updateLastActivity();
+          }, 1500);
+        } 
+        // If this is a response to a question
+        else if (!questionAnswered) {
           // Generate AI response to the user's answer
           const aiResponse = await generateAIResponse(input, currentQuestionIndex);
           
@@ -276,10 +293,15 @@ export const useChatMessages = ({
           setMessages(prev => [...prev, responseMessage]);
           setQuestionAnswered(true);
           
-          // After a short delay, send the next question if there are more
+          // After a short delay, check if there are more questions
           setTimeout(() => {
             if (currentQuestionIndex < dailyQuestions.length - 1) {
+              // Prepare for the next question but don't send it yet - wait for user's next message
               const nextQuestionIndex = currentQuestionIndex + 1;
+              setCurrentQuestionIndex(nextQuestionIndex);
+              setQuestionAnswered(false);
+              
+              // Send the next question
               const nextQuestion: Message = {
                 id: (Date.now() + 2).toString(),
                 content: dailyQuestions[nextQuestionIndex].question,
@@ -288,8 +310,6 @@ export const useChatMessages = ({
               };
               
               setMessages(prev => [...prev, nextQuestion]);
-              setCurrentQuestionIndex(nextQuestionIndex);
-              setQuestionAnswered(false);
               setWaitingForResponse(true); // Waiting for response to the new question
               updateLastActivity();
             } else {
@@ -304,10 +324,12 @@ export const useChatMessages = ({
               setMessages(prev => [...prev, completionMessage]);
               setPracticeComplete(true);
               onComplete(); // Notify parent component that practice is complete
+              setWaitingForResponse(true); // Waiting for any further user input
+              updateLastActivity();
             }
           }, 1500);
         } else {
-          // If user is continuing conversation after completing practice
+          // User is continuing conversation after answering a question or completing practice
           const aiResponse = await generateAIResponse(input);
           
           const aiMessage: Message = {
