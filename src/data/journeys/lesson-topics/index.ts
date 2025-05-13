@@ -4,6 +4,13 @@ import { spiritualityLessonTopics } from './spirituality-lessons';
 import { personalDevelopmentLessonTopics } from './personal-development-lessons';
 import { abundanceManifestationLessonTopics } from './abundance-manifestation-lessons';
 import { femininePowerLessonTopics } from './feminine-power-lessons';
+import { consciousnessLessonTopics } from './consciousness-lessons';
+import { realityManifestationLessonTopics } from './reality-manifestation-lessons';
+import { relationshipsLessonTopics } from './relationships-lessons';
+import { careerDevelopmentLessonTopics } from './career-development-lessons';
+import { emotionalHealingLessonTopics } from './emotional-healing-lessons';
+import { energyHealingLessonTopics } from './energy-healing-lessons';
+import { productivityLessonTopics } from './productivity-lessons';
 import { getCategoryLessonTopics } from './default-category-lessons';
 
 // Combine all journey lesson topics
@@ -12,7 +19,13 @@ export const journeyLessonTopics = {
   ...personalDevelopmentLessonTopics,
   ...abundanceManifestationLessonTopics,
   ...femininePowerLessonTopics,
-  // Add more category imports as needed
+  ...consciousnessLessonTopics,
+  ...realityManifestationLessonTopics,
+  ...relationshipsLessonTopics,
+  ...careerDevelopmentLessonTopics,
+  ...emotionalHealingLessonTopics,
+  ...energyHealingLessonTopics,
+  ...productivityLessonTopics
 };
 
 // Function to get lesson topics for a journey by ID or category

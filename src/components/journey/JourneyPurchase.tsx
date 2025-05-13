@@ -42,7 +42,7 @@ const JourneyPurchase: React.FC<JourneyPurchaseProps> = ({
       {/* Journey experience list */}
       <JourneyExperienceList experienceContent={experienceContent} />
       
-      {/* Full journey process (day by day) */}
+      {/* Full journey process (day by day) - always show full process */}
       <JourneyFullProcess 
         journeyId={journeyId} 
         category={category} 
