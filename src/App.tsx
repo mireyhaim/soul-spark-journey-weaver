@@ -13,6 +13,7 @@ import Blog from './pages/Blog';
 import BlogArchive from './pages/BlogArchive';
 import BlogPost from '@/pages/BlogPost';
 import Signup from './pages/Signup';
+import Login from './pages/Login';
 import MentorLanding from './pages/MentorLanding';
 import UserProfile from './pages/UserProfile';
 
@@ -39,6 +40,7 @@ function App() {
               <Route path="/journeys" element={<Journeys />} />
               <Route path="/journey/:id" element={<UserJourney />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/for-teachers" element={<MentorLanding />} />
               <Route path="/profile" element={<UserProfile />} />
               <Route path="/profile/:id" element={<UserProfile />} />
