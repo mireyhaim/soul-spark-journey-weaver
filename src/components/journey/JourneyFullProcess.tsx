@@ -2,7 +2,7 @@
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getJourneyLessonTopics } from '@/data/journeys/lesson-topics';
-import { CalendarDays, BookOpen, MessageCircle } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
 
 interface JourneyFullProcessProps {
   journeyId: string;
@@ -39,14 +39,9 @@ const JourneyFullProcess: React.FC<JourneyFullProcessProps> = ({
           <CalendarDays size={20} />
           <span>Your {duration}-Day Journey Process</span>
         </h3>
-        <p className="text-earth-600 mb-4">
-          This journey guides you through {duration} days of transformative practices, 
-          meditations, and exercises designed to awaken and strengthen your connection 
-          to your feminine power and wisdom.
-        </p>
         <div className="bg-spirit-50/50 p-4 rounded-md border border-spirit-100">
           <p className="text-spirit-800 text-sm">
-            Purchase this journey to see the complete day-by-day process and begin your transformation.
+            Purchase this journey to see the complete day-by-day process.
           </p>
         </div>
       </div>
@@ -90,19 +85,6 @@ const JourneyFullProcess: React.FC<JourneyFullProcessProps> = ({
                   </div>
                   <div>
                     <h4 className="font-medium text-lg text-earth-900">{lesson.title}</h4>
-                    {lesson.description && (
-                      <p className="text-earth-600 mt-1">{lesson.description}</p>
-                    )}
-                    <div className="flex items-center gap-4 mt-3">
-                      <div className="flex items-center gap-1 text-earth-500 text-sm">
-                        <BookOpen size={14} />
-                        <span>Daily Lesson</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-earth-500 text-sm">
-                        <MessageCircle size={14} />
-                        <span>AI Guide Conversation</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
