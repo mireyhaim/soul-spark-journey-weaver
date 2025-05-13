@@ -34,10 +34,11 @@ export const useChatMessages = ({
   const [firstQuestionSent, setFirstQuestionSent] = useState<boolean>(false);
   const [conversationStarted, setConversationStarted] = useState<boolean>(false);
   const [hasGreetedUser, setHasGreetedUser] = useState<boolean>(false);
+  const [questionsAsked, setQuestionsAsked] = useState<Set<number>>(new Set());
   
   const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null);
   const supabase = useSupabaseClient();
-  const userResponses: string[] = [];
+  const userResponses = useRef<string[]>([]);
 
   // Initialize with welcome message when component mounts - but only the welcome message
   useEffect(() => {
@@ -101,7 +102,7 @@ export const useChatMessages = ({
     
     // Choose the appropriate language for the follow-up based on detected user language
     if (userLanguage === 'he') {
-      followUpContent = "אתה עדיין שם? אשמח לשמוע את התשובה שלך כשתהיה מוכן.";
+      followUpContent = "אתה עדיין כאן? אשמח לשמוע את התשובה שלך כשתהיה מוכן.";
     } else if (userLanguage === 'ar') {
       followUpContent = "هل أنت ما زلت هنا؟ أتطلع إلى سماع إجابتك عندما تكون مستعدًا.";
     } else if (userLanguage === 'ru') {
@@ -193,7 +194,7 @@ export const useChatMessages = ({
       }
       
       // Store user response for context
-      userResponses.push(userInput);
+      userResponses.current.push(userInput);
       
       // If we're in the practice flow, create a prompt specific to the question
       let contextPrompt = '';
@@ -211,7 +212,7 @@ export const useChatMessages = ({
           journeyCategory: currentJourney?.category || 'Spiritual Growth',
           journeyName: currentJourney?.title || 'Personal Development',
           currentDay: currentDay,
-          userContext: userResponses.slice(-3).join('\n'),
+          userContext: userResponses.current.slice(-3).join('\n'),
           userLanguage: detectedLanguage // Pass detected language to function
         }
       });
@@ -292,6 +293,12 @@ export const useChatMessages = ({
           
           // After a short delay, send the first practice question
           setTimeout(() => {
+            if (questionsAsked.has(0)) {
+              // Skip asking again if already asked
+              setIsTyping(false);
+              return;
+            }
+
             const firstQuestion: Message = {
               id: (Date.now() + 2).toString(),
               content: `It's Day ${currentDay} of your journey. ${dailyQuestions[0].question}`,
@@ -301,11 +308,12 @@ export const useChatMessages = ({
             
             setMessages(prev => [...prev, firstQuestion]);
             setFirstQuestionSent(true);
+            setQuestionsAsked(prev => new Set(prev).add(0));
             setWaitingForResponse(true);
             updateLastActivity();
+            setIsTyping(false);
           }, 1500);
           
-          setIsTyping(false);
           return;
         }
         
@@ -330,6 +338,14 @@ export const useChatMessages = ({
             if (currentQuestionIndex < dailyQuestions.length - 1) {
               // Send the next question
               const nextQuestionIndex = currentQuestionIndex + 1;
+              
+              // Skip if this question was already asked
+              if (questionsAsked.has(nextQuestionIndex)) {
+                setIsTyping(false);
+                setWaitingForResponse(false);
+                return;
+              }
+
               setCurrentQuestionIndex(nextQuestionIndex);
               setQuestionAnswered(false);
               
@@ -341,6 +357,7 @@ export const useChatMessages = ({
               };
               
               setMessages(prev => [...prev, nextQuestion]);
+              setQuestionsAsked(prev => new Set(prev).add(nextQuestionIndex));
               setWaitingForResponse(true);
               updateLastActivity();
             } else {
@@ -358,9 +375,9 @@ export const useChatMessages = ({
               setWaitingForResponse(true);
               updateLastActivity();
             }
+            setIsTyping(false);
           }, 1500);
           
-          setIsTyping(false);
           return;
         }
         
