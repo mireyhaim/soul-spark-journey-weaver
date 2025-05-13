@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
@@ -13,6 +14,7 @@ import BlogArchive from './pages/BlogArchive';
 import BlogPost from '@/pages/BlogPost';
 import Signup from './pages/Signup';
 import MentorLanding from './pages/MentorLanding';
+import UserProfile from './pages/UserProfile';
 
 // Components
 import Header from './components/Header';
@@ -38,6 +40,8 @@ function App() {
               <Route path="/journey/:id" element={<UserJourney />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/for-teachers" element={<MentorLanding />} />
+              <Route path="/profile" element={<UserProfile />} />
+              <Route path="/profile/:id" element={<UserProfile />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

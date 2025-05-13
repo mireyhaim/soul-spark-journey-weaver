@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
+import { User } from 'lucide-react';
 
 const Header: React.FC = () => {
   return (
@@ -38,6 +39,9 @@ const Header: React.FC = () => {
           </nav>
           
           <div className="flex items-center space-x-3">
+            <Link to="/profile" className="hidden md:flex hover:text-spirit-600">
+              <User size={20} />
+            </Link>
             <Button variant="outline" className="hidden md:flex" asChild>
               <Link to="/login">Login</Link>
             </Button>
