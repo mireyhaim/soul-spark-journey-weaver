@@ -1,4 +1,5 @@
 
-import { toast } from "@/hooks/use-toast";
+import { toast as sonnerToast } from "sonner";
 
-export { toast };
+// Re-export the toast function from sonner to avoid circular dependencies
+export const toast = sonnerToast;

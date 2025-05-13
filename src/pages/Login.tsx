@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -7,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from '@/components/ui/label';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from '@/components/ui/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useSession } from '@supabase/auth-helpers-react';
 import { cleanupAuthState } from '@/utils/auth-utils';
@@ -17,7 +16,6 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
-  const { toast } = useToast();
   const navigate = useNavigate();
   const session = useSession();
   
@@ -54,7 +52,6 @@ const Login: React.FC = () => {
       toast({
         title: "Login failed",
         description: error.message || "Please check your credentials and try again.",
-        variant: "destructive"
       });
     } finally {
       setIsLoading(false);
@@ -85,7 +82,6 @@ const Login: React.FC = () => {
       toast({
         title: "Google login failed",
         description: error.message || "There was a problem connecting to Google.",
-        variant: "destructive"
       });
       setIsGoogleLoading(false);
     }
