@@ -34,7 +34,6 @@ const JourneyTimeline: React.FC<JourneyTimelineProps> = ({ currentDay, savedProg
   
   return (
     <div>
-      <h2 className="text-2xl font-sans font-semibold mb-4">Your Journey Timeline</h2>
       <Card>
         <CardContent className="p-6">
           <div className="space-y-4">
