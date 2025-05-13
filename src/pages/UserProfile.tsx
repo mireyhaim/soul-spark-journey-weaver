@@ -14,9 +14,9 @@ import { Link } from 'react-router-dom';
 // Mock user data - to be replaced with actual user data from Supabase
 const mockUser = {
   id: '1',
-  name: 'גלית ישראלי',
-  email: 'galit@example.com',
-  joinedDate: '10 באפריל, 2024',
+  name: 'Sarah Johnson',
+  email: 'sarah@example.com',
+  joinedDate: 'April 10, 2024',
   completedJourneys: ['1', '7', '13'],
   inProgressJourneys: [
     { id: '4', currentDay: 3, totalDays: 14 },
@@ -71,19 +71,19 @@ const UserProfile: React.FC = () => {
           <div className="flex-grow">
             <h1 className="text-2xl md:text-3xl font-bold mb-1 font-sans">{mockUser.name}</h1>
             <p className="text-earth-600">{mockUser.email}</p>
-            <p className="text-earth-500 text-sm mt-1">חבר/ה מ- {mockUser.joinedDate}</p>
+            <p className="text-earth-500 text-sm mt-1">Member since {mockUser.joinedDate}</p>
           </div>
           <div>
-            <Button variant="outline">עריכת פרופיל</Button>
+            <Button variant="outline">Edit Profile</Button>
           </div>
         </div>
         
         {/* Dashboard Tabs */}
         <Tabs defaultValue="overview" className="w-full">
           <TabsList className="mb-8">
-            <TabsTrigger value="overview">סקירה כללית</TabsTrigger>
-            <TabsTrigger value="journeys">התהליכים שלי</TabsTrigger>
-            <TabsTrigger value="settings">הגדרות</TabsTrigger>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="journeys">My Journeys</TabsTrigger>
+            <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
           
           {/* Overview Tab */}
@@ -94,7 +94,7 @@ const UserProfile: React.FC = () => {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg font-medium flex items-center gap-2">
                     <BookOpenCheck className="text-spirit-500" size={18} />
-                    תהליכים שהושלמו
+                    Completed Journeys
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -106,7 +106,7 @@ const UserProfile: React.FC = () => {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg font-medium flex items-center gap-2">
                     <Clock className="text-spirit-500" size={18} />
-                    תהליכים בהתקדמות
+                    Journeys in Progress
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -118,7 +118,7 @@ const UserProfile: React.FC = () => {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg font-medium flex items-center gap-2">
                     <Award className="text-spirit-500" size={18} />
-                    ימי התמדה רצופים
+                    Consecutive Days
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -132,9 +132,9 @@ const UserProfile: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BookOpen size={20} />
-                  תהליכים נוכחיים
+                  Current Journeys
                 </CardTitle>
-                <CardDescription>התהליכים בהם את/ה משתתף/ת כרגע</CardDescription>
+                <CardDescription>Journeys you are currently working on</CardDescription>
               </CardHeader>
               <CardContent>
                 {inProgressJourneyData.length > 0 ? (
@@ -144,10 +144,10 @@ const UserProfile: React.FC = () => {
                         <div className="flex justify-between items-start mb-2">
                           <div>
                             <h3 className="font-semibold text-lg">{journey.title}</h3>
-                            <p className="text-earth-600 text-sm">יום {journey.currentDay} מתוך {journey.totalDays}</p>
+                            <p className="text-earth-600 text-sm">Day {journey.currentDay} of {journey.totalDays}</p>
                           </div>
                           <Link to={`/journey/${journey.id}`}>
-                            <Button size="sm" variant="outline">המשך תהליך</Button>
+                            <Button size="sm" variant="outline">Continue</Button>
                           </Link>
                         </div>
                         <Progress value={(journey.currentDay / journey.totalDays) * 100} className="h-2" />
@@ -155,7 +155,7 @@ const UserProfile: React.FC = () => {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-center py-4 text-earth-500">אין לך תהליכים פעילים כרגע</p>
+                  <p className="text-center py-4 text-earth-500">You don't have any active journeys</p>
                 )}
               </CardContent>
             </Card>
@@ -165,9 +165,9 @@ const UserProfile: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Star size={20} />
-                  תהליכים מומלצים
+                  Recommended Journeys
                 </CardTitle>
-                <CardDescription>בהתבסס על תהליכים קודמים שהשלמת</CardDescription>
+                <CardDescription>Based on your previous completed journeys</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -188,7 +188,7 @@ const UserProfile: React.FC = () => {
                         <div className="flex justify-between items-center">
                           <Badge variant="outline">{journey.category}</Badge>
                           <Link to={`/journey/${journey.id}`}>
-                            <Button variant="outline" size="sm">פרטים</Button>
+                            <Button variant="outline" size="sm">Details</Button>
                           </Link>
                         </div>
                       </CardContent>
@@ -196,7 +196,7 @@ const UserProfile: React.FC = () => {
                   ))}
                   
                   {recommendedJourneys.length === 0 && (
-                    <p className="text-center col-span-3 py-4 text-earth-500">אין המלצות זמינות כרגע</p>
+                    <p className="text-center col-span-3 py-4 text-earth-500">No recommendations available</p>
                   )}
                 </div>
               </CardContent>
@@ -207,18 +207,18 @@ const UserProfile: React.FC = () => {
           <TabsContent value="journeys">
             <Card>
               <CardHeader>
-                <CardTitle>היסטוריית תהליכים</CardTitle>
-                <CardDescription>כל התהליכים שהשלמת</CardDescription>
+                <CardTitle>Journey History</CardTitle>
+                <CardDescription>All journeys you have completed</CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>שם התהליך</TableHead>
-                      <TableHead>קטגוריה</TableHead>
-                      <TableHead>משך</TableHead>
-                      <TableHead>מנחה</TableHead>
-                      <TableHead>סטטוס</TableHead>
+                      <TableHead>Journey Name</TableHead>
+                      <TableHead>Category</TableHead>
+                      <TableHead>Duration</TableHead>
+                      <TableHead>Teacher</TableHead>
+                      <TableHead>Status</TableHead>
                       <TableHead></TableHead>
                     </TableRow>
                   </TableHeader>
@@ -227,17 +227,17 @@ const UserProfile: React.FC = () => {
                       <TableRow key={journey.id}>
                         <TableCell className="font-medium">{journey.title}</TableCell>
                         <TableCell>{journey.category}</TableCell>
-                        <TableCell>{journey.duration} ימים</TableCell>
+                        <TableCell>{journey.duration} days</TableCell>
                         <TableCell>{journey.teacher}</TableCell>
                         <TableCell>
                           <div className="flex items-center gap-1">
                             <Check size={16} className="text-green-600" />
-                            <span className="text-green-600">הושלם</span>
+                            <span className="text-green-600">Completed</span>
                           </div>
                         </TableCell>
                         <TableCell>
                           <Link to={`/journey/${journey.id}`}>
-                            <Button variant="ghost" size="sm">תצוגה</Button>
+                            <Button variant="ghost" size="sm">View</Button>
                           </Link>
                         </TableCell>
                       </TableRow>
@@ -247,19 +247,19 @@ const UserProfile: React.FC = () => {
                       <TableRow key={journey.id}>
                         <TableCell className="font-medium">{journey.title}</TableCell>
                         <TableCell>{journey.category}</TableCell>
-                        <TableCell>{journey.totalDays} ימים</TableCell>
+                        <TableCell>{journey.totalDays} days</TableCell>
                         <TableCell>{journey.teacher}</TableCell>
                         <TableCell>
                           <div className="flex items-center gap-1">
                             <Clock size={16} className="text-amber-600" />
                             <span className="text-amber-600">
-                              בתהליך ({journey.currentDay}/{journey.totalDays})
+                              In Progress ({journey.currentDay}/{journey.totalDays})
                             </span>
                           </div>
                         </TableCell>
                         <TableCell>
                           <Link to={`/journey/${journey.id}`}>
-                            <Button variant="ghost" size="sm">המשך</Button>
+                            <Button variant="ghost" size="sm">Continue</Button>
                           </Link>
                         </TableCell>
                       </TableRow>
@@ -274,26 +274,26 @@ const UserProfile: React.FC = () => {
           <TabsContent value="settings">
             <Card>
               <CardHeader>
-                <CardTitle>הגדרות חשבון</CardTitle>
-                <CardDescription>עדכון הגדרות החשבון שלך</CardDescription>
+                <CardTitle>Account Settings</CardTitle>
+                <CardDescription>Update your account settings</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <h3 className="font-medium">העדפות התראות</h3>
+                  <h3 className="font-medium">Notification Preferences</h3>
                   <p className="text-sm text-earth-500">
-                    יתווסף בהמשך - אפשרויות לניהול התראות מייל ואתר
+                    Coming soon - Options to manage email and website notifications
                   </p>
                 </div>
                 
                 <div className="space-y-2">
-                  <h3 className="font-medium">פרטי חשבון</h3>
+                  <h3 className="font-medium">Account Details</h3>
                   <p className="text-sm text-earth-500">
-                    יתווסף בהמשך - אפשרויות לעדכון פרטי חשבון
+                    Coming soon - Options to update account details
                   </p>
                 </div>
                 
                 <div>
-                  <Button variant="destructive">התנתקות</Button>
+                  <Button variant="destructive">Logout</Button>
                 </div>
               </CardContent>
             </Card>
