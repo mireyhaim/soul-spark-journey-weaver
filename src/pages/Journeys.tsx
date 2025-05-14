@@ -14,8 +14,15 @@ import {
 } from "@/components/ui/pagination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Search, Filter } from 'lucide-react';
+import { Search, Filter, Grid3x3, Menu } from 'lucide-react';
 import { journeys } from '@/data/journeys';
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const categories = [
   'All',
@@ -39,6 +46,7 @@ const Journeys: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [displayMode, setDisplayMode] = useState<'tabs' | 'grid' | 'dropdown'>('tabs');
   
   // Filter journeys based on active tab and search query
   const filteredJourneys = journeys.filter(journey => {
@@ -64,6 +72,12 @@ const Journeys: React.FC = () => {
     setCurrentPage(page);
     // Scroll to top when changing page
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Handle category selection from dropdown
+  const handleCategorySelect = (value: string) => {
+    setActiveTab(value);
+    setCurrentPage(1);
   };
 
   // Reset to page 1 when filters change
@@ -96,6 +110,27 @@ const Journeys: React.FC = () => {
           </div>
           
           <div className="flex items-center gap-2">
+            <div className="flex border rounded-md overflow-hidden">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className={`gap-2 ${displayMode === 'tabs' ? 'bg-spirit-100' : ''}`}
+                onClick={() => setDisplayMode('tabs')}
+              >
+                <Menu size={16} />
+                <span className="hidden sm:inline">List</span>
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className={`gap-2 ${displayMode === 'grid' ? 'bg-spirit-100' : ''}`}
+                onClick={() => setDisplayMode('grid')}
+              >
+                <Grid3x3 size={16} />
+                <span className="hidden sm:inline">Grid</span>
+              </Button>
+            </div>
+            
             <Button variant="outline" size="sm" className="gap-2">
               <Filter size={16} />
               <span className="hidden sm:inline">Filter</span>
@@ -109,40 +144,106 @@ const Journeys: React.FC = () => {
           </div>
         </div>
         
-        {/* Category Tabs */}
-        <ScrollArea className="w-full mb-8">
-          <Tabs defaultValue="All" value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="mb-6 w-full justify-start bg-transparent p-0 h-auto overflow-auto">
+        {/* Category Selection UI based on display mode */}
+        {displayMode === 'tabs' && (
+          <ScrollArea className="w-full mb-8">
+            <Tabs defaultValue="All" value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="mb-6 w-full justify-start bg-transparent p-0 h-auto overflow-auto">
+                {categories.map((category) => (
+                  <TabsTrigger 
+                    key={category} 
+                    value={category}
+                    className="py-2 px-4 data-[state=active]:bg-spirit-100 data-[state=active]:text-spirit-800 rounded-full border"
+                  >
+                    {category}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              
+              {/* Journeys Grid */}
+              <TabsContent value={activeTab} className="mt-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {currentJourneys.map((journey) => (
+                    <div key={journey.id} className="flex flex-col h-full">
+                      <ProcessCard key={journey.id} {...journey} />
+                    </div>
+                  ))}
+                </div>
+                
+                {filteredJourneys.length === 0 && (
+                  <div className="text-center py-16">
+                    <h3 className="text-xl font-sans font-medium mb-2">No journeys found</h3>
+                    <p className="text-earth-600">Try adjusting your search or filters</p>
+                  </div>
+                )}
+              </TabsContent>
+            </Tabs>
+          </ScrollArea>
+        )}
+
+        {displayMode === 'dropdown' && (
+          <div className="mb-8">
+            <div className="max-w-xs mb-6">
+              <Select value={activeTab} onValueChange={handleCategorySelect}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map(category => (
+                    <SelectItem key={category} value={category}>{category}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {currentJourneys.map((journey) => (
+                <div key={journey.id} className="flex flex-col h-full">
+                  <ProcessCard key={journey.id} {...journey} />
+                </div>
+              ))}
+            </div>
+            
+            {filteredJourneys.length === 0 && (
+              <div className="text-center py-16">
+                <h3 className="text-xl font-sans font-medium mb-2">No journeys found</h3>
+                <p className="text-earth-600">Try adjusting your search or filters</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {displayMode === 'grid' && (
+          <div className="mb-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4 mb-8">
               {categories.map((category) => (
-                <TabsTrigger 
-                  key={category} 
-                  value={category}
-                  className="py-2 px-4 data-[state=active]:bg-spirit-100 data-[state=active]:text-spirit-800 rounded-full border"
+                <Button
+                  key={category}
+                  variant={activeTab === category ? "default" : "outline"}
+                  className={`h-auto py-3 px-4 text-center justify-center ${activeTab === category ? 'bg-spirit-600 hover:bg-spirit-700' : ''}`}
+                  onClick={() => setActiveTab(category)}
                 >
                   {category}
-                </TabsTrigger>
+                </Button>
               ))}
-            </TabsList>
+            </div>
             
-            {/* Journeys Grid */}
-            <TabsContent value={activeTab} className="mt-0">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {currentJourneys.map((journey) => (
-                  <div key={journey.id} className="flex flex-col h-full">
-                    <ProcessCard key={journey.id} {...journey} />
-                  </div>
-                ))}
-              </div>
-              
-              {filteredJourneys.length === 0 && (
-                <div className="text-center py-16">
-                  <h3 className="text-xl font-sans font-medium mb-2">No journeys found</h3>
-                  <p className="text-earth-600">Try adjusting your search or filters</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {currentJourneys.map((journey) => (
+                <div key={journey.id} className="flex flex-col h-full">
+                  <ProcessCard key={journey.id} {...journey} />
                 </div>
-              )}
-            </TabsContent>
-          </Tabs>
-        </ScrollArea>
+              ))}
+            </div>
+            
+            {filteredJourneys.length === 0 && (
+              <div className="text-center py-16">
+                <h3 className="text-xl font-sans font-medium mb-2">No journeys found</h3>
+                <p className="text-earth-600">Try adjusting your search or filters</p>
+              </div>
+            )}
+          </div>
+        )}
         
         {/* Pagination */}
         {filteredJourneys.length > 0 && totalPages > 1 && (
