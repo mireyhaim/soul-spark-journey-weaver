@@ -1,6 +1,6 @@
 
 import { Toaster } from "@/components/ui/sonner";
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 
 // Pages
@@ -24,12 +24,27 @@ import Footer from './components/Footer';
 // Import the supabase client directly from our client file
 import { supabase } from "@/integrations/supabase/client";
 
+// Layout component that conditionally renders Header and Footer
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
+  const isJourneyPage = location.pathname.startsWith('/journey/');
+  
+  return (
+    <div className="min-h-screen flex flex-col">
+      {!isJourneyPage && <Header />}
+      <div className="flex-grow">
+        {children}
+      </div>
+      {!isJourneyPage && <Footer />}
+    </div>
+  );
+};
+
 function App() {
   return (
     <SessionContextProvider supabaseClient={supabase}>
       <Router>
-        <div className="min-h-screen flex flex-col">
-          <Header />
+        <Layout>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/faq" element={<FAQ />} />
@@ -45,8 +60,7 @@ function App() {
             <Route path="/profile/:id" element={<UserProfile />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <Footer />
-        </div>
+        </Layout>
         <Toaster />
       </Router>
     </SessionContextProvider>

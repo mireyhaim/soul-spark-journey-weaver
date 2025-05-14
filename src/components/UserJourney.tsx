@@ -8,7 +8,7 @@ import JourneyExplanations from './journey/JourneyExplanations';
 import JourneyPurchase from './journey/JourneyPurchase';
 import MobileChatView from './journey/MobileChatView';
 import JourneyChatSection from './journey/JourneyChatSection';
-import { useJourneyState, getJourneyPrice } from '@/hooks/use-journey-state';
+import { useJourneyState } from '@/hooks/use-journey-state';
 
 const UserJourney: React.FC = () => {
   const { id } = useParams<{ id: string }>();
