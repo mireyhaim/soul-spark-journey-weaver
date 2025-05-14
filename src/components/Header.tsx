@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -52,9 +53,6 @@ const Header: React.FC = () => {
             </Link>
             <Link to="/blog" className="text-sm font-medium hover:text-spirit-600 transition-colors">
               Blog
-            </Link>
-            <Link to="/faq" className="text-sm font-medium hover:text-spirit-600 transition-colors">
-              FAQ
             </Link>
             <Button 
               asChild
