@@ -56,7 +56,7 @@ const Header: React.FC = () => {
               variant="ghost" 
               className="text-sm font-medium bg-purple-100 text-spirit-700 hover:bg-purple-200 hover:text-spirit-800 font-medium px-4 py-2 rounded-md transition-colors"
             >
-              <Link to="/mentor">For Mentors</Link>
+              <Link to="/for-teachers">For Mentors</Link>
             </Button>
           </nav>
           

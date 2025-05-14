@@ -1,7 +1,5 @@
 
 import React, { useState } from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import HeroSection from '@/components/mentor/HeroSection';
@@ -39,10 +37,8 @@ const MentorLanding: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      <main className="flex-grow">
+    <div className="flex-grow">
+      <main>
         <HeroSection onApplyClick={handleOpenDialog} />
 
         <section className="py-16 px-4 md:px-6">
@@ -73,8 +69,6 @@ const MentorLanding: React.FC = () => {
           />
         </DialogContent>
       </Dialog>
-      
-      <Footer />
     </div>
   );
 };
