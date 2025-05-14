@@ -28,5 +28,32 @@ export const businessDevelopmentJourneys: Journey[] = [
     duration: 10,
     category: 'Business Development',
     image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '33',
+    title: 'Overcoming Impostor Syndrome',
+    description: 'Release the inner critic, stop second-guessing your success, and own your value unapologetically.',
+    teacher: 'Jessica Hayes',
+    duration: 14,
+    category: 'Business Development',
+    image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '34',
+    title: 'Flow Over Hustle',
+    description: 'Shift from survival-mode hustle to intentional, flow-based business. Less pressure, more presence, better results.',
+    teacher: 'David Chen',
+    duration: 21,
+    category: 'Business Development',
+    image: 'https://images.unsplash.com/photo-1498758536662-35b82cd15e29?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '35',
+    title: 'Morning Focus Rituals for Entrepreneurs',
+    description: 'Establish a powerful morning mindset ritual that sets the tone for clarity, confidence, and productive action — every single day.',
+    teacher: 'Ryan Taylor',
+    duration: 7,
+    category: 'Business Development',
+    image: 'https://images.unsplash.com/photo-1484627147104-f5197bcd6651?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   }
 ];

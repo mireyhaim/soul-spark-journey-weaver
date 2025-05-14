@@ -58,9 +58,66 @@ const visibilityJourneyLessons: LessonTopic[] = [
   { day: 10, title: 'Magnetic Presence Mastery' }
 ];
 
+// Overcoming Impostor Syndrome
+const impostorSyndromeLessons: LessonTopic[] = [
+  { day: 1, title: 'Recognizing Impostor Patterns' },
+  { day: 2, title: 'The Origins of Your Inner Critic' },
+  { day: 3, title: 'Reframing "Not Enough" Stories' },
+  { day: 4, title: 'Owning Your Achievements' },
+  { day: 5, title: 'Separating Facts from Feelings' },
+  { day: 6, title: 'Building Evidence of Capability' },
+  { day: 7, title: 'Creating Supportive Self-Talk' },
+  { day: 8, title: 'Embodying Your Expertise' },
+  { day: 9, title: 'Releasing Perfectionism' },
+  { day: 10, title: 'Comfortable with Visibility' },
+  { day: 11, title: 'Embracing Growth & Learning' },
+  { day: 12, title: 'Setting Value-Aligned Goals' },
+  { day: 13, title: 'Being Witnessed in Your Power' },
+  { day: 14, title: 'Integrating Your Authentic Success' }
+];
+
+// Flow Over Hustle
+const flowOverHustleLessons: LessonTopic[] = [
+  { day: 1, title: 'Identifying Hustle & Burnout Patterns' },
+  { day: 2, title: 'Your Relationship with Time & Productivity' },
+  { day: 3, title: 'Releasing the Struggle Mindset' },
+  { day: 4, title: 'Energy Management vs. Time Management' },
+  { day: 5, title: 'Aligning with Your Natural Rhythms' },
+  { day: 6, title: 'Creating Flow-State Triggers' },
+  { day: 7, title: 'Deep Work & Intentional Focus' },
+  { day: 8, title: 'Intuitive Decision-Making' },
+  { day: 9, title: 'Surrender & Strategic Rest' },
+  { day: 10, title: 'Sustainable Business Pacing' },
+  { day: 11, title: 'Joy as a Business Strategy' },
+  { day: 12, title: 'Aligned Action vs. Busy Work' },
+  { day: 13, title: 'Receiving Support & Delegation' },
+  { day: 14, title: 'Celebrating Progress Without Pushing' },
+  { day: 15, title: 'Creating Energetic Boundaries' },
+  { day: 16, title: 'Flow-Based Planning Systems' },
+  { day: 17, title: 'Intuitive Content Creation' },
+  { day: 18, title: 'Balancing Structure & Flexibility' },
+  { day: 19, title: 'Embodying Easeful Leadership' },
+  { day: 20, title: 'Living Your Definition of Success' },
+  { day: 21, title: 'Integrating Flow as Your Business Foundation' }
+];
+
+// Morning Focus Rituals
+const morningRitualsLessons: LessonTopic[] = [
+  { day: 1, title: 'Creating Your Sacred Morning Space' },
+  { day: 2, title: 'Mindset Priming Techniques' },
+  { day: 3, title: 'Intention Setting for Clarity' },
+  { day: 4, title: 'Energy Alignment Practices' },
+  { day: 5, title: 'Visualization for Business Success' },
+  { day: 6, title: 'Gratitude as a Success Practice' },
+  { day: 7, title: 'Integrating Your Morning Power Ritual' }
+];
+
 // Map journey IDs to their lesson topics
 export const businessDevelopmentLessonTopics: JourneyLessonTopicsMap = {
   '30': innerCEOLessons,
   '31': abundanceBusinessLessons,
-  '32': visibilityJourneyLessons
+  '32': visibilityJourneyLessons,
+  '33': impostorSyndromeLessons,
+  '34': flowOverHustleLessons,
+  '35': morningRitualsLessons
 };
