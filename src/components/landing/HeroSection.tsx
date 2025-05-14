@@ -16,9 +16,6 @@ const HeroSection: React.FC = () => {
             <p className="text-lg text-spirit-800 font-medium mb-4">
               Flow 83 is a platform for personal growth journeys — combining mindset, emotional healing, and spiritual tools, guided by AI.
             </p>
-            <p className="text-xl text-earth-700">
-              Discover tailored spiritual paths to help you find peace, purpose, and transformation with our AI companion.
-            </p>
             <div className="flex flex-wrap gap-4">
               <Button size="lg" className="bg-spirit-600 hover:bg-spirit-700" asChild>
                 <Link to="/signup">Start Now</Link>
