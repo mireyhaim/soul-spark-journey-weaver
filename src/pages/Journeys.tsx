@@ -29,7 +29,8 @@ const categories = [
   'Emotional Healing',
   'Feminine Power',
   'Energy & Healing',
-  'Productivity'
+  'Productivity',
+  'Business Development'
 ];
 
 const JOURNEYS_PER_PAGE = 9;

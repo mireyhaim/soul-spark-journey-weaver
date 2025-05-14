@@ -11,6 +11,7 @@ import { emotionalHealingJourneys } from './emotional-healing';
 import { femininePowerJourneys } from './feminine-power';
 import { energyHealingJourneys } from './energy-healing';
 import { productivityJourneys } from './productivity';
+import { businessDevelopmentJourneys } from './business-development';
 
 // Export individual category journey arrays for direct use
 export {
@@ -24,7 +25,8 @@ export {
   emotionalHealingJourneys,
   femininePowerJourneys,
   energyHealingJourneys,
-  productivityJourneys
+  productivityJourneys,
+  businessDevelopmentJourneys
 };
 
 // Combine all journeys into a single array for compatibility with existing code
@@ -39,7 +41,8 @@ export const journeys: Journey[] = [
   ...emotionalHealingJourneys,
   ...femininePowerJourneys,
   ...energyHealingJourneys,
-  ...productivityJourneys
+  ...productivityJourneys,
+  ...businessDevelopmentJourneys
 ];
 
 // Function to get journeys by category

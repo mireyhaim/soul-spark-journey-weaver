@@ -1,4 +1,3 @@
-
 import { LessonTopic } from './types';
 import { spiritualityLessonTopics } from './spirituality-lessons';
 import { personalDevelopmentLessonTopics } from './personal-development-lessons';
@@ -11,6 +10,7 @@ import { careerDevelopmentLessonTopics } from './career-development-lessons';
 import { emotionalHealingLessonTopics } from './emotional-healing-lessons';
 import { energyHealingLessonTopics } from './energy-healing-lessons';
 import { productivityLessonTopics } from './productivity-lessons';
+import { businessDevelopmentLessonTopics } from './business-development-lessons';
 import { getCategoryLessonTopics } from './default-category-lessons';
 
 // Combine all journey lesson topics
@@ -25,7 +25,8 @@ export const journeyLessonTopics = {
   ...careerDevelopmentLessonTopics,
   ...emotionalHealingLessonTopics,
   ...energyHealingLessonTopics,
-  ...productivityLessonTopics
+  ...productivityLessonTopics,
+  ...businessDevelopmentLessonTopics
 };
 
 // Function to get lesson topics for a journey by ID or category
