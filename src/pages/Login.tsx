@@ -1,12 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from '@/components/ui/label';
-import { toast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { useSession } from '@supabase/auth-helpers-react';
 import { cleanupAuthState } from '@/utils/auth-utils';
@@ -46,9 +45,7 @@ const Login: React.FC = () => {
       // Force page reload for a clean state
       window.location.href = '/';
     } catch (error: any) {
-      toast(error.message || "Please check your credentials and try again.", {
-        className: "bg-destructive text-destructive-foreground"
-      });
+      toast(error.message || "Please check your credentials and try again.");
     } finally {
       setIsLoading(false);
     }
@@ -75,17 +72,13 @@ const Login: React.FC = () => {
       
       // No need for success toast here as the page will redirect to Google
     } catch (error: any) {
-      toast(error.message || "There was a problem connecting to Google.", {
-        className: "bg-destructive text-destructive-foreground"
-      });
+      toast(error.message || "There was a problem connecting to Google.");
       setIsGoogleLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-      
       <main className="flex-grow py-10 px-4 md:px-6 bg-earth-50/30">
         <div className="container mx-auto max-w-md">
           <Card className="border-spirit-100">
@@ -171,8 +164,6 @@ const Login: React.FC = () => {
           </Card>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 };
