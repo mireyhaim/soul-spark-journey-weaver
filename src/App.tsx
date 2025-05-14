@@ -27,7 +27,8 @@ import { supabase } from "@/integrations/supabase/client";
 // Layout component that conditionally renders Header and Footer
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
-  const isJourneyPage = location.pathname.startsWith('/journey/');
+  // Check explicitly if the path is exactly /journey/ followed by any ID
+  const isJourneyPage = /^\/journey\/[^\/]+$/.test(location.pathname);
   
   return (
     <div className="min-h-screen flex flex-col">
