@@ -9,9 +9,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
           <div>
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 rounded-full spirit-gradient flex items-center justify-center">
-                <span className="text-white font-serif text-lg">f</span>
-              </div>
+              <span className="font-serif text-lg text-spirit-600">f</span>
               <span className="font-serif text-xl font-semibold">flow83</span>
             </Link>
             <p className="mt-4 text-earth-600 max-w-xs">

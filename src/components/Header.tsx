@@ -38,9 +38,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 rounded-full spirit-gradient flex items-center justify-center">
-              <span className="text-white font-serif text-lg">f</span>
-            </div>
+            <span className="font-serif text-lg text-spirit-600">f</span>
             <span className="font-serif text-xl md:text-2xl font-semibold">flow83</span>
           </Link>
           
