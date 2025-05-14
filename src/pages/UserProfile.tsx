@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Clock, Award, BookOpen, BookOpenCheck, Star } from 'lucide-react';
 import { journeys } from '@/data/journeys';
 import { Link } from 'react-router-dom';
-import { toast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 // Import Supabase client
 import { supabase } from "@/integrations/supabase/client";
