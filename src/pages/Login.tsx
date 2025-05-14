@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -93,12 +92,10 @@ const Login: React.FC = () => {
       console.log("Current origin:", currentOrigin);
       console.log("Redirect URL:", redirectUrl);
       
-      // Debug the Supabase client configuration
-      console.log("Supabase client config:", {
-        url: supabase.authUrl,
-        persistSession: supabase.auth.config.persistSession,
-        storage: supabase.auth.config.storage ? "localStorage" : "none"
-      });
+      // Debug the Supabase client configuration - use only public/safe properties
+      console.log("Starting auth with Google provider");
+      console.log("Using auth storage type:", 
+        localStorage ? "localStorage" : "memory storage");
       
       const { error, data } = await supabase.auth.signInWithOAuth({
         provider: 'google',
