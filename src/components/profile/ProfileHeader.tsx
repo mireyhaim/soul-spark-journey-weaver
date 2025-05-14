@@ -22,8 +22,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({ name, email, joine
   const handleSaveChanges = () => {
     // Here you would typically save the changes to a database
     // For now, we'll just show a toast message
-    toast({
-      title: "Profile Updated",
+    toast("Profile Updated", {
       description: "Your profile information has been updated successfully."
     });
     setIsDialogOpen(false);
