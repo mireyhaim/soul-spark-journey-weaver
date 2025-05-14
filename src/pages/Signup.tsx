@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from "@/components/ui/button";
@@ -12,13 +12,30 @@ import { supabase } from '@/integrations/supabase/client';
 import { useSession } from '@supabase/auth-helpers-react';
 import { cleanupAuthState } from '@/utils/auth-utils';
 import { Separator } from '@/components/ui/separator';
+import { AlertCircle } from 'lucide-react';
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
   const session = useSession();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  // Check for error in URL from OAuth redirect
+  useEffect(() => {
+    const error = searchParams.get('error');
+    const errorDescription = searchParams.get('error_description');
+    
+    if (error) {
+      setAuthError(`${error}: ${errorDescription || 'Unknown error'}`);
+      toast(`Authentication error: ${error}`, {
+        className: "bg-destructive text-destructive-foreground"
+      });
+      console.error("OAuth redirect error:", error, errorDescription);
+    }
+  }, [searchParams]);
 
   // If already logged in, redirect to home page
   useEffect(() => {
@@ -27,8 +44,13 @@ const Signup: React.FC = () => {
     }
   }, [session, navigate]);
   
+  const clearErrors = () => {
+    setAuthError(null);
+  };
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    clearErrors();
     setIsLoading(true);
     
     try {
@@ -49,6 +71,7 @@ const Signup: React.FC = () => {
       
       navigate('/login');
     } catch (error: any) {
+      setAuthError(error.message || "There was a problem signing up. Please try again.");
       toast(error.message || "There was a problem signing up. Please try again.", {
         className: "bg-destructive text-destructive-foreground"
       });
@@ -58,6 +81,7 @@ const Signup: React.FC = () => {
   };
 
   const handleGoogleSignup = async () => {
+    clearErrors();
     setIsLoading(true);
     
     try {
@@ -98,6 +122,7 @@ const Signup: React.FC = () => {
       
     } catch (error: any) {
       console.error("Google auth error:", error);
+      setAuthError(error.message || "There was a problem signing in with Google.");
       toast(error.message || "There was a problem signing in with Google.", {
         className: "bg-destructive text-destructive-foreground"
       });
@@ -120,6 +145,12 @@ const Signup: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
+                {authError && (
+                  <div className="bg-destructive/10 p-3 rounded-md flex items-start gap-2">
+                    <AlertCircle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+                    <p className="text-sm text-destructive">{authError}</p>
+                  </div>
+                )}
                 <form onSubmit={handleSignup} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
@@ -175,7 +206,6 @@ const Signup: React.FC = () => {
                   </svg>
                   Sign up with Google
                 </Button>
-
               </div>
             </CardContent>
             <CardFooter className="flex justify-center">
