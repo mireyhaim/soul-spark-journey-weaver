@@ -10,9 +10,9 @@ const Footer: React.FC = () => {
           <div>
             <Link to="/" className="flex items-center space-x-2">
               <div className="w-10 h-10 rounded-full spirit-gradient flex items-center justify-center">
-                <span className="text-white font-serif text-lg">S</span>
+                <span className="text-white font-serif text-lg">f</span>
               </div>
-              <span className="font-serif text-xl font-semibold">SoulPath</span>
+              <span className="font-serif text-xl font-semibold">flow83</span>
             </Link>
             <p className="mt-4 text-earth-600 max-w-xs">
               Guiding your personal journey through AI-powered spiritual growth and emotional development.
@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
         
         <div className="mt-12 pt-8 border-t border-earth-200">
           <p className="text-center text-earth-500 text-sm">
-            &copy; {new Date().getFullYear()} SoulPath. All rights reserved.
+            &copy; {new Date().getFullYear()} flow83. All rights reserved.
           </p>
         </div>
       </div>

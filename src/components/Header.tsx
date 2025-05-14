@@ -39,9 +39,9 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 rounded-full spirit-gradient flex items-center justify-center">
-              <span className="text-white font-serif text-lg">I</span>
+              <span className="text-white font-serif text-lg">f</span>
             </div>
-            <span className="font-serif text-xl md:text-2xl font-semibold">InFlow</span>
+            <span className="font-serif text-xl md:text-2xl font-semibold">flow83</span>
           </Link>
           
           <nav className="hidden md:flex space-x-6 items-center">
