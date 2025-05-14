@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -19,7 +20,7 @@ const Footer: React.FC = () => {
             <h4 className="font-medium text-lg mb-4">Platform</h4>
             <ul className="space-y-2">
               <li><Link to="/journeys" className="text-earth-600 hover:text-spirit-600 transition-colors">Journeys</Link></li>
-              <li><Link to="/teachers" className="text-earth-600 hover:text-spirit-600 transition-colors">Teachers</Link></li>
+              <li><Link to="/for-teachers" className="text-earth-600 hover:text-spirit-600 transition-colors">Mentors</Link></li>
             </ul>
           </div>
           
