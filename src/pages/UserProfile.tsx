@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ProfileHeader } from '@/components/profile/ProfileHeader';
@@ -14,14 +15,14 @@ import AchievementBadge from '@/components/gamification/AchievementBadge';
 import { Trophy } from 'lucide-react';
 
 // Dummy data for the profile
-const profileName = "אילנה כהן";
+const profileName = "Ilana Cohen";
 const profileEmail = "ilana@example.com";
 const joinDate = "2023-05-12"; // Format: YYYY-MM-DD
 
 // Convert to display format
 const formatDate = (dateString: string) => {
   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Date(dateString).toLocaleDateString('he-IL', options);
+  return new Date(dateString).toLocaleDateString('en-US', options);
 };
 
 // Dummy data for current journeys
@@ -80,9 +81,9 @@ const UserProfile: React.FC = () => {
         
         <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="mb-6">
-            <TabsTrigger value="overview">סקירה כללית</TabsTrigger>
-            <TabsTrigger value="achievements">הישגים</TabsTrigger>
-            <TabsTrigger value="settings">הגדרות</TabsTrigger>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="achievements">Achievements</TabsTrigger>
+            <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
           
           <TabsContent value="overview" className="space-y-6">
@@ -103,7 +104,7 @@ const UserProfile: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Trophy size={20} className="text-spirit-500" />
-                  ההישגים שלי
+                  My Achievements
                 </CardTitle>
               </CardHeader>
               <CardContent>

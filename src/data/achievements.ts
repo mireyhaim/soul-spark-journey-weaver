@@ -4,57 +4,57 @@ import { Achievement } from "@/components/gamification/AchievementBadge";
 export const achievements: Achievement[] = [
   {
     id: 'first-login',
-    name: 'הצעד הראשון',
-    description: 'התחברות ראשונה למערכת',
+    name: 'First Steps',
+    description: 'First login to the system',
     icon: '👣',
     unlocked: true
   },
   {
     id: 'first-journey',
-    name: 'המסע מתחיל',
-    description: 'התחלת את המסע הראשון שלך',
+    name: 'Journey Begins',
+    description: 'Started your first journey',
     icon: '🗺️',
     unlocked: true
   },
   {
     id: 'three-day-streak',
-    name: 'התמדה',
-    description: 'שלושה ימים רצופים של פעילות במערכת',
+    name: 'Consistency',
+    description: 'Three consecutive days of activity',
     icon: '🔥',
     unlocked: true
   },
   {
     id: 'first-completed',
-    name: 'מסיים',
-    description: 'סיימת את המסע הראשון שלך',
+    name: 'Completer',
+    description: 'Finished your first journey',
     icon: '🏆',
     unlocked: false
   },
   {
     id: 'meditation-master',
-    name: 'אמן המדיטציה',
-    description: 'השלמת 10 ימי מדיטציה',
+    name: 'Meditation Master',
+    description: 'Completed 10 days of meditation',
     icon: '🧘',
     unlocked: false
   },
   {
     id: 'feedback-giver',
-    name: 'משוב בונה',
-    description: 'שיתפת משוב על החוויה שלך',
+    name: 'Feedback Provider',
+    description: 'Shared feedback about your experience',
     icon: '💬',
     unlocked: true
   },
   {
     id: 'profile-complete',
-    name: 'זהות מלאה',
-    description: 'השלמת את פרופיל המשתמש שלך',
+    name: 'Complete Identity',
+    description: 'Completed your user profile',
     icon: '👤',
     unlocked: false
   },
   {
     id: 'social-butterfly',
-    name: 'פרפר חברתי',
-    description: 'שיתפת מסע עם חבר',
+    name: 'Social Butterfly',
+    description: 'Shared a journey with a friend',
     icon: '🦋',
     unlocked: false
   }

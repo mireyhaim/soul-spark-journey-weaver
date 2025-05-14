@@ -21,14 +21,14 @@ export const StatsSummary: React.FC<StatsSummaryProps> = ({
         <CardHeader className="pb-2 relative">
           <CardTitle className="text-lg font-medium flex items-center gap-2">
             <BookOpenCheck className="text-spirit-500" size={18} />
-            מסעות שהושלמו
+            Completed Journeys
           </CardTitle>
         </CardHeader>
         <CardContent className="relative">
           <p className="text-3xl font-bold">{completedCount}</p>
           {completedCount > 0 && (
             <div className="text-xs text-earth-500 mt-1">
-              +{completedCount * 50} XP מצטבר
+              +{completedCount * 50} XP accumulated
             </div>
           )}
         </CardContent>
@@ -39,14 +39,14 @@ export const StatsSummary: React.FC<StatsSummaryProps> = ({
         <CardHeader className="pb-2 relative">
           <CardTitle className="text-lg font-medium flex items-center gap-2">
             <Clock className="text-spirit-500" size={18} />
-            מסעות בתהליך
+            Journeys In Progress
           </CardTitle>
         </CardHeader>
         <CardContent className="relative">
           <p className="text-3xl font-bold">{inProgressCount}</p>
           {inProgressCount > 0 && (
             <div className="text-xs text-earth-500 mt-1">
-              +{inProgressCount * 5} XP יומי
+              +{inProgressCount * 5} XP daily
             </div>
           )}
         </CardContent>
@@ -57,14 +57,14 @@ export const StatsSummary: React.FC<StatsSummaryProps> = ({
         <CardHeader className="pb-2 relative">
           <CardTitle className="text-lg font-medium flex items-center gap-2">
             <Award className="text-spirit-500" size={18} />
-            ימים רצופים
+            Consecutive Days
           </CardTitle>
         </CardHeader>
         <CardContent className="relative">
           <p className="text-3xl font-bold">{consecutiveDays}</p>
           {consecutiveDays > 0 && (
             <div className="text-xs text-earth-500 mt-1">
-              +{consecutiveDays * 10} XP בונוס
+              +{consecutiveDays * 10} XP bonus
             </div>
           )}
         </CardContent>
