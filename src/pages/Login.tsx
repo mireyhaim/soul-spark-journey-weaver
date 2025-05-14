@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -85,17 +86,13 @@ const Login: React.FC = () => {
       // Clean up existing auth state first
       cleanupAuthState();
       
-      const currentOrigin = window.location.origin;
-      const redirectUrl = `${currentOrigin}/`;
+      const currentURL = window.location.origin;
+      // Use the site domain instead of relative path to ensure proper redirect
+      const redirectUrl = `${currentURL}/`;
       
       console.log("Starting Google authentication");
-      console.log("Current origin:", currentOrigin);
-      console.log("Redirect URL:", redirectUrl);
-      
-      // Debug the Supabase client configuration - use only public/safe properties
-      console.log("Starting auth with Google provider");
-      console.log("Using auth storage type:", 
-        localStorage ? "localStorage" : "memory storage");
+      console.log("Current URL:", currentURL);
+      console.log("Using redirect URL:", redirectUrl);
       
       const { error, data } = await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -114,8 +111,7 @@ const Login: React.FC = () => {
       }
       
       console.log("Google auth initiated successfully, data:", data);
-      
-      // No need to navigate here as Supabase will handle the redirect
+      // No redirect needed here as Supabase will handle it
       
     } catch (error: any) {
       console.error("Google auth error:", error);

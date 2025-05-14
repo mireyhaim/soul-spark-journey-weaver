@@ -12,5 +12,8 @@ project_id = "jmomnhqbzeomjwbtssbi"
     "http://localhost:3000", 
     "http://localhost:5173", 
     "https://e39d74ae-2822-4a6d-80e7-731b05671dfb.lovableproject.com",
-    "https://e39d74ae-2822-4a6d-80e7-731b05671dfb.lovableproject.com/"
+    "https://e39d74ae-2822-4a6d-80e7-731b05671dfb.lovableproject.com/",
+    "https://e39d74ae-2822-4a6d-80e7-731b05671dfb.lovableproject.com/auth/callback",
+    "http://localhost:3000/auth/callback",
+    "http://localhost:5173/auth/callback"
   ]
