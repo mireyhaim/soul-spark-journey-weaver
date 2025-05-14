@@ -8,9 +8,8 @@ const Footer: React.FC = () => {
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
           <div>
-            <Link to="/" className="flex items-center space-x-2">
-              <span className="font-serif text-lg text-spirit-600">f</span>
-              <span className="font-serif text-xl font-semibold">flow83</span>
+            <Link to="/" className="flex items-center">
+              <span className="font-serif text-xl font-semibold">Flow 83</span>
             </Link>
             <p className="mt-4 text-earth-600 max-w-xs">
               Guiding your personal journey through AI-powered spiritual growth and emotional development.
@@ -56,7 +55,7 @@ const Footer: React.FC = () => {
         
         <div className="mt-12 pt-8 border-t border-earth-200">
           <p className="text-center text-earth-500 text-sm">
-            &copy; {new Date().getFullYear()} flow83. All rights reserved.
+            &copy; {new Date().getFullYear()} Flow 83. All rights reserved.
           </p>
         </div>
       </div>

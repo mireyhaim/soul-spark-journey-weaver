@@ -37,9 +37,8 @@ const Header: React.FC = () => {
     <header className="py-4 px-4 md:px-6 border-b">
       <div className="container mx-auto">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2">
-            <span className="font-serif text-lg text-spirit-600">f</span>
-            <span className="font-serif text-xl md:text-2xl font-semibold">flow83</span>
+          <Link to="/" className="flex items-center">
+            <span className="font-serif text-xl md:text-2xl font-semibold">Flow 83</span>
           </Link>
           
           <nav className="hidden md:flex space-x-6 items-center">
