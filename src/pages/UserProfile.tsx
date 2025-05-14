@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useSession } from '@supabase/auth-helpers-react';
 import { toast } from 'sonner';
 import { journeys } from '@/data/journeys';
+import { Journey } from '@/data/journeys/types';
 
 // Import our new components
 import { ProfileHeader } from '@/components/profile/ProfileHeader';
@@ -63,13 +64,13 @@ const UserProfile: React.FC = () => {
   // Get completed journeys
   const completedJourneyData = mockUser.completedJourneys.map(
     id => journeys.find(journey => journey.id === id)
-  ).filter(Boolean);
+  ).filter(Boolean) as Journey[];
   
   // Get in-progress journeys
   const inProgressJourneyData = mockUser.inProgressJourneys.map(progress => {
     const journey = journeys.find(j => j.id === progress.id);
     return journey ? { ...journey, ...progress } : null;
-  }).filter(Boolean);
+  }).filter(Boolean) as (Journey & { currentDay: number, totalDays: number })[];
   
   // Generate recommendations based on completed journeys
   const getRecommendations = () => {
@@ -85,7 +86,7 @@ const UserProfile: React.FC = () => {
       )
       .slice(0, 3); // Limit to 3 recommendations
       
-    return recommendations;
+    return recommendations as Journey[];
   };
   
   const recommendedJourneys = getRecommendations();

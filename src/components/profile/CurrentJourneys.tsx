@@ -5,16 +5,15 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { BookOpen } from 'lucide-react';
+import { Journey } from '@/data/journeys/types';
 
-interface Journey {
-  id: string;
-  title: string;
+interface CurrentJourneyProps extends Journey {
   currentDay: number;
   totalDays: number;
 }
 
 interface CurrentJourneysProps {
-  journeys: Journey[];
+  journeys: CurrentJourneyProps[];
 }
 
 export const CurrentJourneys: React.FC<CurrentJourneysProps> = ({ journeys }) => {

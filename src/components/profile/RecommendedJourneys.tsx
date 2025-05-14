@@ -5,14 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star } from 'lucide-react';
-
-interface Journey {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  image: string;
-}
+import { Journey } from '@/data/journeys/types';
 
 interface RecommendedJourneysProps {
   journeys: Journey[];
@@ -35,7 +28,7 @@ export const RecommendedJourneys: React.FC<RecommendedJourneysProps> = ({ journe
               <CardHeader className="p-4">
                 <div className="aspect-[16/9] rounded-md mb-3 bg-earth-100 overflow-hidden">
                   <img 
-                    src={journey.image} 
+                    src={journey.image || ''} 
                     alt={journey.title} 
                     className="w-full h-full object-cover"
                   />

@@ -5,22 +5,13 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Check, Clock } from 'lucide-react';
+import { Journey } from '@/data/journeys/types';
 
-interface CompletedJourney {
-  id: string;
-  title: string;
-  category: string;
-  duration: number;
-  teacher: string;
-}
+interface CompletedJourney extends Journey {}
 
-interface InProgressJourney {
-  id: string;
-  title: string;
-  category: string;
-  totalDays: number;
+interface InProgressJourney extends Journey {
   currentDay: number;
-  teacher: string;
+  totalDays: number;
 }
 
 interface JourneyHistoryProps {
