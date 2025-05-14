@@ -22,7 +22,7 @@ const CTASection: React.FC = () => {
             className="bg-purple-600 hover:bg-purple-700 text-white border-2 border-white/30 hover:border-white/40" 
             asChild
           >
-            <Link to="/mentor">For Mentors</Link>
+            <Link to="/for-teachers">For Mentors</Link>
           </Button>
         </div>
       </div>

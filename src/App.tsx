@@ -57,6 +57,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/for-teachers" element={<MentorLanding />} />
+            <Route path="/mentor" element={<Navigate to="/for-teachers" replace />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/profile/:id" element={<UserProfile />} />
             <Route path="*" element={<NotFound />} />
