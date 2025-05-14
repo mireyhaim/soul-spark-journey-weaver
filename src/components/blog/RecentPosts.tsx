@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FileText, Calendar } from 'lucide-react';
 
 const RecentPosts: React.FC = () => {
+  // Updated to ensure no duplicates with featured posts (ids 1 and 2)
   const recentPosts = [
     {
       id: '3',
@@ -26,24 +27,24 @@ const RecentPosts: React.FC = () => {
       category: "Mindset"
     },
     {
-      id: '5',
-      slug: 'vision-boards-intelligent-use',
-      title: "How to Use Vision Boards Intelligently, Not Superficially",
-      excerpt: "Learn practical techniques to create vision boards that connect with your deeper intentions rather than just surface-level desires.",
-      image: "https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=300",
-      author: "Emma Thompson",
-      date: "April 15, 2025",
-      category: "Manifestation"
+      id: '7',
+      slug: 'morning-rituals-for-spiritual-growth',
+      title: "5 Morning Rituals That Accelerate Spiritual Growth",
+      excerpt: "Discover simple but powerful morning practices that can transform your spiritual journey and set a positive tone for your day.",
+      image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=300",
+      author: "Rebecca Lee",
+      date: "April 5, 2025",
+      category: "Spirituality"
     },
     {
-      id: '6',
-      slug: 'energetic-approach-to-business',
-      title: "How to Market Yourself Without Apologizing – An Energetic Approach to Business",
-      excerpt: "Discover how to promote your business authentically by aligning with your inner values and natural energy.",
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=300",
-      author: "James Wilson",
-      date: "April 8, 2025",
-      category: "Business"
+      id: '8',
+      slug: 'conscious-leadership-essentials',
+      title: "The Essentials of Conscious Leadership in Uncertain Times",
+      excerpt: "Learn how to lead with awareness, purpose, and authenticity in today's rapidly changing and challenging business environment.",
+      image: "https://images.unsplash.com/photo-1454923634634-bd1614215bf7?auto=format&fit=crop&w=300",
+      author: "Thomas Grant",
+      date: "March 29, 2025",
+      category: "Leadership"
     }
   ];
 

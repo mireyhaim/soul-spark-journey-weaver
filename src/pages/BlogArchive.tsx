@@ -85,6 +85,39 @@ const BlogArchive: React.FC = () => {
       date: "April 8, 2025",
       category: "Business",
       readTime: "6 min read"
+    },
+    {
+      id: '7',
+      slug: 'morning-rituals-for-spiritual-growth',
+      title: "5 Morning Rituals That Accelerate Spiritual Growth",
+      excerpt: "Discover simple but powerful morning practices that can transform your spiritual journey and set a positive tone for your day.",
+      image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600",
+      author: "Rebecca Lee",
+      date: "April 5, 2025",
+      category: "Spirituality",
+      readTime: "5 min read"
+    },
+    {
+      id: '8',
+      slug: 'conscious-leadership-essentials',
+      title: "The Essentials of Conscious Leadership in Uncertain Times",
+      excerpt: "Learn how to lead with awareness, purpose, and authenticity in today's rapidly changing and challenging business environment.",
+      image: "https://images.unsplash.com/photo-1454923634634-bd1614215bf7?auto=format&fit=crop&w=600",
+      author: "Thomas Grant",
+      date: "March 29, 2025",
+      category: "Leadership",
+      readTime: "9 min read"
+    },
+    {
+      id: '9',
+      slug: 'intuition-development-practices',
+      title: "7 Practices to Strengthen Your Intuition",
+      excerpt: "Practical exercises to develop your intuitive abilities and learn to trust your inner guidance system in daily life.",
+      image: "https://images.unsplash.com/photo-1516575150278-77136aed6920?auto=format&fit=crop&w=600",
+      author: "Michelle Levy",
+      date: "March 22, 2025",
+      category: "Personal Development",
+      readTime: "7 min read"
     }
   ];
 
