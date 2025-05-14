@@ -30,23 +30,21 @@ function App() {
       <Router>
         <div className="min-h-screen flex flex-col">
           <Header />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:id" element={<BlogPost />} />
-              <Route path="/blog/archive" element={<BlogArchive />} />
-              <Route path="/journeys" element={<Journeys />} />
-              <Route path="/journey/:id" element={<UserJourney />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/for-teachers" element={<MentorLanding />} />
-              <Route path="/profile" element={<UserProfile />} />
-              <Route path="/profile/:id" element={<UserProfile />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/blog/archive" element={<BlogArchive />} />
+            <Route path="/journeys" element={<Journeys />} />
+            <Route path="/journey/:id" element={<UserJourney />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/for-teachers" element={<MentorLanding />} />
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/profile/:id" element={<UserProfile />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
           <Footer />
         </div>
         <Toaster />
