@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 
 // Type definition for a blog post summary
 type BlogPostSummary = {
-  id: number;
+  id: string;
+  slug: string;
   title: string;
   excerpt: string;
   image: string;
@@ -20,7 +21,8 @@ const BlogArchive: React.FC = () => {
   // All blog posts data with unique content and appropriate images
   const allPosts: BlogPostSummary[] = [
     {
-      id: 1,
+      id: '1',
+      slug: 'how-to-build-a-routine-for-real-change',
       title: "How to Build a Routine That Promotes Real Change",
       excerpt: "Creating real change in our lives depends largely on the routine we adopt. The key to deep and meaningful change lies in creating a routine that is both effective and sustainable.",
       image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=600",
@@ -30,7 +32,8 @@ const BlogArchive: React.FC = () => {
       readTime: "7 min read"
     },
     {
-      id: 2,
+      id: '2',
+      slug: 'why-short-processes-work-better',
       title: "Why Short 7-21 Day Processes Work Better Than Long Courses",
       excerpt: "In the world of learning and personal growth, we're seeing an increasing shift from traditional long courses to short, focused processes. We've understood why this works better.",
       image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600",
@@ -40,7 +43,8 @@ const BlogArchive: React.FC = () => {
       readTime: "8 min read"
     },
     {
-      id: 3,
+      id: '3',
+      slug: 'spiritual-consciousness-vs-positive-thinking',
       title: "What's the Difference Between Spiritual Consciousness and Positive Thinking?",
       excerpt: "Explore the key differences between spiritual awareness and mere positive thinking, and how to cultivate each for personal growth.",
       image: "https://images.unsplash.com/photo-1500673922987-e212871fec22?auto=format&fit=crop&w=600",
@@ -50,7 +54,8 @@ const BlogArchive: React.FC = () => {
       readTime: "6 min read"
     },
     {
-      id: 4,
+      id: '4',
+      slug: 'abundance-mindset-more-than-catchphrase',
       title: "Abundance Mindset – Is It Just a Catchphrase?",
       excerpt: "Dive deep into what abundance consciousness really means beyond the surface-level interpretations popular in self-help circles.",
       image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=600",
@@ -60,7 +65,8 @@ const BlogArchive: React.FC = () => {
       readTime: "8 min read"
     },
     {
-      id: 5,
+      id: '5',
+      slug: 'vision-boards-intelligent-use',
       title: "How to Use Vision Boards Intelligently, Not Superficially",
       excerpt: "Learn practical techniques to create vision boards that connect with your deeper intentions rather than just surface-level desires.",
       image: "https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=600",
@@ -70,7 +76,8 @@ const BlogArchive: React.FC = () => {
       readTime: "7 min read"
     },
     {
-      id: 6,
+      id: '6',
+      slug: 'energetic-approach-to-business',
       title: "How to Market Yourself Without Apologizing – An Energetic Approach to Business",
       excerpt: "Discover how to promote your business authentically by aligning with your inner values and natural energy.",
       image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600",
@@ -118,7 +125,7 @@ const BlogArchive: React.FC = () => {
                 <span className="ml-auto text-earth-500">{post.readTime}</span>
               </div>
               <h3 className="text-lg font-medium mb-2">
-                <Link to={`/blog/${post.id}`} className="hover:text-spirit-600 transition-colors">
+                <Link to={`/blog/${post.slug}`} className="hover:text-spirit-600 transition-colors">
                   {post.title}
                 </Link>
               </h3>

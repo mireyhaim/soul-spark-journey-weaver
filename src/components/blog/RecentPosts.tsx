@@ -6,7 +6,8 @@ import { FileText, Calendar } from 'lucide-react';
 const RecentPosts: React.FC = () => {
   const recentPosts = [
     {
-      id: 3,
+      id: '3',
+      slug: 'spiritual-consciousness-vs-positive-thinking',
       title: "What's the Difference Between Spiritual Consciousness and Positive Thinking?",
       excerpt: "Explore the key differences between spiritual awareness and mere positive thinking, and how to cultivate each for personal growth.",
       image: "https://images.unsplash.com/photo-1500673922987-e212871fec22?auto=format&fit=crop&w=300",
@@ -15,7 +16,8 @@ const RecentPosts: React.FC = () => {
       category: "Spirituality"
     },
     {
-      id: 4,
+      id: '4',
+      slug: 'abundance-mindset-more-than-catchphrase',
       title: "Abundance Mindset – Is It Just a Catchphrase?",
       excerpt: "Dive deep into what abundance consciousness really means beyond the surface-level interpretations popular in self-help circles.",
       image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=300",
@@ -24,7 +26,8 @@ const RecentPosts: React.FC = () => {
       category: "Mindset"
     },
     {
-      id: 5,
+      id: '5',
+      slug: 'vision-boards-intelligent-use',
       title: "How to Use Vision Boards Intelligently, Not Superficially",
       excerpt: "Learn practical techniques to create vision boards that connect with your deeper intentions rather than just surface-level desires.",
       image: "https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=300",
@@ -33,7 +36,8 @@ const RecentPosts: React.FC = () => {
       category: "Manifestation"
     },
     {
-      id: 6,
+      id: '6',
+      slug: 'energetic-approach-to-business',
       title: "How to Market Yourself Without Apologizing – An Energetic Approach to Business",
       excerpt: "Discover how to promote your business authentically by aligning with your inner values and natural energy.",
       image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=300",
@@ -60,7 +64,7 @@ const RecentPosts: React.FC = () => {
               <span className="bg-purple-100 text-spirit-700 px-2 py-1 rounded-full">{post.category}</span>
             </div>
             <h3 className="text-lg font-medium mb-2">
-              <Link to={`/blog/${post.id}`} className="hover:text-spirit-600 transition-colors">
+              <Link to={`/blog/${post.slug}`} className="hover:text-spirit-600 transition-colors">
                 {post.title}
               </Link>
             </h3>

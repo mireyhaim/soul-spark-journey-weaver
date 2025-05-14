@@ -7,7 +7,8 @@ import { Calendar } from 'lucide-react';
 const FeaturedPosts: React.FC = () => {
   const featuredPosts = [
     {
-      id: 1,
+      id: '1',
+      slug: 'how-to-build-a-routine-for-real-change',
       title: "How to Build a Routine That Promotes Real Change",
       excerpt: "Creating real change in our lives depends largely on the routine we adopt. The key to deep and meaningful change lies in creating a routine that is both effective and sustainable.",
       image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=600",
@@ -16,7 +17,8 @@ const FeaturedPosts: React.FC = () => {
       category: "Personal Development"
     },
     {
-      id: 2,
+      id: '2',
+      slug: 'why-short-processes-work-better',
       title: "Why Short 7-21 Day Processes Work Better Than Long Courses",
       excerpt: "In the world of learning and personal growth, we're seeing an increasing shift from traditional long courses to short, focused processes. We've understood why this works better.",
       image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600",
@@ -42,7 +44,7 @@ const FeaturedPosts: React.FC = () => {
                 <span className="bg-purple-100 text-spirit-700 px-3 py-1 rounded-full">{post.category}</span>
               </div>
               <h3 className="text-xl font-serif font-medium mb-2">
-                <Link to={`/blog/${post.id}`} className="hover:text-spirit-600 transition-colors">
+                <Link to={`/blog/${post.slug}`} className="hover:text-spirit-600 transition-colors">
                   {post.title}
                 </Link>
               </h3>
