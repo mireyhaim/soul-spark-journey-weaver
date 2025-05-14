@@ -23,10 +23,10 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({ name, email, joine
       <div className="flex-grow">
         <h1 className="text-2xl md:text-3xl font-bold mb-1 font-sans">{name}</h1>
         <p className="text-earth-600">{email}</p>
-        <p className="text-earth-500 text-sm mt-1">חבר/ה מאז {joinedDate}</p>
+        <p className="text-earth-500 text-sm mt-1">Member since {joinedDate}</p>
       </div>
       <div>
-        <Button variant="outline">ערוך פרופיל</Button>
+        <Button variant="outline">Edit Profile</Button>
       </div>
     </div>
   );
