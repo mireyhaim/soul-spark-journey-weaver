@@ -10,11 +10,13 @@ import { toast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useSession } from '@supabase/auth-helpers-react';
 import { cleanupAuthState } from '@/utils/auth-utils';
+import { AlertCircle } from 'lucide-react';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
   const session = useSession();
   const navigate = useNavigate();
   
@@ -25,8 +27,13 @@ const Login: React.FC = () => {
     }
   }, [session, navigate]);
   
+  const clearErrors = () => {
+    setAuthError(null);
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    clearErrors();
     setIsLoading(true);
     
     try {
@@ -46,6 +53,7 @@ const Login: React.FC = () => {
       // Redirect to home page
       navigate('/');
     } catch (error: any) {
+      setAuthError(error.message || "There was a problem logging in. Please check your credentials and try again.");
       toast(error.message || "There was a problem logging in. Please check your credentials and try again.", {
         className: "bg-destructive text-destructive-foreground"
       });
@@ -55,6 +63,7 @@ const Login: React.FC = () => {
   };
   
   const handleGoogleLogin = async () => {
+    clearErrors();
     try {
       setIsLoading(true);
       
@@ -64,14 +73,18 @@ const Login: React.FC = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.origin
+          redirectTo: `${window.location.origin}/`
         }
       });
       
       if (error) throw error;
       
+      // The redirect will happen automatically
+      // No need to navigate or show toast here
+      
     } catch (error: any) {
-      toast(error.message || "There was a problem logging in with Google.", {
+      setAuthError(error.message || "There was a problem signing in with Google.");
+      toast(error.message || "There was a problem signing in with Google.", {
         className: "bg-destructive text-destructive-foreground"
       });
       setIsLoading(false);
@@ -90,6 +103,12 @@ const Login: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
+              {authError && (
+                <div className="bg-destructive/10 p-3 rounded-md flex items-start gap-2">
+                  <AlertCircle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+                  <p className="text-sm text-destructive">{authError}</p>
+                </div>
+              )}
               <form onSubmit={handleLogin} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
