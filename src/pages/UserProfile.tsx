@@ -1,145 +1,133 @@
-
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { supabase } from "@/integrations/supabase/client";
-import { useSession } from '@supabase/auth-helpers-react';
-import { toast } from 'sonner';
-import { journeys } from '@/data/journeys';
-import { Journey } from '@/data/journeys/types';
-
-// Import our new components
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { ProfileHeader } from '@/components/profile/ProfileHeader';
 import { StatsSummary } from '@/components/profile/StatsSummary';
 import { CurrentJourneys } from '@/components/profile/CurrentJourneys';
 import { RecommendedJourneys } from '@/components/profile/RecommendedJourneys';
-import { JourneyHistory } from '@/components/profile/JourneyHistory';
 import { AccountSettings } from '@/components/profile/AccountSettings';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { journeys } from '@/data/journeys';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import GamificationCard from '@/components/gamification/GamificationCard';
+import { achievements, getUserAchievements } from '@/data/achievements';
+import AchievementBadge from '@/components/gamification/AchievementBadge';
+import { Trophy } from 'lucide-react';
 
-// Mock user data - to be replaced with actual user data from Supabase
-const mockUser = {
-  id: '1',
-  name: 'Sarah Johnson',
-  email: 'sarah@example.com',
-  joinedDate: 'April 10, 2024',
-  completedJourneys: ['1', '7', '13'],
-  inProgressJourneys: [
-    { id: '4', currentDay: 3, totalDays: 14 },
-    { id: '9', currentDay: 1, totalDays: 7 }
-  ]
+// Dummy data for the profile
+const profileName = "אילנה כהן";
+const profileEmail = "ilana@example.com";
+const joinDate = "2023-05-12"; // Format: YYYY-MM-DD
+
+// Convert to display format
+const formatDate = (dateString: string) => {
+  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString('he-IL', options);
 };
+
+// Dummy data for current journeys
+const currentJourneysData = [
+  {...journeys[0], currentDay: 3, totalDays: 14},
+  {...journeys[1], currentDay: 7, totalDays: 21},
+];
+
+// Dummy recommended journeys
+const recommendedJourneysData = [
+  journeys[2],
+  journeys[3],
+  journeys[4],
+];
+
+// Dummy gamification data
+const userLevel = 3;
+const userXp = 230;
+const xpToNextLevel = 500;
+const userStreak = 7;
+const lastActiveDate = new Date().toISOString();
+const unlockedAchievementIds = ['first-login', 'first-journey', 'three-day-streak', 'feedback-giver'];
+const userAchievements = getUserAchievements(unlockedAchievementIds);
+const recentAchievements = userAchievements.filter(a => a.unlocked).slice(0, 3);
 
 const UserProfile: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const userId = id || mockUser.id; // Use param if available, otherwise use mock
-  const navigate = useNavigate();
-  const session = useSession();
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Check if user is logged in
-    if (!session) {
-      toast("You need to login to access your profile.");
-      // Redirect to login page
-      navigate('/login');
-    } else {
-      setIsLoading(false);
-    }
-  }, [session, navigate]);
-
-  // If loading or no session, show a loading message
-  if (isLoading) {
-    return (
-      <div className="container mx-auto py-10 px-4 md:px-6 text-center">
-        <p>Loading profile...</p>
-      </div>
-    );
-  }
+  const [activeTab, setActiveTab] = useState('overview');
   
-  // If no session after loading, don't render the profile content
-  if (!session) {
-    return null;
-  }
-  
-  // Get completed journeys
-  const completedJourneyData = mockUser.completedJourneys.map(
-    id => journeys.find(journey => journey.id === id)
-  ).filter(Boolean) as Journey[];
-  
-  // Get in-progress journeys
-  const inProgressJourneyData = mockUser.inProgressJourneys.map(progress => {
-    const journey = journeys.find(j => j.id === progress.id);
-    return journey ? { ...journey, ...progress } : null;
-  }).filter(Boolean) as (Journey & { currentDay: number, totalDays: number })[];
-  
-  // Generate recommendations based on completed journeys
-  const getRecommendations = () => {
-    const completedCategories = completedJourneyData
-      .map(journey => journey?.category)
-      .filter(Boolean);
-    
-    const recommendations = journeys
-      .filter(journey => 
-        completedCategories.includes(journey.category) && 
-        !mockUser.completedJourneys.includes(journey.id) &&
-        !mockUser.inProgressJourneys.some(j => j.id === journey.id)
-      )
-      .slice(0, 3); // Limit to 3 recommendations
-      
-    return recommendations as Journey[];
+  // Stats data
+  const statsData = {
+    completedCount: 2,
+    inProgressCount: currentJourneysData.length,
+    consecutiveDays: userStreak,
   };
   
-  const recommendedJourneys = getRecommendations();
-
   return (
-    <div className="container mx-auto py-10 px-4 md:px-6">
-      <div className="flex flex-col gap-8">
-        {/* User Profile Header */}
+    <main className="container mx-auto p-6">
+      <div className="max-w-6xl mx-auto space-y-8">
         <ProfileHeader 
-          name={mockUser.name} 
-          email={mockUser.email} 
-          joinedDate={mockUser.joinedDate} 
+          name={profileName}
+          email={profileEmail}
+          joinedDate={formatDate(joinDate)}
+          level={userLevel}
         />
         
-        {/* Dashboard Tabs */}
-        <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="mb-8">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="journeys">My Journeys</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
+        <GamificationCard
+          userName={profileName}
+          level={userLevel}
+          xp={userXp}
+          xpToNextLevel={xpToNextLevel}
+          streak={userStreak}
+          lastActiveDate={lastActiveDate}
+          recentAchievements={recentAchievements}
+        />
+        
+        <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab}>
+          <TabsList className="mb-6">
+            <TabsTrigger value="overview">סקירה כללית</TabsTrigger>
+            <TabsTrigger value="achievements">הישגים</TabsTrigger>
+            <TabsTrigger value="settings">הגדרות</TabsTrigger>
           </TabsList>
           
-          {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-6">
-            {/* Stats Summary */}
-            <StatsSummary 
-              completedCount={completedJourneyData.length} 
-              inProgressCount={inProgressJourneyData.length} 
-              consecutiveDays={8} 
-            />
+            <StatsSummary {...statsData} />
             
-            {/* Current Journeys */}
-            <CurrentJourneys journeys={inProgressJourneyData} />
-            
-            {/* Recommended Journeys */}
-            <RecommendedJourneys journeys={recommendedJourneys} />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-3">
+                <CurrentJourneys journeys={currentJourneysData} />
+              </div>
+              <div className="lg:col-span-3 mt-6">
+                <RecommendedJourneys journeys={recommendedJourneysData} />
+              </div>
+            </div>
           </TabsContent>
           
-          {/* Journeys Tab */}
-          <TabsContent value="journeys">
-            <JourneyHistory 
-              completedJourneys={completedJourneyData} 
-              inProgressJourneys={inProgressJourneyData} 
-            />
+          <TabsContent value="achievements">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Trophy size={20} className="text-spirit-500" />
+                  ההישגים שלי
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 pt-2">
+                  {userAchievements.map(achievement => (
+                    <div key={achievement.id} className="flex flex-col items-center gap-2 p-2 rounded-md">
+                      <AchievementBadge achievement={achievement} size="lg" />
+                      <div className="text-center mt-1">
+                        <p className="font-medium">{achievement.name}</p>
+                        <p className="text-sm text-earth-600">{achievement.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
           
-          {/* Settings Tab */}
           <TabsContent value="settings">
             <AccountSettings />
           </TabsContent>
         </Tabs>
       </div>
-    </div>
+    </main>
   );
 };
 
