@@ -70,10 +70,18 @@ const Login: React.FC = () => {
       // Clean up existing auth state first
       cleanupAuthState();
       
+      // Make sure we use the full URL including protocol and exact path
+      const redirectUrl = `${window.location.origin}/`;
+      console.log("Google auth redirecting to:", redirectUrl);
+      
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/`
+          redirectTo: redirectUrl,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
         }
       });
       
@@ -83,6 +91,7 @@ const Login: React.FC = () => {
       // No need to navigate or show toast here
       
     } catch (error: any) {
+      console.error("Google auth error:", error);
       setAuthError(error.message || "There was a problem signing in with Google.");
       toast(error.message || "There was a problem signing in with Google.", {
         className: "bg-destructive text-destructive-foreground"
