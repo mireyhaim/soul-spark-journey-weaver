@@ -27,16 +27,18 @@ import { supabase } from "@/integrations/supabase/client";
 // Layout component that conditionally renders Header and Footer
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
-  // Check explicitly if the path is exactly /journey/ followed by any ID
+  
+  // Check for routes where we don't want to show header/footer
   const isJourneyPage = /^\/journey\/[^\/]+$/.test(location.pathname);
+  const isSpecialPage = isJourneyPage;
   
   return (
     <div className="min-h-screen flex flex-col">
-      {!isJourneyPage && <Header />}
+      {!isSpecialPage && <Header />}
       <div className="flex-grow">
         {children}
       </div>
-      {!isJourneyPage && <Footer />}
+      {!isSpecialPage && <Footer />}
     </div>
   );
 };
