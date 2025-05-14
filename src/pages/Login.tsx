@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,10 +19,26 @@ const Login: React.FC = () => {
   const [authError, setAuthError] = useState<string | null>(null);
   const session = useSession();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  
+  // Check for error in URL from OAuth redirect
+  useEffect(() => {
+    const error = searchParams.get('error');
+    const errorDescription = searchParams.get('error_description');
+    
+    if (error) {
+      setAuthError(`${error}: ${errorDescription || 'Unknown error'}`);
+      toast(`Authentication error: ${error}`, {
+        className: "bg-destructive text-destructive-foreground"
+      });
+      console.error("OAuth redirect error:", error, errorDescription);
+    }
+  }, [searchParams]);
   
   // If already logged in, redirect to home page
   useEffect(() => {
     if (session) {
+      console.log("Session exists, redirecting to home", session);
       navigate('/');
     }
   }, [session, navigate]);
@@ -70,11 +86,16 @@ const Login: React.FC = () => {
       // Clean up existing auth state first
       cleanupAuthState();
       
-      // Make sure we use the full URL including protocol and exact path
-      const redirectUrl = `${window.location.origin}/`;
-      console.log("Google auth redirecting to:", redirectUrl);
+      // Use window.location.origin for consistent redirects
+      // This should match what's configured in Google OAuth and Supabase
+      const currentOrigin = window.location.origin;
+      const redirectUrl = `${currentOrigin}/`;
       
-      const { error } = await supabase.auth.signInWithOAuth({
+      console.log("Starting Google authentication");
+      console.log("Current origin:", currentOrigin);
+      console.log("Redirect URL:", redirectUrl);
+      
+      const { error, data } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: redirectUrl,
@@ -85,9 +106,13 @@ const Login: React.FC = () => {
         }
       });
       
-      if (error) throw error;
+      if (error) {
+        console.error("Google auth initiation error:", error);
+        throw error;
+      }
       
-      // The redirect will happen automatically
+      console.log("Google auth initiated successfully, data:", data);
+      // The redirect will happen automatically handled by Supabase
       // No need to navigate or show toast here
       
     } catch (error: any) {
