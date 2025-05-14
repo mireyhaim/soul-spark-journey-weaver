@@ -13,6 +13,9 @@ const HeroSection: React.FC = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold leading-tight text-gradient">
               Begin Your Personal Growth Journey
             </h1>
+            <p className="text-lg text-spirit-800 font-medium mb-4">
+              Flow 83 is a platform for personal growth journeys — combining mindset, emotional healing, and spiritual tools, guided by AI.
+            </p>
             <p className="text-xl text-earth-700">
               Discover tailored spiritual paths to help you find peace, purpose, and transformation with our AI companion.
             </p>
