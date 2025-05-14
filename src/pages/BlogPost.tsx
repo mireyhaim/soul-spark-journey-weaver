@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from "@/components/Header";
@@ -82,7 +81,7 @@ const blogPosts = [
     readTime: '8 min',
     category: 'Learning',
     image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1600',
-    summary: 'In the world of learning and personal growth, we're seeing an increasing shift from traditional long courses to short, focused processes.',
+    summary: "In the world of learning and personal growth, we're seeing an increasing shift from traditional long courses to short, focused processes.",
     content: `
       <p>In the realm of personal development and education, we're witnessing a significant shift away from lengthy, comprehensive courses toward shorter, more focused learning experiences. This change isn't just a reflection of our increasingly busy lives but speaks to fundamental principles of how we learn and transform most effectively.</p>
       
@@ -145,7 +144,7 @@ const blogPosts = [
   },
   {
     id: '3',
-    title: 'What\'s the Difference Between Spiritual Consciousness and Positive Thinking?',
+    title: "What's the Difference Between Spiritual Consciousness and Positive Thinking?",
     slug: 'spiritual-consciousness-vs-positive-thinking',
     author: 'Sarah Williams',
     authorAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop',
