@@ -86,14 +86,19 @@ const Login: React.FC = () => {
       // Clean up existing auth state first
       cleanupAuthState();
       
-      // Use window.location.origin for consistent redirects
-      // This should match what's configured in Google OAuth and Supabase
       const currentOrigin = window.location.origin;
       const redirectUrl = `${currentOrigin}/`;
       
       console.log("Starting Google authentication");
       console.log("Current origin:", currentOrigin);
       console.log("Redirect URL:", redirectUrl);
+      
+      // Debug the Supabase client configuration
+      console.log("Supabase client config:", {
+        url: supabase.authUrl,
+        persistSession: supabase.auth.config.persistSession,
+        storage: supabase.auth.config.storage ? "localStorage" : "none"
+      });
       
       const { error, data } = await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -112,8 +117,8 @@ const Login: React.FC = () => {
       }
       
       console.log("Google auth initiated successfully, data:", data);
-      // The redirect will happen automatically handled by Supabase
-      // No need to navigate or show toast here
+      
+      // No need to navigate here as Supabase will handle the redirect
       
     } catch (error: any) {
       console.error("Google auth error:", error);
