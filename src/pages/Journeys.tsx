@@ -1,7 +1,6 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import ProcessCard from '@/components/ProcessCard';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -72,118 +71,112 @@ const Journeys: React.FC = () => {
   }, [activeTab, searchQuery]);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      <main className="flex-grow bg-earth-50/30 py-10 px-4 md:px-6">
-        <div className="container mx-auto max-w-6xl">
-          <div className="mb-10">
-            <h1 className="text-3xl md:text-4xl font-sans font-semibold mb-3">
-              Explore Journeys
-            </h1>
-            <p className="text-earth-700 md:text-lg max-w-3xl">
-              Discover transformative spiritual and personal development journeys created by experienced teachers and guides.
-            </p>
-          </div>
-          
-          {/* Search and Filter */}
-          <div className="flex flex-col md:flex-row gap-4 mb-8 items-center justify-between">
-            <div className="relative w-full md:max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-earth-500" size={18} />
-              <Input
-                placeholder="Search journeys, teachers..."
-                className="pl-10"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" className="gap-2">
-                <Filter size={16} />
-                <span className="hidden sm:inline">Filter</span>
-              </Button>
-              <Button variant="outline" size="sm">
-                Popular
-              </Button>
-              <Button variant="outline" size="sm">
-                Newest
-              </Button>
-            </div>
-          </div>
-          
-          {/* Category Tabs */}
-          <ScrollArea className="w-full mb-8">
-            <Tabs defaultValue="All" value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="mb-6 w-full justify-start bg-transparent p-0 h-auto overflow-auto">
-                {categories.map((category) => (
-                  <TabsTrigger 
-                    key={category} 
-                    value={category}
-                    className="py-2 px-4 data-[state=active]:bg-spirit-100 data-[state=active]:text-spirit-800 rounded-full border"
-                  >
-                    {category}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-              
-              {/* Journeys Grid */}
-              <TabsContent value={activeTab} className="mt-0">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {currentJourneys.map((journey) => (
-                    <div key={journey.id} className="flex flex-col h-full">
-                      <ProcessCard key={journey.id} {...journey} />
-                    </div>
-                  ))}
-                </div>
-                
-                {filteredJourneys.length === 0 && (
-                  <div className="text-center py-16">
-                    <h3 className="text-xl font-sans font-medium mb-2">No journeys found</h3>
-                    <p className="text-earth-600">Try adjusting your search or filters</p>
-                  </div>
-                )}
-              </TabsContent>
-            </Tabs>
-          </ScrollArea>
-          
-          {/* Pagination */}
-          {filteredJourneys.length > 0 && totalPages > 1 && (
-            <Pagination className="mt-10">
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious 
-                    onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-                    className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                  />
-                </PaginationItem>
-                
-                {[...Array(totalPages)].map((_, i) => (
-                  <PaginationItem key={i + 1}>
-                    <PaginationLink
-                      onClick={() => handlePageChange(i + 1)}
-                      isActive={currentPage === i + 1}
-                      className="cursor-pointer"
-                    >
-                      {i + 1}
-                    </PaginationLink>
-                  </PaginationItem>
-                ))}
-                
-                <PaginationItem>
-                  <PaginationNext 
-                    onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
-                    className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          )}
+    <main className="flex-grow bg-earth-50/30 py-10 px-4 md:px-6">
+      <div className="container mx-auto max-w-6xl">
+        <div className="mb-10">
+          <h1 className="text-3xl md:text-4xl font-sans font-semibold mb-3">
+            Explore Journeys
+          </h1>
+          <p className="text-earth-700 md:text-lg max-w-3xl">
+            Discover transformative spiritual and personal development journeys created by experienced teachers and guides.
+          </p>
         </div>
-      </main>
-      
-      <Footer />
-    </div>
+        
+        {/* Search and Filter */}
+        <div className="flex flex-col md:flex-row gap-4 mb-8 items-center justify-between">
+          <div className="relative w-full md:max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-earth-500" size={18} />
+            <Input
+              placeholder="Search journeys, teachers..."
+              className="pl-10"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" className="gap-2">
+              <Filter size={16} />
+              <span className="hidden sm:inline">Filter</span>
+            </Button>
+            <Button variant="outline" size="sm">
+              Popular
+            </Button>
+            <Button variant="outline" size="sm">
+              Newest
+            </Button>
+          </div>
+        </div>
+        
+        {/* Category Tabs */}
+        <ScrollArea className="w-full mb-8">
+          <Tabs defaultValue="All" value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="mb-6 w-full justify-start bg-transparent p-0 h-auto overflow-auto">
+              {categories.map((category) => (
+                <TabsTrigger 
+                  key={category} 
+                  value={category}
+                  className="py-2 px-4 data-[state=active]:bg-spirit-100 data-[state=active]:text-spirit-800 rounded-full border"
+                >
+                  {category}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+            
+            {/* Journeys Grid */}
+            <TabsContent value={activeTab} className="mt-0">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {currentJourneys.map((journey) => (
+                  <div key={journey.id} className="flex flex-col h-full">
+                    <ProcessCard key={journey.id} {...journey} />
+                  </div>
+                ))}
+              </div>
+              
+              {filteredJourneys.length === 0 && (
+                <div className="text-center py-16">
+                  <h3 className="text-xl font-sans font-medium mb-2">No journeys found</h3>
+                  <p className="text-earth-600">Try adjusting your search or filters</p>
+                </div>
+              )}
+            </TabsContent>
+          </Tabs>
+        </ScrollArea>
+        
+        {/* Pagination */}
+        {filteredJourneys.length > 0 && totalPages > 1 && (
+          <Pagination className="mt-10">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious 
+                  onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                  className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                />
+              </PaginationItem>
+              
+              {[...Array(totalPages)].map((_, i) => (
+                <PaginationItem key={i + 1}>
+                  <PaginationLink
+                    onClick={() => handlePageChange(i + 1)}
+                    isActive={currentPage === i + 1}
+                    className="cursor-pointer"
+                  >
+                    {i + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              
+              <PaginationItem>
+                <PaginationNext 
+                  onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                  className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        )}
+      </div>
+    </main>
   );
 };
 
