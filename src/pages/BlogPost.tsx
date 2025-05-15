@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from "@/components/Header";
@@ -532,6 +533,351 @@ const blogPosts = [
       
       <p>These steps begin the transformation from marketing as a separate business activity to an integrated expression of your purpose and contribution.</p>
     `
+  },
+  {
+    id: '7',
+    title: '5 Morning Rituals That Accelerate Spiritual Growth',
+    slug: 'morning-rituals-for-spiritual-growth',
+    author: 'Rebecca Lee',
+    authorAvatar: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?q=80&w=100&auto=format&fit=crop',
+    date: 'April 5, 2025',
+    readTime: '5 min',
+    category: 'Spirituality',
+    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1600',
+    summary: 'Discover simple but powerful morning practices that can transform your spiritual journey and set a positive tone for your day.',
+    content: `
+      <p>The way we begin our day often sets the tone for everything that follows. Morning rituals that nourish our spiritual connection can create a foundation of presence, awareness, and intention that transforms not just our day, but our entire evolutionary journey. Here are five powerful morning practices that can accelerate your spiritual growth when applied consistently.</p>
+      
+      <h2>1. Mindful Awakening</h2>
+      
+      <p>The transition from sleep to wakefulness is a precious threshold—a moment when the mind hasn't yet fully engaged with worldly concerns. Rather than immediately reaching for your phone or jumping into thinking about your to-do list, try this practice:</p>
+      
+      <ul>
+        <li>Upon first awakening, remain still and bring awareness to your breath</li>
+        <li>Notice the quality of your consciousness before thoughts begin to proliferate</li>
+        <li>Feel gratitude for the gift of another day of life</li>
+        <li>Set an intention for how you wish to show up energetically today</li>
+      </ul>
+      
+      <p>This practice takes just 1-3 minutes but creates a conscious foundation that can influence your entire day. It interrupts the automatic pattern of immediately falling into reactivity or planning mode.</p>
+      
+      <h2>2. Sacred Hydration</h2>
+      
+      <p>Turning the simple act of drinking water into a spiritual practice transforms both your physical hydration and your energetic state:</p>
+      
+      <ul>
+        <li>Prepare your water mindfully, perhaps adding lemon or blessing it</li>
+        <li>Hold the water in your hands for a moment, feeling connection with this life-giving element</li>
+        <li>Drink slowly and with full attention, feeling the water moving through and nourishing your body</li>
+        <li>Visualize the water clearing stagnant energy and bringing clarity to your mind and emotions</li>
+      </ul>
+      
+      <p>This practice not only ensures you begin your day properly hydrated but also cultivates presence with a routine activity, building your capacity to bring awareness to other parts of your day.</p>
+      
+      <h2>3. Embodied Movement</h2>
+      
+      <p>Morning movement that unites body, breath, and awareness creates integration and presence:</p>
+      
+      <ul>
+        <li>Choose movement that feels nourishing rather than depleting (gentle yoga, qigong, dancing, stretching)</li>
+        <li>Focus on sensation rather than achievement</li>
+        <li>Synchronize movement with breath</li>
+        <li>Include movements that open the heart center and energize the spine</li>
+        <li>End with a moment of stillness to feel the effects of the practice</li>
+      </ul>
+      
+      <p>Even 5-10 minutes of mindful movement can awaken your energy system, release physical tension patterns that hold emotional blocks, and establish embodied presence before engaging with the mental demands of your day.</p>
+      
+      <h2>4. Contemplative Reading</h2>
+      
+      <p>Morning is an ideal time to plant seeds of wisdom in your consciousness:</p>
+      
+      <ul>
+        <li>Select spiritual texts or poetry that resonate deeply with your path</li>
+        <li>Read just a small section—perhaps a paragraph or single page</li>
+        <li>Read slowly and attentively, perhaps even aloud</li>
+        <li>After reading, close your eyes and let the words penetrate beyond intellectual understanding</li>
+        <li>Consider how this wisdom might be embodied in your day ahead</li>
+      </ul>
+      
+      <p>This practice shifts your mind from mundane concerns to higher principles at the start of your day, creating a lens of wisdom through which you'll perceive subsequent experiences.</p>
+      
+      <h2>5. Connection With Your Deeper Purpose</h2>
+      
+      <p>Taking time to reconnect with your soul's purpose before engaging with daily activities grounds your actions in meaning:</p>
+      
+      <ul>
+        <li>Sit quietly and place a hand on your heart</li>
+        <li>Ask yourself: "What matters most to me in this lifetime?"</li>
+        <li>Listen for the response that comes from your deepest self, beyond social conditioning</li>
+        <li>Consider one way you can honor this purpose today, even in small actions</li>
+        <li>Feel gratitude for the opportunity to serve this purpose</li>
+      </ul>
+      
+      <p>This practice ensures that your day unfolds in alignment with your authentic values rather than being driven solely by external demands or habitual patterns.</p>
+      
+      <h2>Integration Into Daily Life</h2>
+      
+      <p>The key to benefiting from these rituals is sustainable implementation:</p>
+      
+      <ul>
+        <li>Start with just one practice that resonates most strongly</li>
+        <li>Create environmental cues that remind you of your intention (items on your bedside table, notes, etc.)</li>
+        <li>Consider tracking your practice to build momentum</li>
+        <li>Be compassionate with yourself on days when the full ritual isn't possible</li>
+        <li>Notice and appreciate the subtle shifts that emerge over time</li>
+      </ul>
+      
+      <p>Remember that spiritual growth isn't about perfect performance of practices but about cultivating a quality of presence that gradually permeates your entire life. These morning rituals are gateways to that presence, helping you begin each day from your center rather than from habit or reactivity.</p>
+    `
+  },
+  {
+    id: '8',
+    title: 'The Essentials of Conscious Leadership in Uncertain Times',
+    slug: 'conscious-leadership-essentials',
+    author: 'Thomas Grant',
+    authorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop',
+    date: 'March 29, 2025',
+    readTime: '9 min',
+    category: 'Leadership',
+    image: 'https://images.unsplash.com/photo-1454923634634-bd1614215bf7?auto=format&fit=crop&w=1600',
+    summary: 'Learn how to lead with awareness, purpose, and authenticity in today\'s rapidly changing and challenging business environment.',
+    content: `
+      <p>The business landscape has never been more volatile, uncertain, complex, and ambiguous than it is today. Traditional leadership approaches that worked in more stable times are proving insufficient for the challenges we now face. Conscious leadership—leading with full awareness, presence, and alignment with deeper values—offers a more effective approach to navigating these turbulent waters while creating organizations that contribute positively to the world.</p>
+      
+      <h2>Beyond Management to Conscious Leadership</h2>
+      
+      <p>Conscious leadership transcends conventional management in several key dimensions:</p>
+      
+      <ul>
+        <li>It prioritizes awareness and presence over mere technique and strategy</li>
+        <li>It values the growth and wellbeing of all stakeholders, not just shareholders</li>
+        <li>It embraces uncertainty as a creative opportunity rather than a threat to control</li>
+        <li>It recognizes that outer results flow from inner states of being</li>
+        <li>It measures success through multiple forms of capital: financial, human, social, and spiritual</li>
+      </ul>
+      
+      <p>This approach represents a paradigm shift from leadership based primarily on doing and achieving to leadership rooted in being and awareness.</p>
+      
+      <h2>Awareness as the Foundation</h2>
+      
+      <p>The cornerstone of conscious leadership is cultivated awareness:</p>
+      
+      <ul>
+        <li><strong>Self-awareness:</strong> Understanding your triggers, patterns, and authentic values</li>
+        <li><strong>Situational awareness:</strong> Perceiving dynamics and energies beyond surface appearances</li>
+        <li><strong>Systemic awareness:</strong> Recognizing interdependencies and ripple effects of decisions</li>
+        <li><strong>Stakeholder awareness:</strong> Genuinely understanding the needs and perspectives of all involved</li>
+      </ul>
+      
+      <p>This multi-dimensional awareness allows conscious leaders to respond to challenges with wisdom rather than react from conditioning or fear.</p>
+      
+      <h2>The Courage to Face Reality</h2>
+      
+      <p>Conscious leadership requires unflinching honesty about current realities:</p>
+      
+      <ul>
+        <li>Creating cultures where truth can be spoken without fear</li>
+        <li>Encouraging dissenting viewpoints and diversity of perspective</li>
+        <li>Acknowledging mistakes and failures as valuable learning opportunities</li>
+        <li>Facing difficult facts without defensiveness or blame</li>
+        <li>Distinguishing between facts and interpretations</li>
+      </ul>
+      
+      <p>This commitment to reality creates a foundation of trust and enables more effective problem-solving than environments where political considerations determine what can be discussed.</p>
+      
+      <h2>From Reactivity to Creative Response</h2>
+      
+      <p>Perhaps the most transformative aspect of conscious leadership is the shift from reactive patterns to creative response:</p>
+      
+      <ul>
+        <li>Recognizing when you've been triggered into reactivity</li>
+        <li>Creating space between stimulus and response</li>
+        <li>Understanding the difference between reacting from past conditioning and responding from presence</li>
+        <li>Developing practices that help you return to center during challenging situations</li>
+        <li>Modeling this capacity for your team</li>
+      </ul>
+      
+      <p>This ability to remain centered amidst volatility becomes increasingly valuable as the pace of change accelerates.</p>
+      
+      <h2>Purpose-Driven Direction</h2>
+      
+      <p>Conscious leaders align their organizations with authentic purpose:</p>
+      
+      <ul>
+        <li>Clarifying the genuine contribution your organization makes to society</li>
+        <li>Ensuring all key decisions reflect and reinforce this purpose</li>
+        <li>Helping team members connect their individual purpose with organizational purpose</li>
+        <li>Using purpose as a guiding star during periods of uncertainty</li>
+        <li>Measuring success by contribution to purpose, not just financial metrics</li>
+      </ul>
+      
+      <p>This purpose-driven approach creates resilience and meaning that sustains organizations through challenges that would derail those motivated solely by profit.</p>
+      
+      <h2>The Shadow Side of Power</h2>
+      
+      <p>Conscious leaders actively work with the shadow aspects of leadership and power:</p>
+      
+      <ul>
+        <li>Acknowledging the ego's attraction to power and control</li>
+        <li>Creating accountability systems that provide honest feedback</li>
+        <li>Working with coaches or mentors who can reflect blind spots</li>
+        <li>Understanding personal triggers that activate unhealthy leadership behaviors</li>
+        <li>Developing practices that keep ego patterns in awareness</li>
+      </ul>
+      
+      <p>This shadow work prevents the unconscious misuse of power that has undermined countless leaders and organizations throughout history.</p>
+      
+      <h2>Cultivating a Conscious Culture</h2>
+      
+      <p>Individual conscious leadership naturally extends to creating conscious organizational cultures:</p>
+      
+      <ul>
+        <li>Fostering psychological safety for authentic expression</li>
+        <li>Encouraging practices that develop presence and awareness</li>
+        <li>Designing systems and structures that align with conscious values</li>
+        <li>Balancing productivity with renewal and wellbeing</li>
+        <li>Creating decision-making processes that honor all stakeholders</li>
+      </ul>
+      
+      <p>These cultural elements create organizations that bring out the best in their people while adapting effectively to changing conditions.</p>
+      
+      <h2>Practices for Developing Conscious Leadership</h2>
+      
+      <p>Becoming a more conscious leader involves ongoing practice:</p>
+      
+      <ul>
+        <li><strong>Mindfulness meditation:</strong> Developing the capacity for present-moment awareness</li>
+        <li><strong>Reflective practices:</strong> Journaling, contemplative inquiry, and honest self-examination</li>
+        <li><strong>Somatic awareness:</strong> Recognizing how wisdom and reactivity manifest in the body</li>
+        <li><strong>Authentic dialogue:</strong> Creating conversations that go beyond surface exchanges</li>
+        <li><strong>Purpose reconnection:</strong> Regularly revisiting your deepest reasons for leading</li>
+      </ul>
+      
+      <p>These practices develop the inner capacities that make conscious leadership possible in the face of intense external challenges.</p>
+      
+      <p>As we navigate increasingly turbulent times, conscious leadership offers not just a more effective approach to organizational success but a path toward creating businesses that contribute positively to all their stakeholders and to society as a whole. The journey toward becoming a more conscious leader is lifelong, but even small shifts in awareness can create significant positive impacts on your organization and all those it serves.</p>
+    `
+  },
+  {
+    id: '9',
+    title: '7 Practices to Strengthen Your Intuition',
+    slug: 'intuition-development-practices',
+    author: 'Michelle Levy',
+    authorAvatar: 'https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?q=80&w=100&auto=format&fit=crop',
+    date: 'March 22, 2025',
+    readTime: '7 min',
+    category: 'Personal Development',
+    image: 'https://images.unsplash.com/photo-1516575150278-77136aed6920?auto=format&fit=crop&w=1600',
+    summary: 'Practical exercises to develop your intuitive abilities and learn to trust your inner guidance system in daily life.',
+    content: `
+      <p>Intuition—that subtle knowing that arises without logical reasoning—represents one of our most powerful internal resources. Far from being mystical or available only to a gifted few, intuitive capacity is a natural human ability that can be developed and strengthened through consistent practice. This article offers seven practical approaches to cultivating your intuitive abilities and integrating them into everyday decision-making.</p>
+      
+      <h2>1. Meditation for Mental Clarity</h2>
+      
+      <p>The foundation for strengthening intuition is a quiet mind that can detect subtle signals:</p>
+      
+      <ul>
+        <li>Practice regular meditation focused on mental quieting rather than visualization or manifestation</li>
+        <li>Begin with just 5-10 minutes daily of following your breath</li>
+        <li>When thoughts arise, gently return to your breath without judgment</li>
+        <li>Gradually extend your practice, aiming for the state "beyond thoughts" where intuitive impressions become clearer</li>
+      </ul>
+      
+      <p>This practice creates the mental space necessary to distinguish between the voice of intuition and the chatter of conditioning, fear, or desire. With regular practice, you'll develop greater sensitivity to the subtle intuitive signals that are often drowned out by mental noise.</p>
+      
+      <h2>2. Body-Based Awareness</h2>
+      
+      <p>Our bodies often register intuitive information before our conscious minds:</p>
+      
+      <ul>
+        <li>Practice regular body scans to develop sensitivity to physical sensations</li>
+        <li>When making decisions, notice how different options feel in your body</li>
+        <li>Pay attention to sensations like tightness, openness, heaviness, lightness</li>
+        <li>Create a personal dictionary of what different body signals mean for you</li>
+      </ul>
+      
+      <p>This somatic approach to intuition acknowledges that our nervous systems process far more information than our conscious minds. By tuning into body wisdom, you access intuitive knowing that bypasses rational thought.</p>
+      
+      <h2>3. Intuitive Journaling</h2>
+      
+      <p>Structured writing exercises can bypass the analytical mind and access intuitive knowledge:</p>
+      
+      <ul>
+        <li>Begin journaling sessions with a clear question you seek guidance on</li>
+        <li>Write without stopping for 10-15 minutes, not editing or judging what emerges</li>
+        <li>Use prompts like "What do I already know about this that I'm not acknowledging?" or "If I trusted my deepest knowing, what would it tell me?"</li>
+        <li>Review your writing later, highlighting passages that resonate with surprising clarity or wisdom</li>
+      </ul>
+      
+      <p>This practice creates a direct channel for intuitive wisdom to emerge, often revealing insights and solutions that weren't available to your analytical thinking process.</p>
+      
+      <h2>4. Nature Immersion</h2>
+      
+      <p>Time in natural environments recalibrates our intuitive sensing:</p>
+      
+      <ul>
+        <li>Spend time regularly in natural settings without technological distractions</li>
+        <li>Practice expanding your awareness to take in your surroundings through all senses</li>
+        <li>Bring questions or challenges to your nature time, allowing insights to emerge organically</li>
+        <li>Notice how your mental state shifts when fully present in natural settings</li>
+      </ul>
+      
+      <p>This practice works because nature operates through the same intelligence that our intuition taps into. By quieting the artificial constructs of human society and immersing in natural rhythms, we synchronize with deeper patterns of wisdom.</p>
+      
+      <h2>5. Intuition Testing Games</h2>
+      
+      <p>Playful exercises can build intuitive confidence through immediate feedback:</p>
+      
+      <ul>
+        <li>Practice guessing who's calling before checking your phone</li>
+        <li>Before opening emails, take a moment to sense their content or emotional tone</li>
+        <li>When meeting new people, note your first impressions and check their accuracy over time</li>
+        <li>Try card guessing games, starting with simple red/black predictions</li>
+      </ul>
+      
+      <p>These playful practices build your relationship with intuition through immediate feedback loops. Even when your guesses are wrong, you're strengthening neural pathways associated with intuitive perception.</p>
+      
+      <h2>6. Dream Incubation</h2>
+      
+      <p>Our dreams offer a direct channel to intuitive wisdom:</p>
+      
+      <ul>
+        <li>Before sleep, write down a clear question you're seeking guidance on</li>
+        <li>Keep a dream journal by your bed to record impressions immediately upon waking</li>
+        <li>Even fragments or emotions from dreams can contain valuable intuitive information</li>
+        <li>Look for symbolic or metaphoric answers rather than literal ones</li>
+      </ul>
+      
+      <p>This practice leverages the intuitive wisdom available when the analytical mind is at rest. Dreams often provide perspectives and solutions that wouldn't be accessible through waking consciousness.</p>
+      
+      <h2>7. Intuitive Decision Making</h2>
+      
+      <p>Gradually integrate intuition into your practical decision making:</p>
+      
+      <ul>
+        <li>Start with lower-stakes decisions like restaurant choices or entertainment options</li>
+        <li>For important decisions, gather all relevant factual information first</li>
+        <li>Create quiet space to sense the intuitive dimension beyond the facts</li>
+        <li>Notice when analytical and intuitive guidance align or diverge</li>
+        <li>Begin tracking the outcomes of choices made with intuitive input</li>
+      </ul>
+      
+      <p>This practice bridges intuitive development with practical application. Over time, you'll learn how to integrate intuitive wisdom with analytical thinking for more holistic decision making.</p>
+      
+      <h2>The Integration Journey</h2>
+      
+      <p>Developing intuition is an ongoing process of integration:</p>
+      
+      <ul>
+        <li>Be patient with your progress and celebrate small confirmations</li>
+        <li>Notice resistance from your analytical mind and work with it rather than against it</li>
+        <li>Recognize that intuition functions differently than logical thinking—it often comes in flashes, feelings, or subtle knowing</li>
+        <li>Create a personal framework for distinguishing true intuition from fear, wishful thinking, or projection</li>
+      </ul>
+      
+      <p>With consistent practice, intuition becomes an invaluable resource that complements your rational faculties. The goal isn't to replace analytical thinking but to develop a more complete intelligence that incorporates both logical analysis and intuitive wisdom.</p>
+    `
   }
 ];
 
@@ -551,8 +897,10 @@ const BlogPost: React.FC = () => {
         setLoading(false);
       } else {
         // If post is not found, show error toast and navigate back
-        toast("The blog post you're looking for doesn't exist.", {
-          className: "bg-destructive text-destructive-foreground"
+        toast({
+          title: "Post not found",
+          description: "The blog post you're looking for doesn't exist.",
+          variant: "destructive"
         });
         navigate('/blog');
         setLoading(false);
