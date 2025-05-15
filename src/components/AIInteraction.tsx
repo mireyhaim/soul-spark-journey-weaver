@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,13 +14,17 @@ interface AIInteractionProps {
   completed?: boolean;
   onComplete?: () => void;
   isPracticeMode?: boolean;
+  lastUserMessage?: string | null;
+  onUpdateLastMessage?: (message: string) => void;
 }
 
 const AIInteraction: React.FC<AIInteractionProps> = ({ 
   currentDay = 1, 
   completed = false, 
   onComplete = () => {}, 
-  isPracticeMode = false 
+  isPracticeMode = false,
+  lastUserMessage = null,
+  onUpdateLastMessage
 }) => {
   const { id } = useParams<{ id: string }>();
   const isMobile = useIsMobile();
@@ -38,7 +43,9 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
     completed,
     onComplete,
     isPracticeMode,
-    currentJourney
+    currentJourney,
+    lastUserMessage,
+    onUpdateLastMessage
   });
 
   if (isMobile) {

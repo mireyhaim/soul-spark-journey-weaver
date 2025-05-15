@@ -10,6 +10,8 @@ interface JourneyChatSectionProps {
   onComplete: () => void;
   isMobile: boolean;
   onToggleChat?: () => void;
+  lastUserMessage?: string | null;
+  onUpdateLastMessage?: (message: string) => void;
 }
 
 const JourneyChatSection: React.FC<JourneyChatSectionProps> = ({ 
@@ -17,7 +19,9 @@ const JourneyChatSection: React.FC<JourneyChatSectionProps> = ({
   completed, 
   onComplete,
   isMobile,
-  onToggleChat 
+  onToggleChat,
+  lastUserMessage,
+  onUpdateLastMessage
 }) => {
   return (
     <div className="bg-white p-6 rounded-lg border shadow-sm">
@@ -40,7 +44,9 @@ const JourneyChatSection: React.FC<JourneyChatSectionProps> = ({
           <JourneyInsights 
             currentDay={currentDay} 
             completed={completed} 
-            onComplete={onComplete} 
+            onComplete={onComplete}
+            lastUserMessage={lastUserMessage}
+            onUpdateLastMessage={onUpdateLastMessage}
           />
         )}
       </div>

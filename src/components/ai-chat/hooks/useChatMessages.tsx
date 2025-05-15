@@ -13,6 +13,8 @@ interface UseChatMessagesProps {
   onComplete: () => void;
   isPracticeMode: boolean;
   currentJourney?: any;
+  lastUserMessage?: string | null;
+  onUpdateLastMessage?: (message: string) => void;
 }
 
 export const useChatMessages = ({
@@ -20,7 +22,9 @@ export const useChatMessages = ({
   completed,
   onComplete,
   isPracticeMode,
-  currentJourney
+  currentJourney,
+  lastUserMessage,
+  onUpdateLastMessage
 }: UseChatMessagesProps) => {
   // State for tracking waiting for user response
   const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
@@ -54,7 +58,9 @@ export const useChatMessages = ({
   const messageManagement = useMessageManagement({
     currentJourney,
     updateLastActivity: inactivityDetection.updateLastActivity,
-    setWaitingForResponse
+    setWaitingForResponse,
+    lastUserMessage,
+    onUpdateLastMessage
   });
   
   const aiResponseGeneration = useAIResponseGeneration();

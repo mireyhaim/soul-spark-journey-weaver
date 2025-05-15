@@ -32,11 +32,13 @@ const UserJourney: React.FC = () => {
     showChatOnMobile,
     price,
     isMobile,
+    lastMessage,
     handleComplete,
     handleNextDay,
     handlePurchase,
     handleContinueJourney,
     handleDismissExplanations,
+    updateLastMessage,
     toggleMobileChat
   } = useJourneyState(journey);
 
@@ -48,6 +50,8 @@ const UserJourney: React.FC = () => {
         completed={completed}
         onComplete={handleComplete}
         onBack={() => toggleMobileChat()}
+        lastUserMessage={lastMessage}
+        onUpdateLastMessage={updateLastMessage}
       />
     );
   }
@@ -90,6 +94,8 @@ const UserJourney: React.FC = () => {
                   onComplete={handleComplete}
                   isMobile={isMobile}
                   onToggleChat={toggleMobileChat}
+                  lastUserMessage={lastMessage}
+                  onUpdateLastMessage={updateLastMessage}
                 />
               </div>
             </>

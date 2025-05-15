@@ -232,6 +232,8 @@ export type Database = {
           current_day: number | null
           id: string
           journey_id: string
+          last_interaction_at: string | null
+          last_message: string | null
           reflections: Json | null
           started_at: string | null
           user_id: string
@@ -242,6 +244,8 @@ export type Database = {
           current_day?: number | null
           id?: string
           journey_id: string
+          last_interaction_at?: string | null
+          last_message?: string | null
           reflections?: Json | null
           started_at?: string | null
           user_id: string
@@ -252,6 +256,8 @@ export type Database = {
           current_day?: number | null
           id?: string
           journey_id?: string
+          last_interaction_at?: string | null
+          last_message?: string | null
           reflections?: Json | null
           started_at?: string | null
           user_id?: string

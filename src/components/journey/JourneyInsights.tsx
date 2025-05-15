@@ -7,12 +7,16 @@ interface JourneyInsightsProps {
   currentDay: number;
   completed: boolean;
   onComplete: () => void;
+  lastUserMessage?: string | null;
+  onUpdateLastMessage?: (message: string) => void;
 }
 
 const JourneyInsights: React.FC<JourneyInsightsProps> = ({ 
   currentDay,
   completed,
-  onComplete
+  onComplete,
+  lastUserMessage,
+  onUpdateLastMessage
 }) => {
   const isMobile = useIsMobile();
   
@@ -25,6 +29,8 @@ const JourneyInsights: React.FC<JourneyInsightsProps> = ({
           completed={completed}
           onComplete={onComplete}
           isPracticeMode={true}
+          lastUserMessage={lastUserMessage}
+          onUpdateLastMessage={onUpdateLastMessage}
         />
       </div>
     );
@@ -37,6 +43,8 @@ const JourneyInsights: React.FC<JourneyInsightsProps> = ({
         completed={completed}
         onComplete={onComplete}
         isPracticeMode={true}
+        lastUserMessage={lastUserMessage}
+        onUpdateLastMessage={onUpdateLastMessage}
       />
     </div>
   );

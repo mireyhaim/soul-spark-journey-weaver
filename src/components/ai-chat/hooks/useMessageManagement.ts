@@ -7,12 +7,16 @@ interface UseMessageManagementProps {
   currentJourney?: any;
   updateLastActivity: () => void;
   setWaitingForResponse: (waiting: boolean) => void;
+  lastUserMessage?: string | null;
+  onUpdateLastMessage?: (message: string) => void;
 }
 
 export const useMessageManagement = ({
   currentJourney,
   updateLastActivity,
-  setWaitingForResponse
+  setWaitingForResponse,
+  lastUserMessage,
+  onUpdateLastMessage
 }: UseMessageManagementProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -44,6 +48,11 @@ export const useMessageManagement = ({
       sender: 'user',
       timestamp: new Date()
     };
+    
+    // Save last message for continuity if needed
+    if (onUpdateLastMessage) {
+      onUpdateLastMessage(content);
+    }
     
     setMessages(prev => [...prev, userMessage]);
     setInput('');

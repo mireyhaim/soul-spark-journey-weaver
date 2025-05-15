@@ -9,13 +9,17 @@ interface MobileChatViewProps {
   completed: boolean;
   onComplete: () => void;
   onBack: () => void;
+  lastUserMessage?: string | null;
+  onUpdateLastMessage?: (message: string) => void;
 }
 
 const MobileChatView: React.FC<MobileChatViewProps> = ({ 
   currentDay, 
   completed, 
   onComplete,
-  onBack
+  onBack,
+  lastUserMessage,
+  onUpdateLastMessage
 }) => {
   return (
     <div className="h-screen w-screen">
@@ -33,6 +37,8 @@ const MobileChatView: React.FC<MobileChatViewProps> = ({
         currentDay={currentDay}
         completed={completed}
         onComplete={onComplete}
+        lastUserMessage={lastUserMessage}
+        onUpdateLastMessage={onUpdateLastMessage}
       />
     </div>
   );
