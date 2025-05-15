@@ -1,50 +1,50 @@
 
 // This file exports all lesson topics from the module
 import { LessonTopic } from './types';
-import { getAbundanceManifestationLessons } from './abundance-manifestation-lessons';
-import { getBusinessDevelopmentLessons } from './business-development-lessons';
-import { getCareerDevelopmentLessons } from './career-development-lessons';
-import { getConsciousnessLessons } from './consciousness-lessons';
-import { getEmotionalHealingLessons } from './emotional-healing-lessons';
-import { getEnergyHealingLessons } from './energy-healing-lessons';
-import { getFemininePowerLessons } from './feminine-power-lessons';
-import { getPersonalDevelopmentLessons } from './personal-development-lessons';
-import { getProductivityLessons } from './productivity-lessons';
-import { getRealityManifestationLessons } from './reality-manifestation-lessons';
-import { getRelationshipsLessons } from './relationships-lessons';
-import { getSpiritualityLessons } from './spirituality-lessons';
-import { getDefaultCategoryLessons } from './default-category-lessons';
+import { abundanceManifestationLessonTopics } from './abundance-manifestation-lessons';
+import { businessDevelopmentLessonTopics } from './business-development-lessons';
+import { careerDevelopmentLessonTopics } from './career-development-lessons';
+import { consciousnessLessonTopics } from './consciousness-lessons';
+import { emotionalHealingLessonTopics } from './emotional-healing-lessons';
+import { energyHealingLessonTopics } from './energy-healing-lessons';
+import { femininePowerLessonTopics } from './feminine-power-lessons';
+import { personalDevelopmentLessonTopics } from './personal-development-lessons';
+import { productivityLessonTopics } from './productivity-lessons';
+import { realityManifestationLessonTopics } from './reality-manifestation-lessons';
+import { relationshipsLessonTopics } from './relationships-lessons';
+import { spiritualityLessonTopics } from './spirituality-lessons';
+import { personalDevelopmentLessonTopics as defaultCategoryLessonTopics } from './default-category-lessons';
 
 // Main function to get lesson topics based on journey ID and category
 export const getJourneyLessonTopics = (journeyId: string, category?: string, duration = 7): LessonTopic[] => {
   // Map the category to the appropriate function
   switch (category?.toLowerCase()) {
     case 'abundance manifestation':
-      return getAbundanceManifestationLessons(journeyId, duration);
+      return abundanceManifestationLessonTopics[journeyId] || [];
     case 'business development':
-      return getBusinessDevelopmentLessons(journeyId, duration);
+      return businessDevelopmentLessonTopics[journeyId] || [];
     case 'career development':
-      return getCareerDevelopmentLessons(journeyId, duration);
+      return careerDevelopmentLessonTopics[journeyId] || [];
     case 'consciousness':
-      return getConsciousnessLessons(journeyId, duration);
+      return consciousnessLessonTopics[journeyId] || [];
     case 'emotional healing':
-      return getEmotionalHealingLessons(journeyId, duration);
+      return emotionalHealingLessonTopics[journeyId] || [];
     case 'energy healing':
-      return getEnergyHealingLessons(journeyId, duration);
+      return energyHealingLessonTopics[journeyId] || [];
     case 'feminine power':
-      return getFemininePowerLessons(journeyId, duration);
+      return femininePowerLessonTopics[journeyId] || [];
     case 'personal development':
-      return getPersonalDevelopmentLessons(journeyId, duration);
+      return personalDevelopmentLessonTopics[journeyId] || [];
     case 'productivity':
-      return getProductivityLessons(journeyId, duration);
+      return productivityLessonTopics[journeyId] || [];
     case 'reality manifestation':
-      return getRealityManifestationLessons(journeyId, duration);
+      return realityManifestationLessonTopics[journeyId] || [];
     case 'relationships':
-      return getRelationshipsLessons(journeyId, duration);
+      return relationshipsLessonTopics[journeyId] || [];
     case 'spirituality':
-      return getSpiritualityLessons(journeyId, duration);
+      return spiritualityLessonTopics[journeyId] || [];
     default:
-      return getDefaultCategoryLessons(journeyId, duration);
+      return defaultCategoryLessonTopics[journeyId] || [];
   }
 };
 

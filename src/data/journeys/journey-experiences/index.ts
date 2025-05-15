@@ -1,33 +1,44 @@
 
 // This file exports all journey experiences from the module
-import { JourneyExperience } from './types';
-import { getAbundanceExperiences } from './abundance-experiences';
-import { getBusinessDevelopmentExperiences } from './business-development-experiences';
-import { getCareerExperiences } from './career-experiences';
-import { getPersonalDevelopmentExperiences } from './personal-development-experiences';
-import { getRelationshipsExperiences } from './relationships-experiences';
-import { getFemininePowerExperiences } from './feminine-power-experiences';
-import { getDefaultCategoryExperiences } from './default-category-experiences';
+import { JourneyExperienceMap, JourneyExperienceContent } from './types';
+import { abundanceExperiences } from './abundance-experiences';
+import { businessDevelopmentExperiences } from './business-development-experiences';
+import { careerExperiences } from './career-experiences';
+import { personalDevelopmentExperiences } from './personal-development-experiences';
+import { relationshipsExperiences } from './relationships-experiences';
+import { femininePowerExperiences } from './feminine-power-experiences';
+import { getDefaultExperiences } from './default-category-experiences';
 
-// Main function to get journey experiences based on category
-export const getJourneyExperiences = (category?: string): JourneyExperience[] => {
-  // Map the category to the appropriate function
+// Function to get journey experience content based on journey ID and category
+export const getJourneyExperienceContent = (journeyId: string, category?: string): JourneyExperienceContent => {
+  // Map the category to the appropriate experiences map
+  let experiencesMap: JourneyExperienceMap;
+  
   switch (category?.toLowerCase()) {
     case 'abundance manifestation':
-      return getAbundanceExperiences();
+      experiencesMap = abundanceExperiences;
+      break;
     case 'business development':
-      return getBusinessDevelopmentExperiences();
+      experiencesMap = businessDevelopmentExperiences;
+      break;
     case 'career development':
-      return getCareerExperiences();
+      experiencesMap = careerExperiences;
+      break;
     case 'personal development':
-      return getPersonalDevelopmentExperiences();
+      experiencesMap = personalDevelopmentExperiences;
+      break;
     case 'relationships':
-      return getRelationshipsExperiences();
+      experiencesMap = relationshipsExperiences;
+      break;
     case 'feminine power':
-      return getFemininePowerExperiences();
+      experiencesMap = femininePowerExperiences;
+      break;
     default:
-      return getDefaultCategoryExperiences();
+      return getDefaultExperiences(category, 7); // Default duration of 7 days
   }
+  
+  // Return the experience content for the specific journey ID, or a default one if not found
+  return experiencesMap[journeyId] || getDefaultExperiences(category, 7);
 };
 
 // Re-export types
