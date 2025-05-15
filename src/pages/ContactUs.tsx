@@ -1,11 +1,12 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Contact } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 type ContactFormValues = {
   name: string;
@@ -15,6 +16,7 @@ type ContactFormValues = {
 };
 
 const ContactUs: React.FC = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<ContactFormValues>({
     defaultValues: {
       name: '',
@@ -24,11 +26,27 @@ const ContactUs: React.FC = () => {
     }
   });
 
-  const onSubmit = (data: ContactFormValues) => {
+  const onSubmit = async (data: ContactFormValues) => {
+    setIsSubmitting(true);
     console.log('Form submitted:', data);
-    // Update toast call to use the correct format
-    toast("Thank you for contacting us. We'll get back to you soon!");
-    form.reset();
+    
+    try {
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: data
+      });
+      
+      if (error) {
+        throw error;
+      }
+      
+      toast("Thank you for contacting us. We'll get back to you soon!");
+      form.reset();
+    } catch (error) {
+      console.error('Error sending contact form:', error);
+      toast("There was an error sending your message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -123,8 +141,9 @@ const ContactUs: React.FC = () => {
             <Button 
               type="submit"
               className="w-full md:w-auto bg-spirit-600 hover:bg-spirit-700"
+              disabled={isSubmitting}
             >
-              Send Message
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </Button>
           </form>
         </div>

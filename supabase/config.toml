@@ -1,19 +1,5 @@
 
 project_id = "jmomnhqbzeomjwbtssbi"
 
-# Set Site URL and allowed redirect URLs for Google OAuth
-# This helps ensure that Google redirects correctly work in local development
-[auth]
-  # Use the current site URL as the site_url for OAuth
-  site_url = "https://e39d74ae-2822-4a6d-80e7-731b05671dfb.lovableproject.com"
-
-  # Add additional redirect URLs if you have a deployed site
-  additional_redirect_urls = [
-    "http://localhost:3000", 
-    "http://localhost:5173", 
-    "https://e39d74ae-2822-4a6d-80e7-731b05671dfb.lovableproject.com",
-    "https://e39d74ae-2822-4a6d-80e7-731b05671dfb.lovableproject.com/",
-    "https://e39d74ae-2822-4a6d-80e7-731b05671dfb.lovableproject.com/auth/callback",
-    "http://localhost:3000/auth/callback",
-    "http://localhost:5173/auth/callback"
-  ]
+[functions.send-contact-email]
+verify_jwt = false
