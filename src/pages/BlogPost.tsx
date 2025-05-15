@@ -896,9 +896,7 @@ const BlogPost: React.FC = () => {
         setLoading(false);
       } else {
         // If post is not found, show error toast and navigate back
-        toast({
-          title: "Blog post not found",
-          description: "Redirecting you to the blog page.",
+        toast("Blog post not found. Redirecting you to the blog page.", {
           variant: "destructive"
         });
         navigate('/blog');
