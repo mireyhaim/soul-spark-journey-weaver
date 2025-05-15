@@ -57,6 +57,7 @@ export const useChatMessages = ({
   
   const messageManagement = useMessageManagement({
     currentJourney,
+    currentDay,
     updateLastActivity: inactivityDetection.updateLastActivity,
     setWaitingForResponse,
     lastUserMessage,

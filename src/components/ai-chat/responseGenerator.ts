@@ -1,4 +1,3 @@
-
 import { AIResponseGeneratorProps } from './types';
 import { getPersonality } from './personalities';
 
@@ -71,10 +70,10 @@ export const generateResponse = ({ userInput, journey }: AIResponseGeneratorProp
   return responses[Math.floor(Math.random() * responses.length)];
 };
 
-// Generate personalized welcome message based on journey
+// Generate personalized welcome message based on journey and current day
 export const getWelcomeMessage = (currentJourney?: any): string => {
   if (!currentJourney) {
-    return "Welcome to your spiritual journey. I'm your personal guide, here to accompany you every step of the way. I'm here to listen, support and offer insights as you walk your path of personal growth. How are you feeling today?";
+    return "ברוך הבא למסע הרוחני שלך. אני המדריך האישי שלך, ואלווה אותך בכל צעד בדרך. אני כאן להקשיב, לתמוך ולהציע תובנות תוך כדי שאתה הולך בנתיב הצמיחה האישי שלך. איך אתה מרגיש היום?";
   }
   
   // Get personality based on journey category
@@ -83,7 +82,7 @@ export const getWelcomeMessage = (currentJourney?: any): string => {
   // Journey-specific welcome messages with personality
   const welcomeMessages: Record<string, string> = {
     // Personal Development
-    '1': `Welcome to your journey of self-discovery. I am ${personality.name}, your personal guide with expertise in ${personality.specialties.join(', ')}. I'm here to help you discover your authentic self and true purpose with a ${personality.tone} approach. Together, we'll embark on a journey of introspection, growth, and elevation. Each day, I'll offer exercises and thought-provoking questions that will help deepen your self-understanding. How are you feeling about beginning a journey of self-discovery?`,
+    '1': `ברוך הבא למסע של גילוי עצמי. אני ${personality.name}, המדריך האישי שלך עם מומחיות ב${personality.specialties.join(', ')}. אני כאן לעזור לך לגלות את העצמי האותנטי שלך והמטרה האמיתית שלך עם גישה ${personality.tone}. יחד, נצא למסע של התבוננות פנימית, צמיחה והתעלות. בכל יום, אציע לך תרגילים ושאלות מעוררות מחשבה שיעזרו להעמיק את ההבנה העצמית שלך. מה אתה מרגיש לגבי תחילת מסע של גילוי עצמי?`,
     
     '2': `I'm glad you've chosen this emotional intelligence journey. I am ${personality.name}, your supportive mentor with a ${personality.tone} style. Together, we'll work on developing a deeper understanding of your emotions, learn to identify emotional patterns, and develop tools to handle emotional challenges. I'll accompany you every step, listen without judgment, and offer insights to help you grow. How are you feeling right now?`,
     
@@ -101,11 +100,11 @@ The journey we're beginning is transformative—a path to understanding how your
   };
   
   return welcomeMessages[currentJourney.id] || 
-    `Welcome to your ${currentJourney.title} journey. I am ${personality.name}, your personal guide with expertise in ${personality.specialties[0]}. 
+    `ברוך הבא למסע ${currentJourney.title} שלך. אני ${personality.name}, המדריך האישי שלך עם מומחיות ב${personality.specialties[0]}. 
     
-I'm here to accompany you through this life-changing ${currentJourney.duration}-day process, with a ${personality.tone} and supportive approach. Together, we'll go through a process of growth, elevation, and personal transformation.
+אני כאן ללוות אותך דרך תהליך משנה חיים זה של ${currentJourney.duration} ימים, עם גישה ${personality.tone} ותומכת. יחד, נעבור תהליך של צמיחה, התעלות ושינוי אישי.
 
-Each day of the journey, I'll offer you exercises, thought-provoking questions, and tasks designed to help you deepen your connection with yourself and your goals. I'll be with you at every moment of the process - listening, supporting, and offering tools and insights.
+בכל יום במסע, אציע לך תרגילים, שאלות מעוררות מחשבה ומשימות שנועדו לעזור לך להעמיק את הקשר עם עצמך ועם המטרות שלך. אהיה איתך בכל רגע של התהליך - מקשיב, תומך ומציע כלים ותובנות.
 
-Our goal is not only to achieve external results but also to undergo a deep internal change that will impact all areas of your life. How are you feeling as we begin?`;
+המטרה שלנו היא לא רק להשיג תוצאות חיצוניות אלא גם לעבור שינוי פנימי עמוק שישפיע על כל תחומי חייך. איך אתה מרגיש כשאנחנו מתחילים?`;
 };

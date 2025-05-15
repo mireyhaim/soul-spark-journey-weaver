@@ -57,8 +57,8 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
             <AvatarImage src="/placeholder.svg" />
           </Avatar>
           <div>
-            <h2 className="text-lg font-medium">Spirit Guide</h2>
-            <p className="text-sm text-earth-500">Your personal growth companion</p>
+            <h2 className="text-lg font-medium">מדריך רוחני</h2>
+            <p className="text-sm text-earth-500">המלווה האישי שלך בצמיחה</p>
           </div>
         </div>
         
@@ -86,8 +86,8 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
             <AvatarImage src="/placeholder.svg" />
           </Avatar>
           <div>
-            <CardTitle className="text-lg">Spirit Guide</CardTitle>
-            <CardDescription>Your personal growth companion</CardDescription>
+            <CardTitle className="text-lg">מדריך רוחני</CardTitle>
+            <CardDescription>המלווה האישי שלך בצמיחה</CardDescription>
           </div>
         </div>
       </CardHeader>

@@ -5,6 +5,7 @@ import { getWelcomeMessage } from '../responseGenerator';
 
 interface UseMessageManagementProps {
   currentJourney?: any;
+  currentDay?: number;
   updateLastActivity: () => void;
   setWaitingForResponse: (waiting: boolean) => void;
   lastUserMessage?: string | null;
@@ -13,6 +14,7 @@ interface UseMessageManagementProps {
 
 export const useMessageManagement = ({
   currentJourney,
+  currentDay = 1,
   updateLastActivity,
   setWaitingForResponse,
   lastUserMessage,
@@ -23,12 +25,25 @@ export const useMessageManagement = ({
   const [isTyping, setIsTyping] = useState(false);
   const [initialMessageSent, setInitialMessageSent] = useState<boolean>(false);
 
-  // Initialize with welcome message when hook mounts
+  // Initialize with welcome message when hook mounts or when current day changes
   useEffect(() => {
     if (!initialMessageSent) {
+      // If we have a last message from the user, customize the welcome to maintain continuity
+      let welcomeContent = getWelcomeMessage(currentJourney);
+      
+      if (lastUserMessage) {
+        welcomeContent = `שלום שוב! אני שמח/ה לראות אותך חוזר/ת ליום ${currentDay} במסע שלך. 
+        
+בפעם האחרונה שדיברנו, שיתפת: "${lastUserMessage}".
+
+נמשיך מהנקודה הזו. אני כאן לתמוך בך במשימת היום.`;
+      } else {
+        welcomeContent = `ברוך/ה הבא/ה ליום ${currentDay} במסע שלך! ${welcomeContent}`;
+      }
+      
       const initialMessage: Message = {
         id: '1',
-        content: getWelcomeMessage(currentJourney),
+        content: welcomeContent,
         sender: 'ai',
         timestamp: new Date()
       };
@@ -38,7 +53,7 @@ export const useMessageManagement = ({
       setInitialMessageSent(true);
       updateLastActivity();
     }
-  }, [currentJourney, initialMessageSent, setWaitingForResponse, updateLastActivity]);
+  }, [currentJourney, currentDay, initialMessageSent, setWaitingForResponse, updateLastActivity, lastUserMessage]);
 
   // Add a user message to the conversation
   const addUserMessage = (content: string): void => {

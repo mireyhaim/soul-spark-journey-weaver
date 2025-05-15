@@ -29,7 +29,7 @@ const DailyPractice: React.FC<DailyPracticeProps> = ({
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
       <h3 className="text-xl font-serif font-medium mb-4">
-        Day {currentDay}: {currentLesson.title}
+        יום {currentDay}: {currentLesson.title}
       </h3>
       
       {currentLesson.guidanceText ? (
@@ -42,18 +42,18 @@ const DailyPractice: React.FC<DailyPracticeProps> = ({
         </div>
       ) : (
         <p className="text-earth-500 italic">
-          Complete today's reflection questions to progress in your journey.
+          השלם את שאלות הרפלקציה להיום כדי להתקדם במסע שלך.
         </p>
       )}
       
       {currentLesson.videoUrl && (
         <div className="mt-6">
-          <h4 className="font-medium mb-2">Watch Today's Guidance:</h4>
+          <h4 className="font-medium mb-2">צפה בהדרכה של היום:</h4>
           <div className={cn("aspect-video bg-earth-100 rounded-md overflow-hidden")}>
             <iframe
               className="w-full h-full"
               src={currentLesson.videoUrl}
-              title={`Day ${currentDay} - ${currentLesson.title}`}
+              title={`יום ${currentDay} - ${currentLesson.title}`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
