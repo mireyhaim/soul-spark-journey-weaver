@@ -7,12 +7,12 @@ export const personalDevelopmentLessonTopics: JourneyLessonTopicsMap = {
     { 
       day: 1, 
       title: 'Understanding Your Core Values',
-      guidanceText: 'Today we'll explore what truly matters to you. Take 15 minutes to sit quietly and reflect on moments in your life when you felt most fulfilled and aligned. What values were you honoring in those moments? Make a list of 5-7 core values that resonate most deeply with you, and write a short paragraph about why each one matters.'
+      guidanceText: 'Today we\'ll explore what truly matters to you. Take 15 minutes to sit quietly and reflect on moments in your life when you felt most fulfilled and aligned. What values were you honoring in those moments? Make a list of 5-7 core values that resonate most deeply with you, and write a short paragraph about why each one matters.'
     },
     { 
       day: 2, 
       title: 'Identifying Your Strengths',
-      guidanceText: 'Research shows that people who regularly use their natural strengths experience less stress and greater well-being. Today, reflect on activities that energize rather than drain you. When do you feel "in flow"? List your top 3 strengths and record specific examples of how you've successfully applied each one.'
+      guidanceText: 'Research shows that people who regularly use their natural strengths experience less stress and greater well-being. Today, reflect on activities that energize rather than drain you. When do you feel "in flow"? List your top 3 strengths and record specific examples of how you\'ve successfully applied each one.'
     },
     { 
       day: 3, 
@@ -22,7 +22,7 @@ export const personalDevelopmentLessonTopics: JourneyLessonTopicsMap = {
     { 
       day: 4, 
       title: 'Creating Your Personal Mission Statement',
-      guidanceText: 'A personal mission statement acts as your life's compass. Today, combine your core values and strengths to draft a 1-2 sentence mission statement that captures your purpose. Begin with "I exist to..." or "My purpose is..." Make it concise, meaningful, and inspiring enough to guide your daily choices.'
+      guidanceText: 'A personal mission statement acts as your life\'s compass. Today, combine your core values and strengths to draft a 1-2 sentence mission statement that captures your purpose. Begin with "I exist to..." or "My purpose is..." Make it concise, meaningful, and inspiring enough to guide your daily choices.'
     },
     { 
       day: 5, 
@@ -37,12 +37,12 @@ export const personalDevelopmentLessonTopics: JourneyLessonTopicsMap = {
     { 
       day: 7, 
       title: 'Tracking Your Growth Journey',
-      guidanceText: 'Today, create a system to track your ongoing personal development. This could be a journal, a digital document, or an app. Record your insights from this week, and establish a weekly review ritual where you'll reflect on your progress, celebrate wins, and adjust course as needed.'
+      guidanceText: 'Today, create a system to track your ongoing personal development. This could be a journal, a digital document, or an app. Record your insights from this week, and establish a weekly review ritual where you\'ll reflect on your progress, celebrate wins, and adjust course as needed.'
     },
     { 
       day: 8, 
       title: 'Embracing Your Authentic Self',
-      guidanceText: 'Authenticity requires courage but yields freedom. Identify one area of your life where you're not fully expressing your true self. What small step could you take today to bring more authenticity to this area? Journal about how it would feel to fully express yourself here.'
+      guidanceText: 'Authenticity requires courage but yields freedom. Identify one area of your life where you\'re not fully expressing your true self. What small step could you take today to bring more authenticity to this area? Journal about how it would feel to fully express yourself here.'
     },
     { 
       day: 9, 
@@ -57,7 +57,7 @@ export const personalDevelopmentLessonTopics: JourneyLessonTopicsMap = {
     { 
       day: 11, 
       title: 'Creating Life Balance',
-      guidanceText: 'Balance isn't perfect equilibrium but intentional attention. Assess eight life areas: career, relationships, health, finances, personal growth, recreation, spirituality, and contribution. Rate your satisfaction in each from 1-10. Choose the two lowest areas and create one simple action for each to bring more fulfillment.'
+      guidanceText: 'Balance isn\'t perfect equilibrium but intentional attention. Assess eight life areas: career, relationships, health, finances, personal growth, recreation, spirituality, and contribution. Rate your satisfaction in each from 1-10. Choose the two lowest areas and create one simple action for each to bring more fulfillment.'
     },
     { 
       day: 12, 
