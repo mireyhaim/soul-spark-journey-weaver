@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from "@/components/Header";
@@ -327,7 +328,7 @@ const blogPosts = [
     date: 'April 15, 2025',
     readTime: '7 min',
     category: 'Manifestation',
-    image: 'https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=1600',
+    image: '/lovable-uploads/0c055cc3-71f0-4b7a-b5fe-20115317e348.png',
     summary: 'Learn practical techniques to create vision boards that connect with your deeper intentions rather than just surface-level desires.',
     content: `
       <p>Vision boards have become a staple tool in manifestation practices, yet their effectiveness varies dramatically depending on how they're created and used. For many, the process never moves beyond cutting out pictures of luxury items from magazines—an approach that often yields disappointing results. This article explores how to transform vision boarding from a superficial wishlist into a powerful instrument for genuine transformation and alignment.</p>
