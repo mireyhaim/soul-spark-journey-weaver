@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Contact } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -128,26 +129,12 @@ const ContactUs: React.FC = () => {
           </form>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-earth-50 p-6 rounded-lg text-center">
+        <div className="flex justify-center">
+          <div className="bg-earth-50 p-6 rounded-lg text-center max-w-sm w-full">
             <h3 className="font-medium text-lg mb-2">Email Us</h3>
             <a href="mailto:support@flow83.com" className="text-spirit-600 hover:underline">
               support@flow83.com
             </a>
-          </div>
-          
-          <div className="bg-earth-50 p-6 rounded-lg text-center">
-            <h3 className="font-medium text-lg mb-2">Call Us</h3>
-            <a href="tel:+1234567890" className="text-spirit-600 hover:underline">
-              +1 (234) 567-890
-            </a>
-          </div>
-          
-          <div className="bg-earth-50 p-6 rounded-lg text-center">
-            <h3 className="font-medium text-lg mb-2">Location</h3>
-            <p className="text-earth-600">
-              123 Meditation St, Mindful City, MC 12345
-            </p>
           </div>
         </div>
       </div>
