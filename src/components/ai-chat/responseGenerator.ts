@@ -19,53 +19,57 @@ const containsInappropriateContent = (input: string): boolean => {
   return inappropriateTopics.some(topic => lowercaseInput.includes(topic));
 };
 
-// Generate supportive, empathetic responses based on user input and journey context
+// Generate intimate, personal responses based on user input
 export const generateResponse = ({ userInput, journey }: AIResponseGeneratorProps): string => {
   // Get appropriate personality based on journey category
   const personality = getPersonality(journey?.category);
   
   // Check for inappropriate content first
   if (containsInappropriateContent(userInput)) {
-    return personality.boundaries.refusalMessage || "I'm sorry, but I don't engage with questions or discussions about inappropriate topics like sex, drugs, or violence. I'm here to support your spiritual journey and personal growth. If you'd like to discuss something else related to your journey, I'd be happy to help.";
+    return personality.boundaries.refusalMessage || "This path calls for topics that nurture your spirit. What else is present for you today?";
   }
   
   const userInputLower = userInput.toLowerCase();
   
-  // Check for emotional keywords
+  // Check for emotional keywords - shorter, more personal responses
   if (userInputLower.includes('anxious') || userInputLower.includes('afraid') || userInputLower.includes('scared')) {
-    return `I hear that you're feeling some anxiety, and that's completely understandable. These journeys can bring up deep emotions. Remember to breathe deeply and know that I'm right here with you through this process. As ${personality.name}, I specialize in ${personality.specialties[0]} and can guide you through this. Would you like to try a quick grounding exercise together?`;
+    return `The fear you're feeling is a natural part of growth. Your body holds wisdom in this tension. What sensation comes with this anxiety?`;
   }
   
   if (userInputLower.includes('stuck') || userInputLower.includes('blocked') || userInputLower.includes('can\'t do')) {
-    return `I understand feeling stuck can be frustrating. Let's acknowledge that blockage with compassion rather than judgment. Sometimes our greatest insights come when we gently work through resistance. In my experience as ${personality.name}, focusing on ${personality.specialties[1]} can help here. What specifically feels most challenging right now?`;
+    return `Resistance often guards our deepest transformations. This place of stuckness holds a gift waiting to be revealed. What lies just beneath this feeling?`;
   }
   
   if (userInputLower.includes('happy') || userInputLower.includes('excited') || userInputLower.includes('good')) {
-    return `I'm so glad to hear you're feeling positive! That energy is beautiful and will help propel you forward in this journey. Let's build on that feeling. As someone who focuses on ${personality.specialties[0]}, I'd love to hear what aspect of today's practice resonated most deeply with you?`;
+    return `This joy is your birthright, flowing naturally when you align with your essence. Notice how it feels in your body, this remembering of who you truly are.`;
   }
   
-  // Journey-specific responses
+  // Journey-specific responses - shorter, more personal
   if (journey) {
     if (journey.category === 'Abundance Manifestation') {
-      return `I sense you're navigating your relationship with abundance. As ${personality.name}, I've guided many through this path. Remember that you are worthy of receiving fully, just as you are worthy of giving. Our practice is about expanding your capacity to welcome prosperity in all its forms. Would you like to explore what abundance truly means to you?`;
+      return `Abundance already flows within you, waiting to be recognized. Your relationship with receiving shapes everything about your experience. What would change if you knew you were worthy of fullness?`;
     }
     
     if (journey.category === 'Personal Development') {
-      return `Your self-awareness is truly inspiring. This journey is about meeting yourself with curiosity and compassion, and I can already sense your commitment to growth. As ${personality.name}, I specialize in ${personality.specialties.join(', ')}. What parts of yourself are you most excited to discover or strengthen through this process?`;
+      return `Every moment of awareness creates new possibility. There's profound wisdom in how you're showing up right now. What part of yourself is ready to be seen?`;
     }
     
     if (journey.category === 'Reality Manifestation') {
-      return `Your creative power is immense. As ${personality.name}, I've seen how ${personality.specialties[1]} can transform reality. As we continue this manifestation work, remember that clarity of intention combined with aligned emotion creates powerful results. I'm curious - when you visualize your desired reality, what details become most vivid to you?`;
+      return `Your consciousness is creating in every moment. The images you hold shape the energy that flows through you. What vision resonates in your body right now?`;
+    }
+    
+    if (journey.category === 'Relationships') {
+      return `Every relationship mirrors something within you, offering a path to deeper self-knowledge. Your heart knows what it needs to feel safe and connected. What truth is asking to be honored?`;
     }
   }
   
-  // Default supportive responses with personality
+  // Default supportive responses with personality - shorter, more personal, avoiding coaching tone
   const responses = [
-    `Thank you for sharing that with me. Your openness creates space for real transformation. As ${personality.name}, I'm here to support your ${personality.specialties[0]} journey. What support would be most helpful for you right now in your practice?`,
-    `I appreciate your reflection. There's such wisdom in what you're expressing. With my focus on ${personality.specialties[1]}, I can see how this insight connects to your growth. How might we deepen this understanding in today's practice?`,
-    `I'm here with you every step of this journey. Your commitment to your growth is beautiful to witness. As ${personality.name}, I bring a ${personality.tone} approach to our work together. How are you honoring yourself through this process?`,
-    `What you're experiencing is an important part of your path. Sometimes the most challenging moments lead to the most profound breakthroughs. With my background in ${personality.specialties[2] || personality.specialties[0]}, I'd like to explore how I can best support you right now.`,
-    `I hear you completely. Your awareness is the fertile ground from which transformation grows. In my experience as ${personality.name}, this kind of reflection often leads to significant growth. What aspect of today's practice would you like to explore more deeply?`
+    `Your words carry the seeds of your own transformation. Trust the wisdom that's already emerging from within you.`,
+    `What you're experiencing matters deeply. This path you're walking is uniquely yours, with every step revealing new truth.`,
+    `Your awareness itself is a powerful force of healing. The questions you're asking are creating new possibilities with each moment.`,
+    `This journey unfolds at exactly the right pace for your soul's evolution. You're exactly where you need to be right now.`,
+    `Your inner knowing already holds the answers you seek. The stillness between your thoughts reveals a wisdom beyond words.`
   ];
   
   return responses[Math.floor(Math.random() * responses.length)];
@@ -74,38 +78,34 @@ export const generateResponse = ({ userInput, journey }: AIResponseGeneratorProp
 // Generate personalized welcome message based on journey and current day
 export const getWelcomeMessage = (currentJourney?: any): string => {
   if (!currentJourney) {
-    return "Welcome to your spiritual journey. I am your personal guide, and I'll accompany you every step of the way. I'm here to listen, support, and offer insights as you walk your path of personal growth. How are you feeling today?";
+    return "Welcome. I'm here to accompany you on this journey of growth and transformation. How are you feeling as we begin?";
   }
   
   // Get personality based on journey category
   const personality = getPersonality(currentJourney.category);
   
-  // Journey-specific welcome messages with personality in English
+  // Journey-specific welcome messages with personality in English - shorter, more conversational
   const welcomeMessages: Record<string, string> = {
     // Personal Development
-    '1': `Welcome to your journey of self-discovery. I am ${personality.name}, your personal guide with expertise in ${personality.specialties.join(', ')}. I'm here to help you discover your authentic self and true purpose with a ${personality.tone} approach. Together, we'll embark on a journey of introspection, growth, and transformation. Each day, I'll offer exercises and thought-provoking questions to deepen your self-understanding. How do you feel about beginning this journey of self-discovery?`,
+    '1': `Welcome to your journey of self-discovery. I'm here to accompany you as you explore your true nature and purpose. What's present for you as we begin?`,
     
-    '2': `I'm glad you've chosen this emotional intelligence journey. I am ${personality.name}, your supportive mentor with a ${personality.tone} style. Together, we'll work on developing a deeper understanding of your emotions, learn to identify emotional patterns, and develop tools to handle emotional challenges. I'll accompany you every step, listen without judgment, and offer insights to help you grow. How are you feeling right now?`,
+    '2': `I'm here with you as you develop a deeper relationship with your emotions. This path reveals the wisdom in all you feel. What brings you to this journey?`,
     
     // Abundance journeys
-    '10': `Welcome to your manifestation journey. I am ${personality.name}, your personal reality creation guide. With a focus on ${personality.specialties.join(', ')}, I'm here to help you shape your dream life with intention and purpose. Together, we'll work on removing inner blocks, creating positive thought patterns, and connecting to the energy of abundance. Each day will offer you tools and exercises to help you attract what you truly desire into your life. How do you feel about creating a life of abundance and meaning?`,
+    '10': `Welcome to your manifestation journey. Together we'll explore how your consciousness creates your reality. What would you like to manifest in your life?`,
     
-    '13': `I'm pleased to accompany you on this abundance meditation journey. I am ${personality.name}, your abundance guide with a ${personality.tone} approach. Together we'll work on opening your inner channels for receiving abundance in all its forms. Each day, I'll offer exercises, meditations, and guidance designed to shift your perception about abundance and help you identify blocks preventing you from receiving in abundance. What is your relationship with abundance right now?`,
+    '13': `I'm here to accompany you as you open to receiving abundance. Your relationship with receiving is about to transform. What does abundance mean to you right now?`,
     
     // Reality Manifestation journey (id 9)
-    '9': `Welcome to your Reality Manifestation journey. I am ${personality.name}, your dedicated guide in the art of conscious creation. I bring expertise in ${personality.specialties.join(', ')} with a ${personality.tone} approach that honors where you are while guiding you forward. 
+    '9': `Welcome to your Reality Manifestation journey. We'll explore how your consciousness shapes your experience of reality. What draws you to this practice?`,
     
-Over the next days, we'll work together to help you understand and harness the power of your consciousness to shape your reality. I'll be with you every step of the way, offering personalized guidance, reflections, and practical exercises. 
-
-The journey we're beginning is transformative—a path to understanding how your thoughts, emotions, and energy directly influence the reality you experience. Think of me as your companion in this sacred exploration. How are you feeling as we begin?`,
+    // Relationships journey (id 16)
+    '16': `Welcome to your Heal & Attract Love journey. This path will transform how you experience connection and intimacy. What patterns are you noticing in your relationships?`,
+    
+    // Relationships journey (id 17)
+    '17': `Welcome to Conscious Relationships Mastery. Together we'll explore the art of authentic connection. What qualities do you value most in relationship?`
   };
   
   return welcomeMessages[currentJourney.id] || 
-    `Welcome to your ${currentJourney.title} journey. I am ${personality.name}, your personal guide with expertise in ${personality.specialties[0]}. 
-    
-I'm here to accompany you through this life-changing ${currentJourney.duration}-day process, with a ${personality.tone} and supportive approach. Together, we'll go through a process of growth, transformation, and personal change.
-
-Each day in the journey, I'll offer you exercises, thought-provoking questions, and tasks designed to help you deepen your connection with yourself and your goals. I'll be with you at every moment of the process - listening, supporting, and offering tools and insights.
-
-Our goal is not just to achieve external results but to undergo a deep internal change that will affect all areas of your life. How are you feeling as we begin?`;
+    `Welcome to your ${currentJourney.title} journey. I'm here to walk beside you through this ${currentJourney.duration}-day transformation. What brings you here today?`;
 };
