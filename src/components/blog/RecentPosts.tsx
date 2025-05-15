@@ -54,13 +54,13 @@ const RecentPosts: React.FC = () => {
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {recentPosts.map((post) => (
           <div key={post.id} className="flex flex-col h-full group">
-            <div className="aspect-video mb-4 overflow-hidden rounded-lg">
+            <Link to={`/blog/${post.slug}`} className="block aspect-video mb-4 overflow-hidden rounded-lg">
               <img 
                 src={post.image} 
                 alt={post.title} 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform"
               />
-            </div>
+            </Link>
             <div className="flex items-center text-xs text-spirit-600 mb-2">
               <span className="bg-purple-100 text-spirit-700 px-2 py-1 rounded-full">{post.category}</span>
             </div>

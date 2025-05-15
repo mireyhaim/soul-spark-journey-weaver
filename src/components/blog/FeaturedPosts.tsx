@@ -34,11 +34,13 @@ const FeaturedPosts: React.FC = () => {
       <div className="grid md:grid-cols-2 gap-8">
         {featuredPosts.map((post) => (
           <Card key={post.id} className="overflow-hidden flex flex-col h-full hover:shadow-md transition-shadow">
-            <img 
-              src={post.image} 
-              alt={post.title} 
-              className="w-full h-48 object-cover"
-            />
+            <Link to={`/blog/${post.slug}`} className="block">
+              <img 
+                src={post.image} 
+                alt={post.title} 
+                className="w-full h-48 object-cover hover:opacity-90 transition-opacity"
+              />
+            </Link>
             <CardContent className="flex-grow flex flex-col p-6">
               <div className="flex items-center text-sm text-spirit-600 mb-2">
                 <span className="bg-purple-100 text-spirit-700 px-3 py-1 rounded-full">{post.category}</span>

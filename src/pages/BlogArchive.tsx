@@ -129,10 +129,12 @@ const BlogArchive: React.FC = () => {
           <Button 
             variant="ghost" 
             className="mb-6 hover:bg-white/20" 
-            onClick={() => window.history.back()}
+            asChild
           >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Blog
+            <Link to="/blog">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Blog
+            </Link>
           </Button>
           <h1 className="text-4xl md:text-5xl font-serif font-medium mb-4">Blog Archive</h1>
           <p className="text-xl text-earth-600 max-w-3xl">
@@ -146,13 +148,13 @@ const BlogArchive: React.FC = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {allPosts.map((post) => (
             <div key={post.id} className="flex flex-col h-full group">
-              <div className="aspect-video mb-4 overflow-hidden rounded-lg">
+              <Link to={`/blog/${post.slug}`} className="block aspect-video mb-4 overflow-hidden rounded-lg">
                 <img 
                   src={post.image} 
                   alt={post.title} 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                 />
-              </div>
+              </Link>
               <div className="flex items-center text-xs text-spirit-600 mb-2">
                 <span className="bg-purple-100 text-spirit-700 px-2 py-1 rounded-full">{post.category}</span>
                 <span className="ml-auto text-earth-500">{post.readTime}</span>
