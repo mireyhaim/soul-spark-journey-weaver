@@ -4,6 +4,7 @@ export interface LessonTopic {
   day: number;
   title: string;
   description?: string;
+  guidanceText?: string; // Added field for detailed guidance instructions
   videoUrl?: string;
 }
 
