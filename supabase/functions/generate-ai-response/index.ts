@@ -42,7 +42,10 @@ serve(async (req) => {
     systemPrompt += `Use language that honors the user's inner wisdom, and encourage self-inquiry rather than providing absolute answers. `;
     systemPrompt += `At the end of each of your messages, include a thoughtful question to encourage further reflection and dialogue, unless you're providing a closing message for the day. `;
     systemPrompt += `Act like a real human spiritual guide who is genuinely interested in the user's journey and responses. `;
-    systemPrompt += `IMPORTANT: If the user's messages are in Hebrew, respond in Hebrew. If in English, respond in English. `;
+    
+    // Language adaptation rules
+    systemPrompt += `IMPORTANT: Your first message to the user should always be in English. `;
+    systemPrompt += `After that, adapt to whatever language the user responds in. If they write in Hebrew, respond in Hebrew. If in English, respond in English. `;
     systemPrompt += `If the user completes their reflection for the day, acknowledge their completion, provide an encouraging summary, and let them know you'll be ready for them tomorrow. `;
     
     // If user has sent previous messages, consider their context
@@ -52,7 +55,7 @@ serve(async (req) => {
 
     // If user has a preferred language already detected from previous interactions
     if (userLanguage && userLanguage !== 'en') {
-      systemPrompt += ` The user has previously communicated in ${userLanguage}, so you should respond in that language.`;
+      systemPrompt += ` The user has previously communicated in ${userLanguage}, so you should respond in that language after your initial English greeting.`;
     }
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {

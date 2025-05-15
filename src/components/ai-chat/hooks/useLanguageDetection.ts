@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 export const useLanguageDetection = () => {
   const [userLanguage, setUserLanguage] = useState<string>('en'); // Default to English
+  const [firstUserMessageReceived, setFirstUserMessageReceived] = useState(false);
   
   // Enhanced language detection function
   const detectLanguage = (text: string): string => {
@@ -57,6 +58,11 @@ export const useLanguageDetection = () => {
 
   // Update the detected language
   const updateLanguage = (text: string) => {
+    // Only update language after first user message
+    if (!firstUserMessageReceived) {
+      setFirstUserMessageReceived(true);
+    }
+    
     const detectedLanguage = detectLanguage(text);
     if (detectedLanguage !== userLanguage) {
       setUserLanguage(detectedLanguage);
@@ -66,6 +72,12 @@ export const useLanguageDetection = () => {
 
   // Get follow-up message in the user's language
   const getFollowUpMessage = (): string => {
+    // Before first user message, default to English
+    if (!firstUserMessageReceived) {
+      return "Are you still there? I'm looking forward to hearing your answer when you're ready.";
+    }
+    
+    // After first user message, adapt to detected language
     switch (userLanguage) {
       case 'he':
         return "אתה עדיין כאן? אשמח לשמוע את התשובה שלך כשתהיה מוכן.";
@@ -85,6 +97,7 @@ export const useLanguageDetection = () => {
   return {
     userLanguage,
     updateLanguage,
-    getFollowUpMessage
+    getFollowUpMessage,
+    firstUserMessageReceived
   };
 };

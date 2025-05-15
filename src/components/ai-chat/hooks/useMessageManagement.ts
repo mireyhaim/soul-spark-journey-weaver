@@ -32,13 +32,13 @@ export const useMessageManagement = ({
       let welcomeContent = getWelcomeMessage(currentJourney);
       
       if (lastUserMessage) {
-        welcomeContent = `שלום שוב! אני שמח/ה לראות אותך חוזר/ת ליום ${currentDay} במסע שלך. 
+        welcomeContent = `Hello again! I'm glad to see you back for Day ${currentDay} of your journey. 
         
-בפעם האחרונה שדיברנו, שיתפת: "${lastUserMessage}".
+Last time we spoke, you shared: "${lastUserMessage}".
 
-נמשיך מהנקודה הזו. אני כאן לתמוך בך במשימת היום.`;
+Let's continue from there. I'm here to support you with today's task.`;
       } else {
-        welcomeContent = `ברוך/ה הבא/ה ליום ${currentDay} במסע שלך! ${welcomeContent}`;
+        welcomeContent = `Welcome to Day ${currentDay} of your journey! ${welcomeContent}`;
       }
       
       const initialMessage: Message = {

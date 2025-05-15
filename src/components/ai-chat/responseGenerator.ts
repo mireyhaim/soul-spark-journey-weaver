@@ -1,3 +1,4 @@
+
 import { AIResponseGeneratorProps } from './types';
 import { getPersonality } from './personalities';
 
@@ -73,16 +74,16 @@ export const generateResponse = ({ userInput, journey }: AIResponseGeneratorProp
 // Generate personalized welcome message based on journey and current day
 export const getWelcomeMessage = (currentJourney?: any): string => {
   if (!currentJourney) {
-    return "ברוך הבא למסע הרוחני שלך. אני המדריך האישי שלך, ואלווה אותך בכל צעד בדרך. אני כאן להקשיב, לתמוך ולהציע תובנות תוך כדי שאתה הולך בנתיב הצמיחה האישי שלך. איך אתה מרגיש היום?";
+    return "Welcome to your spiritual journey. I am your personal guide, and I'll accompany you every step of the way. I'm here to listen, support, and offer insights as you walk your path of personal growth. How are you feeling today?";
   }
   
   // Get personality based on journey category
   const personality = getPersonality(currentJourney.category);
   
-  // Journey-specific welcome messages with personality
+  // Journey-specific welcome messages with personality in English
   const welcomeMessages: Record<string, string> = {
     // Personal Development
-    '1': `ברוך הבא למסע של גילוי עצמי. אני ${personality.name}, המדריך האישי שלך עם מומחיות ב${personality.specialties.join(', ')}. אני כאן לעזור לך לגלות את העצמי האותנטי שלך והמטרה האמיתית שלך עם גישה ${personality.tone}. יחד, נצא למסע של התבוננות פנימית, צמיחה והתעלות. בכל יום, אציע לך תרגילים ושאלות מעוררות מחשבה שיעזרו להעמיק את ההבנה העצמית שלך. מה אתה מרגיש לגבי תחילת מסע של גילוי עצמי?`,
+    '1': `Welcome to your journey of self-discovery. I am ${personality.name}, your personal guide with expertise in ${personality.specialties.join(', ')}. I'm here to help you discover your authentic self and true purpose with a ${personality.tone} approach. Together, we'll embark on a journey of introspection, growth, and transformation. Each day, I'll offer exercises and thought-provoking questions to deepen your self-understanding. How do you feel about beginning this journey of self-discovery?`,
     
     '2': `I'm glad you've chosen this emotional intelligence journey. I am ${personality.name}, your supportive mentor with a ${personality.tone} style. Together, we'll work on developing a deeper understanding of your emotions, learn to identify emotional patterns, and develop tools to handle emotional challenges. I'll accompany you every step, listen without judgment, and offer insights to help you grow. How are you feeling right now?`,
     
@@ -100,11 +101,11 @@ The journey we're beginning is transformative—a path to understanding how your
   };
   
   return welcomeMessages[currentJourney.id] || 
-    `ברוך הבא למסע ${currentJourney.title} שלך. אני ${personality.name}, המדריך האישי שלך עם מומחיות ב${personality.specialties[0]}. 
+    `Welcome to your ${currentJourney.title} journey. I am ${personality.name}, your personal guide with expertise in ${personality.specialties[0]}. 
     
-אני כאן ללוות אותך דרך תהליך משנה חיים זה של ${currentJourney.duration} ימים, עם גישה ${personality.tone} ותומכת. יחד, נעבור תהליך של צמיחה, התעלות ושינוי אישי.
+I'm here to accompany you through this life-changing ${currentJourney.duration}-day process, with a ${personality.tone} and supportive approach. Together, we'll go through a process of growth, transformation, and personal change.
 
-בכל יום במסע, אציע לך תרגילים, שאלות מעוררות מחשבה ומשימות שנועדו לעזור לך להעמיק את הקשר עם עצמך ועם המטרות שלך. אהיה איתך בכל רגע של התהליך - מקשיב, תומך ומציע כלים ותובנות.
+Each day in the journey, I'll offer you exercises, thought-provoking questions, and tasks designed to help you deepen your connection with yourself and your goals. I'll be with you at every moment of the process - listening, supporting, and offering tools and insights.
 
-המטרה שלנו היא לא רק להשיג תוצאות חיצוניות אלא גם לעבור שינוי פנימי עמוק שישפיע על כל תחומי חייך. איך אתה מרגיש כשאנחנו מתחילים?`;
+Our goal is not just to achieve external results but to undergo a deep internal change that will affect all areas of your life. How are you feeling as we begin?`;
 };
