@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Contact } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -26,10 +25,8 @@ const ContactUs: React.FC = () => {
 
   const onSubmit = (data: ContactFormValues) => {
     console.log('Form submitted:', data);
-    toast({
-      title: "Message sent",
-      description: "Thank you for contacting us. We'll get back to you soon!",
-    });
+    // Update toast call to use the correct format
+    toast("Thank you for contacting us. We'll get back to you soon!");
     form.reset();
   };
 
