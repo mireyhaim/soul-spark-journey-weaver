@@ -52,6 +52,7 @@ const UserJourney: React.FC = () => {
         onBack={() => toggleMobileChat()}
         lastUserMessage={lastMessage}
         onUpdateLastMessage={updateLastMessage}
+        journeyCategory={journey.category}
       />
     );
   }
@@ -96,6 +97,7 @@ const UserJourney: React.FC = () => {
                   onToggleChat={toggleMobileChat}
                   lastUserMessage={lastMessage}
                   onUpdateLastMessage={updateLastMessage}
+                  journeyCategory={journey.category}
                 />
               </div>
             </>

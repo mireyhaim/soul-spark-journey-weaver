@@ -8,6 +8,7 @@ import MessageList from './ai-chat/MessageList';
 import MessageInput from './ai-chat/MessageInput';
 import { useChatMessages } from './ai-chat/hooks/useChatMessages';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { getGuideText } from '@/utils/journey-helpers';
 
 interface AIInteractionProps {
   currentDay?: number;
@@ -16,6 +17,7 @@ interface AIInteractionProps {
   isPracticeMode?: boolean;
   lastUserMessage?: string | null;
   onUpdateLastMessage?: (message: string) => void;
+  journeyCategory?: string;
 }
 
 const AIInteraction: React.FC<AIInteractionProps> = ({ 
@@ -24,13 +26,16 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
   onComplete = () => {}, 
   isPracticeMode = false,
   lastUserMessage = null,
-  onUpdateLastMessage
+  onUpdateLastMessage,
+  journeyCategory
 }) => {
   const { id } = useParams<{ id: string }>();
   const isMobile = useIsMobile();
   
   // Get current journey information for contextual responses
   const currentJourney = journeys.find(j => j.id === id);
+  const category = journeyCategory || currentJourney?.category;
+  const guideText = getGuideText(category);
   
   const {
     input,
@@ -57,8 +62,8 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
             <AvatarImage src="/placeholder.svg" />
           </Avatar>
           <div>
-            <h2 className="text-lg font-medium">Your Spirit Guide</h2>
-            <p className="text-sm text-earth-500">Your personal growth companion</p>
+            <h2 className="text-lg font-medium">{guideText.title}</h2>
+            <p className="text-sm text-earth-500">{guideText.description}</p>
           </div>
         </div>
         
@@ -86,8 +91,8 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
             <AvatarImage src="/placeholder.svg" />
           </Avatar>
           <div>
-            <CardTitle className="text-lg">Your Spirit Guide</CardTitle>
-            <CardDescription>Your personal growth companion</CardDescription>
+            <CardTitle className="text-lg">{guideText.title}</CardTitle>
+            <CardDescription>{guideText.description}</CardDescription>
           </div>
         </div>
       </CardHeader>
