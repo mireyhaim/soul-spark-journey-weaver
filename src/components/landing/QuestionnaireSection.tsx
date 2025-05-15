@@ -15,7 +15,7 @@ const QuestionnaireSection: React.FC = () => {
           <img 
             src="/lovable-uploads/4e991fab-78d2-4e10-831e-c373a61d5626.png" 
             alt="Personal development journey" 
-            className="w-full h-full object-cover opacity-15"
+            className="w-full h-full object-cover opacity-20"
           />
         </AspectRatio>
         <div className="absolute inset-0 bg-gradient-to-b from-white/90 to-purple-50/95"></div>
