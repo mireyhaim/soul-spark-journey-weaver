@@ -16,9 +16,9 @@ const FeaturesSection: React.FC = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Card className="border-spirit-100">
+          <Card className="border-spirit-100 shadow-sm hover:shadow-md transition-shadow">
             <CardContent className="pt-8 px-6 text-center space-y-4">
-              <div className="w-16 h-16 rounded-full spirit-gradient mx-auto flex items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-spirit-500 to-spirit-700 mx-auto flex items-center justify-center">
                 <span className="text-white font-serif text-2xl">1</span>
               </div>
               <h3 className="text-xl font-medium">Choose Your Journey</h3>
@@ -28,9 +28,9 @@ const FeaturesSection: React.FC = () => {
             </CardContent>
           </Card>
           
-          <Card className="border-spirit-100">
+          <Card className="border-spirit-100 shadow-sm hover:shadow-md transition-shadow">
             <CardContent className="pt-8 px-6 text-center space-y-4">
-              <div className="w-16 h-16 rounded-full spirit-gradient mx-auto flex items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-spirit-500 to-spirit-700 mx-auto flex items-center justify-center">
                 <span className="text-white font-serif text-2xl">2</span>
               </div>
               <h3 className="text-xl font-medium">Daily Guidance</h3>
@@ -40,9 +40,9 @@ const FeaturesSection: React.FC = () => {
             </CardContent>
           </Card>
           
-          <Card className="border-spirit-100">
+          <Card className="border-spirit-100 shadow-sm hover:shadow-md transition-shadow">
             <CardContent className="pt-8 px-6 text-center space-y-4">
-              <div className="w-16 h-16 rounded-full spirit-gradient mx-auto flex items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-spirit-500 to-spirit-700 mx-auto flex items-center justify-center">
                 <span className="text-white font-serif text-2xl">3</span>
               </div>
               <h3 className="text-xl font-medium">Experience Growth</h3>
