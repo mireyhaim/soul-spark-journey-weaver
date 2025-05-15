@@ -43,7 +43,7 @@ serve(async (req) => {
     systemPrompt += `At the end of each of your messages, include a thoughtful question to encourage further reflection and dialogue, unless you're providing a closing message for the day. `;
     systemPrompt += `Act like a real human spiritual guide who is genuinely interested in the user's journey and responses. `;
     
-    // Language adaptation rules
+    // Language adaptation rules - THIS IS THE KEY CHANGE
     systemPrompt += `IMPORTANT: Your first message to the user should always be in English. `;
     systemPrompt += `After that, adapt to whatever language the user responds in. If they write in Hebrew, respond in Hebrew. If in English, respond in English. `;
     systemPrompt += `If the user completes their reflection for the day, acknowledge their completion, provide an encouraging summary, and let them know you'll be ready for them tomorrow. `;
