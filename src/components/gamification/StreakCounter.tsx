@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Calendar } from 'lucide-react';
+import { Calendar, Flame } from 'lucide-react';
 
 interface StreakCounterProps {
   streak: number;
@@ -14,8 +14,11 @@ const StreakCounter: React.FC<StreakCounterProps> = ({ streak, lastActiveDate })
   
   return (
     <div className="flex items-center gap-2">
-      <div className={`p-2 rounded-full ${isActiveToday ? 'bg-spirit-100 text-spirit-700' : 'bg-earth-50 text-earth-500'}`}>
-        <Calendar size={18} />
+      <div className={`p-2 rounded-md ${isActiveToday ? 'bg-gradient-to-r from-spirit-100 to-spirit-200 text-spirit-700' : 'bg-earth-50 text-earth-500'}`}>
+        {isActiveToday ? 
+          <Flame size={18} className="text-spirit-600" /> : 
+          <Calendar size={18} />
+        }
       </div>
       <div className="flex flex-col">
         <span className="font-bold text-lg">{streak} days</span>

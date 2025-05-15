@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Check, Circle } from 'lucide-react';
+import { Check, Calendar } from 'lucide-react';
 
 interface ProcessesBarProps {
   currentDay: number;
@@ -26,18 +26,18 @@ const ProcessesBar: React.FC<ProcessesBarProps> = ({
           return (
             <div key={day} className="flex flex-col items-center">
               <div 
-                className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                className={`w-8 h-8 rounded-md flex items-center justify-center ${
                   isCompleted 
-                    ? 'bg-spirit-600 text-white' 
+                    ? 'bg-spirit-600 text-white shadow-sm' 
                     : isCurrent
                       ? 'bg-spirit-100 border-2 border-spirit-600 text-spirit-600'
-                      : 'bg-gray-100 text-gray-400'
+                      : 'bg-earth-50 border border-earth-200 text-earth-400'
                 }`}
               >
                 {isCompleted ? <Check size={16} /> : day}
               </div>
               <span className={`text-xs mt-1 ${
-                isCurrent ? 'text-spirit-600 font-medium' : 'text-gray-500'
+                isCurrent ? 'text-spirit-600 font-medium' : 'text-earth-500'
               }`}>
                 Day {day}
               </span>
