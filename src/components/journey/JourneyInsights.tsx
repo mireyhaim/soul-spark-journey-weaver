@@ -10,6 +10,7 @@ interface JourneyInsightsProps {
   lastUserMessage?: string | null;
   onUpdateLastMessage?: (message: string) => void;
   journeyCategory?: string;
+  completedDays?: number[];
 }
 
 const JourneyInsights: React.FC<JourneyInsightsProps> = ({ 
@@ -18,7 +19,8 @@ const JourneyInsights: React.FC<JourneyInsightsProps> = ({
   onComplete,
   lastUserMessage,
   onUpdateLastMessage,
-  journeyCategory
+  journeyCategory,
+  completedDays = []
 }) => {
   const isMobile = useIsMobile();
   
@@ -34,6 +36,7 @@ const JourneyInsights: React.FC<JourneyInsightsProps> = ({
           lastUserMessage={lastUserMessage}
           onUpdateLastMessage={onUpdateLastMessage}
           journeyCategory={journeyCategory}
+          completedDays={completedDays}
         />
       </div>
     );
@@ -49,6 +52,7 @@ const JourneyInsights: React.FC<JourneyInsightsProps> = ({
         lastUserMessage={lastUserMessage}
         onUpdateLastMessage={onUpdateLastMessage}
         journeyCategory={journeyCategory}
+        completedDays={completedDays}
       />
     </div>
   );

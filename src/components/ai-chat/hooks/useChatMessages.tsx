@@ -15,6 +15,7 @@ interface UseChatMessagesProps {
   currentJourney?: any;
   lastUserMessage?: string | null;
   onUpdateLastMessage?: (message: string) => void;
+  completedDays?: number[];
 }
 
 export const useChatMessages = ({
@@ -24,7 +25,8 @@ export const useChatMessages = ({
   isPracticeMode,
   currentJourney,
   lastUserMessage,
-  onUpdateLastMessage
+  onUpdateLastMessage,
+  completedDays = []
 }: UseChatMessagesProps) => {
   // State for tracking waiting for user response
   const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
@@ -104,7 +106,8 @@ export const useChatMessages = ({
               qIndex, 
               currentDay, 
               detectedLanguage,
-              currentJourney
+              currentJourney,
+              completedDays
             ), 
             messageManagement.input
           );
@@ -120,7 +123,8 @@ export const useChatMessages = ({
               qIndex, 
               currentDay, 
               detectedLanguage,
-              currentJourney
+              currentJourney,
+              completedDays
             ), 
             messageManagement.input,
             messageManagement.setMessages
@@ -137,7 +141,8 @@ export const useChatMessages = ({
               qIndex, 
               currentDay, 
               detectedLanguage,
-              currentJourney
+              currentJourney,
+              completedDays
             ), 
             messageManagement.input,
             messageManagement.setMessages
@@ -152,7 +157,8 @@ export const useChatMessages = ({
           -1, 
           currentDay, 
           detectedLanguage,
-          currentJourney
+          currentJourney,
+          completedDays
         );
           
         messageManagement.addAIMessage(aiResponse);
@@ -166,7 +172,8 @@ export const useChatMessages = ({
           -1, 
           currentDay, 
           detectedLanguage,
-          currentJourney
+          currentJourney,
+          completedDays
         );
         
         messageManagement.addAIMessage(aiResponse);

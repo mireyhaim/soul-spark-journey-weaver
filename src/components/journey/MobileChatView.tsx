@@ -12,6 +12,7 @@ interface MobileChatViewProps {
   lastUserMessage?: string | null;
   onUpdateLastMessage?: (message: string) => void;
   journeyCategory?: string;
+  completedDays?: number[];
 }
 
 const MobileChatView: React.FC<MobileChatViewProps> = ({ 
@@ -21,7 +22,8 @@ const MobileChatView: React.FC<MobileChatViewProps> = ({
   onBack,
   lastUserMessage,
   onUpdateLastMessage,
-  journeyCategory
+  journeyCategory,
+  completedDays = []
 }) => {
   return (
     <div className="h-screen w-screen">
@@ -42,6 +44,7 @@ const MobileChatView: React.FC<MobileChatViewProps> = ({
         lastUserMessage={lastUserMessage}
         onUpdateLastMessage={onUpdateLastMessage}
         journeyCategory={journeyCategory}
+        completedDays={completedDays}
       />
     </div>
   );

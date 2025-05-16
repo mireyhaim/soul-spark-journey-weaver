@@ -33,6 +33,7 @@ const UserJourney: React.FC = () => {
     price,
     isMobile,
     lastMessage,
+    savedProgress,
     handleComplete,
     handleNextDay,
     handlePurchase,
@@ -53,6 +54,7 @@ const UserJourney: React.FC = () => {
         lastUserMessage={lastMessage}
         onUpdateLastMessage={updateLastMessage}
         journeyCategory={journey.category}
+        completedDays={savedProgress}
       />
     );
   }
@@ -98,6 +100,7 @@ const UserJourney: React.FC = () => {
                   lastUserMessage={lastMessage}
                   onUpdateLastMessage={updateLastMessage}
                   journeyCategory={journey.category}
+                  completedDays={savedProgress}
                 />
               </div>
             </>

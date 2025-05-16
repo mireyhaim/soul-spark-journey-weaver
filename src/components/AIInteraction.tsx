@@ -18,6 +18,7 @@ interface AIInteractionProps {
   lastUserMessage?: string | null;
   onUpdateLastMessage?: (message: string) => void;
   journeyCategory?: string;
+  completedDays?: number[];
 }
 
 const AIInteraction: React.FC<AIInteractionProps> = ({ 
@@ -27,7 +28,8 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
   isPracticeMode = false,
   lastUserMessage = null,
   onUpdateLastMessage,
-  journeyCategory
+  journeyCategory,
+  completedDays = []
 }) => {
   const { id } = useParams<{ id: string }>();
   const isMobile = useIsMobile();
@@ -50,7 +52,8 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
     isPracticeMode,
     currentJourney,
     lastUserMessage,
-    onUpdateLastMessage
+    onUpdateLastMessage,
+    completedDays
   });
 
   if (isMobile) {

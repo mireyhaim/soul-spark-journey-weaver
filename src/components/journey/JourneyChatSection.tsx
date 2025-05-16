@@ -14,6 +14,7 @@ interface JourneyChatSectionProps {
   lastUserMessage?: string | null;
   onUpdateLastMessage?: (message: string) => void;
   journeyCategory?: string;
+  completedDays?: number[];
 }
 
 const JourneyChatSection: React.FC<JourneyChatSectionProps> = ({ 
@@ -24,7 +25,8 @@ const JourneyChatSection: React.FC<JourneyChatSectionProps> = ({
   onToggleChat,
   lastUserMessage,
   onUpdateLastMessage,
-  journeyCategory
+  journeyCategory,
+  completedDays = []
 }) => {
   const guideText = getGuideText(journeyCategory);
   
@@ -53,6 +55,7 @@ const JourneyChatSection: React.FC<JourneyChatSectionProps> = ({
             lastUserMessage={lastUserMessage}
             onUpdateLastMessage={onUpdateLastMessage}
             journeyCategory={journeyCategory}
+            completedDays={completedDays}
           />
         )}
       </div>

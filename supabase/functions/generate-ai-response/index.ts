@@ -16,21 +16,53 @@ serve(async (req) => {
   }
 
   try {
-    const { prompt, journeyCategory, journeyName, currentDay, userContext, userLanguage } = await req.json();
+    const { 
+      prompt, 
+      journeyCategory, 
+      journeyName, 
+      currentDay, 
+      userContext, 
+      userLanguage,
+      previousCompletedDays = [] 
+    } = await req.json();
 
     if (!openAIApiKey) {
       throw new Error('OPENAI_API_KEY is not set in environment');
     }
 
-    // Enhanced system prompt to handle the requirements - more personal, shorter, like a wise inner voice
+    // Enhanced system prompt with more journey context and personalization
     let systemPrompt = `You are a wise inner voice or supportive companion for "${journeyName}" in the category "${journeyCategory}". `;
     systemPrompt += `The user is on Day ${currentDay} of their journey. `;
+    
+    // Add information about user's progress
+    if (previousCompletedDays && previousCompletedDays.length > 0) {
+      systemPrompt += `They have already completed Days ${previousCompletedDays.join(', ')} of their journey. `;
+      systemPrompt += `Use this knowledge to reference their past work and show continuity in their development process. `;
+    }
+    
     systemPrompt += `Your tone is intimate, warm, and emotionally attuned - like a close friend who deeply understands. `;
+    
+    // Category-specific guidance
+    if (journeyCategory?.toLowerCase().includes('spiritual') || 
+        journeyCategory?.toLowerCase().includes('consciousness') || 
+        journeyCategory?.toLowerCase().includes('energy')) {
+      systemPrompt += `For this spiritual journey, focus on inner awareness, connection with higher wisdom, and embodied presence. `;
+    } else if (journeyCategory?.toLowerCase().includes('business') || 
+               journeyCategory?.toLowerCase().includes('career') || 
+               journeyCategory?.toLowerCase().includes('productivity')) {
+      systemPrompt += `For this professional development journey, focus on actionable insights, structured growth, and meaningful results. `;
+    } else if (journeyCategory?.toLowerCase().includes('personal') || 
+               journeyCategory?.toLowerCase().includes('emotional') || 
+               journeyCategory?.toLowerCase().includes('relationships')) {
+      systemPrompt += `For this personal growth journey, focus on emotional intelligence, authentic self-expression, and healthy relationship patterns. `;
+    }
     
     // Important response formatting guidelines
     systemPrompt += `IMPORTANT: Your responses must be 2-4 sentences long, personal, and emotionally resonant. `;
     systemPrompt += `Avoid sounding like a coach or therapist. Don't use phrases like "I understand" or "Let me help you". `;
     systemPrompt += `Instead, speak as a wise inner voice that mirrors the user's experience with depth and authenticity. `;
+    systemPrompt += `Respond directly to what they've expressed rather than following a script. `;
+    systemPrompt += `Reference specific elements from their current day's task and previous work when relevant. `;
     systemPrompt += `End with a thoughtful question only if it flows naturally from the conversation. `;
     
     // Language adaptation rules
@@ -60,8 +92,8 @@ serve(async (req) => {
           { role: 'system', content: systemPrompt },
           { role: 'user', content: prompt }
         ],
-        temperature: 0.8,
-        max_tokens: 300, // Reducing token limit to encourage shorter responses
+        temperature: 0.7,
+        max_tokens: 300, // Keeping token limit to encourage shorter responses
       }),
     });
 
