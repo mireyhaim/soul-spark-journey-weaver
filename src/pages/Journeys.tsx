@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProcessCard from '@/components/ProcessCard';
@@ -13,7 +12,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Search, Filter, BookOpen, Sparkles } from 'lucide-react';
+import { Search, Filter, Sparkles } from 'lucide-react';
 import { journeys } from '@/data/journeys';
 import { 
   Select,
@@ -86,11 +85,6 @@ const Journeys: React.FC = () => {
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-calm-200/20 rounded-full translate-y-1/2 -translate-x-1/4 blur-2xl"></div>
           
           <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-4">
-              <BookOpen className="text-spirit-600 h-6 w-6" />
-              <span className="text-spirit-700 font-medium">Transformative Learning</span>
-            </div>
-            
             <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-3 text-earth-900">
               Discover Your <span className="text-spirit-600">Perfect Journey</span>
             </h1>
