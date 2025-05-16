@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { journeys } from '@/data/journeys';
@@ -10,6 +11,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Calendar, Clock, User, Check } from 'lucide-react';
 import JourneyExperienceList from '@/components/journey/JourneyExperienceList';
+import { getJourneyPrice } from '@/utils/journey-pricing';
 
 const JourneyDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -31,6 +33,9 @@ const JourneyDetail: React.FC = () => {
   // Get lesson topics and experience content for this journey
   const lessonTopics = getJourneyLessonTopics(journey.id, journey.category, journey.duration);
   const experienceContent = getJourneyExperienceContent(journey.id, journey.category);
+  
+  // Calculate price based on journey duration
+  const price = getJourneyPrice(journey.duration);
   
   return (
     <main className="bg-gradient-to-b from-earth-50/30 to-spirit-50/30 min-h-screen py-12 px-4">
@@ -96,7 +101,7 @@ const JourneyDetail: React.FC = () => {
                 <Card className="w-full md:w-[260px] shadow-sm border-spirit-200">
                   <CardContent className="p-6">
                     <div className="text-center mb-6">
-                      <p className="text-2xl font-medium text-earth-900 mb-2">$49.99</p>
+                      <p className="text-2xl font-medium text-earth-900 mb-2">${price}</p>
                       <p className="text-sm text-earth-600">One-time payment</p>
                     </div>
                     
@@ -260,7 +265,7 @@ const JourneyDetail: React.FC = () => {
         {/* Mobile purchase button (fixed to bottom on mobile) */}
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-spirit-100 p-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xl font-medium">$49.99</span>
+            <span className="text-xl font-medium">${price}</span>
             <span className="text-earth-600">{journey.duration} days</span>
           </div>
           <Button className="w-full bg-green-600 hover:bg-green-700">
