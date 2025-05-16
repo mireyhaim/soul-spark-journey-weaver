@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Shield, 
@@ -32,6 +31,7 @@ const PrivacyPolicy: React.FC = () => {
         </Card>
 
         <div className="prose max-w-none text-earth-800 space-y-8">
+          {/* Information We Collect Section */}
           <section className="group">
             <div className={cn("flex items-start gap-4 p-5 rounded-lg transition-all", 
                               "hover:bg-spirit-50/50 hover:border-spirit-200")}>
@@ -58,6 +58,7 @@ const PrivacyPolicy: React.FC = () => {
             </div>
           </section>
 
+          {/* How We Use Your Information Section */}
           <section className="group">
             <div className={cn("flex items-start gap-4 p-5 rounded-lg transition-all", 
                               "hover:bg-spirit-50/50 hover:border-spirit-200")}>
@@ -84,6 +85,7 @@ const PrivacyPolicy: React.FC = () => {
             </div>
           </section>
 
+          {/* Data Sharing Section */}
           <section className="group">
             <div className={cn("flex items-start gap-4 p-5 rounded-lg transition-all", 
                               "hover:bg-spirit-50/50 hover:border-spirit-200")}>
@@ -104,6 +106,7 @@ const PrivacyPolicy: React.FC = () => {
             </div>
           </section>
 
+          {/* Data Storage & Security Section */}
           <section className="group">
             <div className={cn("flex items-start gap-4 p-5 rounded-lg transition-all", 
                               "hover:bg-spirit-50/50 hover:border-spirit-200")}>
@@ -119,6 +122,7 @@ const PrivacyPolicy: React.FC = () => {
             </div>
           </section>
 
+          {/* Your Rights Section */}
           <section className="group">
             <div className={cn("flex items-start gap-4 p-5 rounded-lg transition-all", 
                               "hover:bg-spirit-50/50 hover:border-spirit-200")}>
@@ -144,6 +148,7 @@ const PrivacyPolicy: React.FC = () => {
             </div>
           </section>
 
+          {/* Cookies & Tracking Section */}
           <section className="group">
             <div className={cn("flex items-start gap-4 p-5 rounded-lg transition-all", 
                               "hover:bg-spirit-50/50 hover:border-spirit-200")}>
@@ -159,6 +164,7 @@ const PrivacyPolicy: React.FC = () => {
             </div>
           </section>
 
+          {/* Retention of Data Section */}
           <section className="group">
             <div className={cn("flex items-start gap-4 p-5 rounded-lg transition-all", 
                               "hover:bg-spirit-50/50 hover:border-spirit-200")}>
@@ -174,6 +180,7 @@ const PrivacyPolicy: React.FC = () => {
             </div>
           </section>
 
+          {/* Children's Privacy Section */}
           <section className="group">
             <div className={cn("flex items-start gap-4 p-5 rounded-lg transition-all", 
                               "hover:bg-spirit-50/50 hover:border-spirit-200")}>
@@ -189,6 +196,7 @@ const PrivacyPolicy: React.FC = () => {
             </div>
           </section>
 
+          {/* Changes to This Policy Section */}
           <section className="group">
             <div className={cn("flex items-start gap-4 p-5 rounded-lg transition-all", 
                               "hover:bg-spirit-50/50 hover:border-spirit-200")}>
@@ -204,6 +212,7 @@ const PrivacyPolicy: React.FC = () => {
             </div>
           </section>
 
+          {/* Contact Us Section */}
           <section className="group">
             <div className={cn("flex items-start gap-4 p-5 rounded-lg transition-all", 
                               "hover:bg-spirit-50/50 hover:border-spirit-200")}>
@@ -220,10 +229,14 @@ const PrivacyPolicy: React.FC = () => {
             </div>
           </section>
           
+          {/* Final Agreement Section */}
           <section className="mt-12 border-t border-earth-200 pt-8">
             <div className="p-5">
               <p className="font-semibold text-center text-earth-800">
                 By using Flow 83, you acknowledge that you have read, understood, and agreed to this Privacy Policy.
+              </p>
+              <p className="mt-4 text-center text-earth-600 text-sm">
+                Last updated: May 16, 2025
               </p>
             </div>
           </section>
