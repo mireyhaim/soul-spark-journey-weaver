@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { getJourneyLessonTopics } from '@/data/journeys/lesson-topics';
-import { CalendarDays, BookOpen } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
 
 interface JourneyFullProcessProps {
   journeyId: string;
@@ -35,8 +35,7 @@ const JourneyFullProcess: React.FC<JourneyFullProcessProps> = ({
             <li key={lesson.day} className="pt-3 first:pt-0">
               <div className="flex items-center gap-3">
                 <div className="bg-gradient-to-br from-spirit-100 to-spirit-200 h-8 w-8 rounded-md flex items-center justify-center flex-shrink-0 shadow-sm">
-                  <BookOpen size={14} className="text-spirit-700" />
-                  <span className="font-medium text-spirit-800 ml-0.5">{lesson.day}</span>
+                  <span className="font-medium text-spirit-800">{lesson.day}</span>
                 </div>
                 <span className="text-gray-800">{lesson.title}</span>
               </div>

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { journeys } from '@/data/journeys';
@@ -9,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Calendar, Clock, User, Check, BookOpen } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, User, Check } from 'lucide-react';
 import JourneyExperienceList from '@/components/journey/JourneyExperienceList';
 
 const JourneyDetail: React.FC = () => {
@@ -213,7 +212,6 @@ const JourneyDetail: React.FC = () => {
                       <CardContent className="p-5">
                         <div className="flex items-start gap-4">
                           <div className="bg-spirit-100 w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 text-spirit-700 font-medium">
-                            <BookOpen size={18} className="mr-0.5" />
                             <span>{lesson.day}</span>
                           </div>
                           <div>
