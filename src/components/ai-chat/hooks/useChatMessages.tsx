@@ -70,7 +70,7 @@ export const useChatMessages = ({
     };
     
     loadUserName();
-  }, [supabase]);
+  });
   
   // Initialize hooks
   const languageDetection = useLanguageDetection();
