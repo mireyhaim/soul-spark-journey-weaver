@@ -3,6 +3,9 @@ import { Toaster } from "@/components/ui/sonner";
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 
+// Import the new ScrollToTop component
+import ScrollToTop from './components/ScrollToTop';
+
 // Pages
 import Index from './pages/Index';
 import FAQ from './pages/FAQ';
@@ -53,6 +56,8 @@ function App() {
   return (
     <SessionContextProvider supabaseClient={supabase}>
       <Router>
+        {/* Add ScrollToTop component inside the Router */}
+        <ScrollToTop />
         <Layout>
           <Routes>
             <Route path="/" element={<Index />} />
