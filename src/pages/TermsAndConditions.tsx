@@ -101,12 +101,6 @@ const TermsAndConditions: React.FC = () => {
             By continuing to use Flow 83, you acknowledge that you have read, understood, and agreed to these Terms.
           </p>
         </section>
-        
-        <section>
-          <p className="text-sm text-earth-600 mt-8">
-            Last updated: {new Date().toLocaleDateString()}
-          </p>
-        </section>
       </div>
     </div>
   );
