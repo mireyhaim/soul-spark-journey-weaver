@@ -15,14 +15,14 @@ export const useJourneyState = (journeyData: any) => {
   // Calculate price based on journey duration
   const price = getJourneyPrice(journeyData.duration);
   
-  // Get journey progress state
+  // Get journey progress state - pass the journey duration
   const {
     currentDay,
     completed,
     savedProgress,
     handleComplete: progressHandleComplete,
     handleNextDay
-  } = useJourneyProgress(journeyData.id);
+  } = useJourneyProgress(journeyData.id, journeyData.duration);
   
   // Get journey interactions state
   const {

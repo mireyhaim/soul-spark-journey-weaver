@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 /**
  * Hook to manage journey progress state
  */
-export const useJourneyProgress = (journeyId: string | undefined) => {
+export const useJourneyProgress = (journeyId: string | undefined, journeyDuration?: number) => {
   const { toast } = useToast();
   const [completed, setCompleted] = useState(false);
   const [currentDay, setCurrentDay] = useState(1); // Always start at day 1 after purchase
@@ -41,7 +41,8 @@ export const useJourneyProgress = (journeyId: string | undefined) => {
   };
 
   const handleNextDay = async () => {
-    if (currentDay < Infinity) { // מספר הימים הכולל צריך להיות במקום אינסוף
+    // Only allow moving to the next day if we haven't reached the end of the journey
+    if (journeyDuration && currentDay < journeyDuration) {
       const nextDay = currentDay + 1;
       // Move to the next day
       setCurrentDay(nextDay);
@@ -64,6 +65,9 @@ export const useJourneyProgress = (journeyId: string | undefined) => {
       }
       
       toast(`You're now on Day ${nextDay} of your journey. Keep up the great work!`);
+    } else if (journeyDuration && currentDay >= journeyDuration) {
+      // If we've reached the end of the journey, show a completion message
+      toast(`Congratulations! You've completed all ${journeyDuration} days of this journey.`);
     }
   };
 
