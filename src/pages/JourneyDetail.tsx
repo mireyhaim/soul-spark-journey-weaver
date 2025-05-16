@@ -164,7 +164,7 @@ const JourneyDetail: React.FC = () => {
                   activeTab === 'about-teacher' ? 'text-spirit-700 font-medium' : 'text-earth-600'
                 }`}
               >
-                About Teacher
+                About Mentor
               </TabsTrigger>
             </TabsList>
           </div>
