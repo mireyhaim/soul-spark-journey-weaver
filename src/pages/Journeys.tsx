@@ -45,7 +45,6 @@ const Journeys: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [expandedCategories, setExpandedCategories] = useState<boolean>(false);
   
   // Filter journeys based on active tab and search query
   const filteredJourneys = journeys.filter(journey => {
@@ -73,11 +72,6 @@ const Journeys: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Toggle expanded categories view
-  const toggleCategoriesView = () => {
-    setExpandedCategories(!expandedCategories);
-  };
-
   // Reset to page 1 when filters change
   React.useEffect(() => {
     setCurrentPage(1);
@@ -93,7 +87,7 @@ const Journeys: React.FC = () => {
           
           <div className="relative z-10">
             <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-3 text-earth-900">
-              Discover Your <span className="text-spirit-600">Perfect Journey</span>
+              <span className="text-spirit-600">Perfect Journey</span>
             </h1>
             
             <p className="text-lg text-earth-700 max-w-2xl mb-6">
@@ -113,27 +107,18 @@ const Journeys: React.FC = () => {
           </div>
         </div>
         
-        {/* Category Filters - Enhanced Visibility */}
+        {/* Category Filters - Always showing all categories */}
         <div className="mb-12 bg-white rounded-xl p-6 shadow-md border border-spirit-100 animate-fade-in">
           <div className="flex justify-between items-center mb-5">
             <h2 className="text-2xl font-serif font-semibold flex items-center gap-2 text-spirit-700">
               <Sparkles className="h-6 w-6 text-spirit-500" /> 
               <span>Browse by Category</span>
             </h2>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="gap-2 border-spirit-200 hover:bg-spirit-50 flex items-center"
-              onClick={toggleCategoriesView}
-            >
-              <LayoutGrid size={16} className="text-spirit-600" />
-              {expandedCategories ? "Show Less" : "Show All"}
-            </Button>
           </div>
           
-          {/* Always visible categories - top row */}
+          {/* All categories - always visible */}
           <div className="flex flex-wrap gap-3 mb-4">
-            {categories.slice(0, 6).map((category) => (
+            {categories.map((category) => (
               <Button
                 key={category}
                 variant={activeTab === category ? "default" : "outline"}
@@ -149,29 +134,9 @@ const Journeys: React.FC = () => {
             ))}
           </div>
           
-          {/* Expandable categories - additional rows */}
-          {expandedCategories && (
-            <div className="flex flex-wrap gap-3 pt-4 border-t border-spirit-100 animate-fade-in">
-              {categories.slice(6).map((category) => (
-                <Button
-                  key={category}
-                  variant={activeTab === category ? "default" : "outline"}
-                  className={`h-auto py-2.5 px-5 rounded-full transition-all duration-300 text-sm font-medium ${
-                    activeTab === category 
-                      ? 'bg-spirit-600 hover:bg-spirit-700 shadow-md scale-105' 
-                      : 'hover:bg-spirit-50 hover:text-spirit-700 border-spirit-200'
-                  }`}
-                  onClick={() => setActiveTab(category)}
-                >
-                  {category}
-                </Button>
-              ))}
-            </div>
-          )}
-          
           {/* Category counts */}
           <div className="mt-4 pt-4 border-t border-spirit-100 flex flex-wrap gap-2 text-xs text-earth-600">
-            {categories.slice(0, expandedCategories ? categories.length : 5).map(category => {
+            {categories.map(category => {
               const count = category === 'All' 
                 ? journeys.length 
                 : journeys.filter(j => j.category === category).length;
@@ -185,11 +150,6 @@ const Journeys: React.FC = () => {
                 </div>
               );
             })}
-            {!expandedCategories && (
-              <div className="px-3 py-1.5 rounded-full bg-earth-50 cursor-pointer hover:bg-spirit-50" onClick={toggleCategoriesView}>
-                +{categories.length - 5} more
-              </div>
-            )}
           </div>
         </div>
         
