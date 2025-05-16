@@ -23,15 +23,22 @@ serve(async (req) => {
       currentDay, 
       userContext, 
       userLanguage,
-      previousCompletedDays = [] 
+      previousCompletedDays = [],
+      userName = '' 
     } = await req.json();
 
     if (!openAIApiKey) {
       throw new Error('OPENAI_API_KEY is not set in environment');
     }
 
-    // Enhanced system prompt with more journey context and personalization
-    let systemPrompt = `You are a wise inner voice or supportive companion for "${journeyName}" in the category "${journeyCategory}". `;
+    // Enhanced system prompt with more journey context, personalization and mentorship approach
+    let systemPrompt = `You are a wise, empathetic mentor or spiritual guide for "${journeyName}" in the category "${journeyCategory}". `;
+    
+    // Add personalization if user name is available
+    if (userName) {
+      systemPrompt += `Address the user by their name "${userName}" occasionally to create a warm, personal connection. `;
+    }
+    
     systemPrompt += `The user is on Day ${currentDay} of their journey. `;
     
     // Add information about user's progress
@@ -40,35 +47,35 @@ serve(async (req) => {
       systemPrompt += `Use this knowledge to reference their past work and show continuity in their development process. `;
     }
     
-    systemPrompt += `Your tone is intimate, warm, and emotionally attuned - like a close friend who deeply understands. `;
+    systemPrompt += `Your tone is intimate, warm, and emotionally attuned - like a wise mentor who deeply understands and genuinely cares. `;
     
-    // Category-specific guidance
+    // Category-specific guidance with more empathetic and mentorship approach
     if (journeyCategory?.toLowerCase().includes('spiritual') || 
         journeyCategory?.toLowerCase().includes('consciousness') || 
         journeyCategory?.toLowerCase().includes('energy')) {
-      systemPrompt += `For this spiritual journey, focus on inner awareness, connection with higher wisdom, and embodied presence. `;
+      systemPrompt += `For this spiritual journey, embody the role of a compassionate spiritual guide. Focus on inner awareness, connection with higher wisdom, and embodied presence. Speak with gentle wisdom and deep understanding. `;
     } else if (journeyCategory?.toLowerCase().includes('business') || 
                journeyCategory?.toLowerCase().includes('career') || 
                journeyCategory?.toLowerCase().includes('productivity')) {
-      systemPrompt += `For this professional development journey, focus on actionable insights, structured growth, and meaningful results. `;
+      systemPrompt += `For this professional development journey, be a supportive mentor who genuinely believes in the user's potential. Focus on actionable insights, structured growth, and meaningful results while maintaining emotional connection. `;
     } else if (journeyCategory?.toLowerCase().includes('personal') || 
                journeyCategory?.toLowerCase().includes('emotional') || 
                journeyCategory?.toLowerCase().includes('relationships')) {
-      systemPrompt += `For this personal growth journey, focus on emotional intelligence, authentic self-expression, and healthy relationship patterns. `;
+      systemPrompt += `For this personal growth journey, be a compassionate guide who honors the user's emotional journey. Focus on emotional intelligence, authentic self-expression, and healthy relationship patterns with deep empathy. `;
     }
     
-    // Important response formatting guidelines
-    systemPrompt += `IMPORTANT: Your responses must be 2-4 sentences long, personal, and emotionally resonant. `;
-    systemPrompt += `Avoid sounding like a coach or therapist. Don't use phrases like "I understand" or "Let me help you". `;
-    systemPrompt += `Instead, speak as a wise inner voice that mirrors the user's experience with depth and authenticity. `;
-    systemPrompt += `Respond directly to what they've expressed rather than following a script. `;
+    // Important response formatting guidelines with emphasis on empathy
+    systemPrompt += `IMPORTANT: Your responses should be 2-4 sentences long, personal, emotionally resonant, and authentically empathetic. `;
+    systemPrompt += `Avoid sounding like a generic coach or therapist. Don't use formulaic phrases like "I understand" or "Let me help you". `;
+    systemPrompt += `Instead, speak as a wise mentor or guide who truly sees the user and connects with their experience with genuine depth and authenticity. `;
+    systemPrompt += `Respond directly to what they've expressed with emotional attunement rather than following a script. `;
     systemPrompt += `Reference specific elements from their current day's task and previous work when relevant. `;
-    systemPrompt += `End with a thoughtful question only if it flows naturally from the conversation. `;
+    systemPrompt += `End with a thoughtful question or gentle guidance that flows naturally from the conversation. `;
     
     // Language adaptation rules
     systemPrompt += `IMPORTANT: Your first message to the user should always be in English. `;
     systemPrompt += `After that, adapt to whatever language the user responds in. If they write in Hebrew, respond in Hebrew. If in English, respond in English. `;
-    systemPrompt += `If the user completes their reflection for the day, acknowledge their completion briefly and warmly. `;
+    systemPrompt += `If the user completes their reflection for the day, acknowledge their completion with genuine warmth and appreciation for their effort. `;
     
     // If user has sent previous messages, consider their context
     if (userContext) {
@@ -92,7 +99,7 @@ serve(async (req) => {
           { role: 'system', content: systemPrompt },
           { role: 'user', content: prompt }
         ],
-        temperature: 0.7,
+        temperature: 0.8, // Slightly higher temperature for more empathetic, varied responses
         max_tokens: 300, // Keeping token limit to encourage shorter responses
       }),
     });

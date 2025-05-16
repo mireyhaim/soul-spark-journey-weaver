@@ -6,6 +6,7 @@ import { useAIResponseGeneration } from './useAIResponseGeneration';
 import { useInactivityDetection } from './useInactivityDetection';
 import { usePracticeQuestions } from './usePracticeQuestions';
 import { Message } from '../types';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 interface UseChatMessagesProps {
   currentDay: number;
@@ -30,13 +31,15 @@ export const useChatMessages = ({
 }: UseChatMessagesProps) => {
   // State for tracking waiting for user response
   const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
+  const [userName, setUserName] = useState<string>('');
+  const supabase = useSupabaseClient();
 
   // Send a follow-up message if the user is inactive
   const sendFollowUpMessage = () => {
     // Only send follow-up if we're still waiting for a response
     if (!waitingForResponse) return;
     
-    const followUpContent = languageDetection.getFollowUpMessage();
+    const followUpContent = languageDetection.getFollowUpMessage(userName);
     
     const followUpMessage: Message = {
       id: Date.now().toString(),
@@ -48,6 +51,26 @@ export const useChatMessages = ({
     messageManagement.setMessages(prev => [...prev, followUpMessage]);
     inactivityDetection.updateLastActivity();
   };
+  
+  // Load user name if available
+  useState(() => {
+    const loadUserName = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: userData } = await supabase
+          .from('users')
+          .select('name')
+          .eq('id', user.id)
+          .single();
+          
+        if (userData?.name) {
+          setUserName(userData.name);
+        }
+      }
+    };
+    
+    loadUserName();
+  }, [supabase]);
   
   // Initialize hooks
   const languageDetection = useLanguageDetection();
@@ -63,7 +86,8 @@ export const useChatMessages = ({
     updateLastActivity: inactivityDetection.updateLastActivity,
     setWaitingForResponse,
     lastUserMessage,
-    onUpdateLastMessage
+    onUpdateLastMessage,
+    userName
   });
   
   const aiResponseGeneration = useAIResponseGeneration();
@@ -107,7 +131,8 @@ export const useChatMessages = ({
               currentDay, 
               detectedLanguage,
               currentJourney,
-              completedDays
+              completedDays,
+              userName
             ), 
             messageManagement.input
           );
@@ -124,7 +149,8 @@ export const useChatMessages = ({
               currentDay, 
               detectedLanguage,
               currentJourney,
-              completedDays
+              completedDays,
+              userName
             ), 
             messageManagement.input,
             messageManagement.setMessages
@@ -142,7 +168,8 @@ export const useChatMessages = ({
               currentDay, 
               detectedLanguage,
               currentJourney,
-              completedDays
+              completedDays,
+              userName
             ), 
             messageManagement.input,
             messageManagement.setMessages
@@ -158,7 +185,8 @@ export const useChatMessages = ({
           currentDay, 
           detectedLanguage,
           currentJourney,
-          completedDays
+          completedDays,
+          userName
         );
           
         messageManagement.addAIMessage(aiResponse);
@@ -173,7 +201,8 @@ export const useChatMessages = ({
           currentDay, 
           detectedLanguage,
           currentJourney,
-          completedDays
+          completedDays,
+          userName
         );
         
         messageManagement.addAIMessage(aiResponse);
@@ -186,6 +215,7 @@ export const useChatMessages = ({
     setInput: messageManagement.setInput,
     messages: messageManagement.messages,
     isTyping: messageManagement.isTyping,
-    handleSend
+    handleSend,
+    userName
   };
 };

@@ -9,6 +9,7 @@ export interface Message {
 export interface AIResponseGeneratorProps {
   userInput: string;
   journey?: any;
+  userName?: string;
 }
 
 export interface JourneyExplanation {

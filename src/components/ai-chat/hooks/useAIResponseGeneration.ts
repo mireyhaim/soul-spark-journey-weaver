@@ -16,7 +16,8 @@ export const useAIResponseGeneration = () => {
     currentDay: number = 1,
     userLanguage: string = 'en',
     currentJourney?: any,
-    previousCompletedDays?: number[]
+    previousCompletedDays?: number[],
+    userName?: string
   ): Promise<string> => {
     try {
       // For very short responses, prompt for more detail
@@ -70,7 +71,7 @@ export const useAIResponseGeneration = () => {
         const { getDailyQuestions } = await import('../practiceQuestions');
         const dailyQuestions = getDailyQuestions(currentDay);
         contextPrompt = `
-          The user is on Day ${currentDay} of the journey "${currentJourney?.title || 'Personal Development'}".
+          The user ${userName ? `${userName} ` : ''}is on Day ${currentDay} of the journey "${currentJourney?.title || 'Personal Development'}".
           ${dailyTaskInfo}
           ${previousDaysInfo}
           ${journeyExperiences}
@@ -82,19 +83,33 @@ export const useAIResponseGeneration = () => {
           If this seems like their final reflection for today, offer a closing personal message that summarizes their progress and offers encouragement.
         `;
       } else {
-        // General conversation with enhanced context
+        // General conversation with enhanced context and mentorship approach
         contextPrompt = `
-          The user is on Day ${currentDay} of the journey "${currentJourney?.title || 'Personal Development'}".
+          The user ${userName ? `${userName} ` : ''}is on Day ${currentDay} of the journey "${currentJourney?.title || 'Personal Development'}".
           ${dailyTaskInfo}
           ${previousDaysInfo}
           ${journeyExperiences}
           The user said: "${userInput}". 
           Previous interactions: ${userResponses.current.slice(-3).join(' | ')}
-          Provide a supportive, empathetic response related to their journey.
+          Provide a supportive, empathetic response related to their journey as their mentor or guide.
           Remember their journey progress (they've completed days: ${previousCompletedDays?.join(', ') || 'none yet'}).
-          Analyze their input for emotions and personal insights, and provide personalized feedback.
+          Analyze their input for emotions and personal insights, and provide personalized feedback with genuine empathy.
           If this seems like their final reflection for today, offer a closing personal message that summarizes their progress and offers encouragement.
         `;
+      }
+      
+      // Get user information if available
+      const { data: { user } } = await supabase.auth.getUser();
+      let userProfile = null;
+      
+      if (user) {
+        const { data: profileData } = await supabase
+          .from('users')
+          .select('*')
+          .eq('id', user.id)
+          .single();
+          
+        userProfile = profileData;
       }
       
       const { data, error } = await supabase.functions.invoke('generate-ai-response', {
@@ -105,7 +120,8 @@ export const useAIResponseGeneration = () => {
           currentDay: currentDay,
           userContext: userResponses.current.slice(-3).join('\n'),
           userLanguage: userLanguage,
-          previousCompletedDays: previousCompletedDays || []
+          previousCompletedDays: previousCompletedDays || [],
+          userName: userName || (userProfile?.name || '')
         }
       });
       

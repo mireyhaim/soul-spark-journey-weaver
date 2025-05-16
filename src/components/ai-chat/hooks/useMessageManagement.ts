@@ -10,6 +10,7 @@ interface UseMessageManagementProps {
   setWaitingForResponse: (waiting: boolean) => void;
   lastUserMessage?: string | null;
   onUpdateLastMessage?: (message: string) => void;
+  userName?: string;
 }
 
 export const useMessageManagement = ({
@@ -18,7 +19,8 @@ export const useMessageManagement = ({
   updateLastActivity,
   setWaitingForResponse,
   lastUserMessage,
-  onUpdateLastMessage
+  onUpdateLastMessage,
+  userName = ''
 }: UseMessageManagementProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -29,14 +31,14 @@ export const useMessageManagement = ({
   useEffect(() => {
     if (!initialMessageSent) {
       // If we have a last message from the user, customize the welcome to maintain continuity
-      let welcomeContent = getWelcomeMessage(currentJourney);
+      let welcomeContent = getWelcomeMessage(currentJourney, userName);
       
       if (lastUserMessage) {
-        welcomeContent = `Hello again! I'm glad to see you back for Day ${currentDay} of your journey. 
+        welcomeContent = `${userName ? `${userName}, ` : ''}hello again! I'm glad to see you back for Day ${currentDay} of your journey. 
         
 Last time we spoke, you shared: "${lastUserMessage}".
 
-Let's continue from there. I'm here to support you with today's task.`;
+Let's continue from there. I'm here to support you with today's practice.`;
       } else {
         welcomeContent = `Welcome to Day ${currentDay} of your journey! ${welcomeContent}`;
       }
@@ -53,7 +55,7 @@ Let's continue from there. I'm here to support you with today's task.`;
       setInitialMessageSent(true);
       updateLastActivity();
     }
-  }, [currentJourney, currentDay, initialMessageSent, setWaitingForResponse, updateLastActivity, lastUserMessage]);
+  }, [currentJourney, currentDay, initialMessageSent, setWaitingForResponse, updateLastActivity, lastUserMessage, userName]);
 
   // Add a user message to the conversation
   const addUserMessage = (content: string): void => {
