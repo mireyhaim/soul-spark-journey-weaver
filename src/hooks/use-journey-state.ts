@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -197,6 +196,7 @@ export const useJourneyState = (journeyData: any) => {
     isMobile,
     lastMessage,
     lastInteraction,
+    savedProgress, // הוספנו את התכונה הזו שהייתה חסרה
     handleComplete,
     handleNextDay,
     handlePurchase,
