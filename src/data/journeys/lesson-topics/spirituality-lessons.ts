@@ -1,3 +1,4 @@
+
 import { JourneyLessonTopicsMap } from './types';
 
 // Spirituality journeys lesson topics
@@ -71,7 +72,7 @@ export const spiritualityLessonTopics: JourneyLessonTopicsMap = {
     { 
       day: 14, 
       title: 'Sustaining the Connection', 
-      description: 'Create a personalized plan for maintaining your spiritual connection through life's challenges and transitions. Set intentions for continued growth.'
+      description: 'Create a personalized plan for maintaining your spiritual connection through life\'s challenges and transitions. Set intentions for continued growth.'
     }
   ],
   '5': [

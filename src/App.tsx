@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/sonner";
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
@@ -20,6 +21,7 @@ import TermsAndConditions from './pages/TermsAndConditions';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import OurStory from './pages/OurStory';
 import About from './pages/About';
+import JourneyDetail from './pages/JourneyDetail';
 
 // Components
 import Header from './components/Header';
