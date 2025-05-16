@@ -81,10 +81,10 @@ const Journeys: React.FC = () => {
     <main className="flex-grow bg-earth-50/30 py-10 px-4 md:px-6">
       <div className="container mx-auto max-w-6xl">
         <div className="mb-10">
-          <h1 className="text-3xl md:text-4xl font-sans font-semibold mb-3">
+          <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-3 text-gradient">
             Explore Journeys
           </h1>
-          <p className="text-earth-700 md:text-lg max-w-3xl">
+          <p className="text-lg text-earth-700 max-w-3xl">
             Discover transformative spiritual and personal development journeys created by experienced teachers and guides.
           </p>
         </div>
