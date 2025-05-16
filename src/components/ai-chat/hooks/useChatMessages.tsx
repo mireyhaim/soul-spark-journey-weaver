@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMessageManagement } from './useMessageManagement';
 import { useLanguageDetection } from './useLanguageDetection';
 import { useAIResponseGeneration } from './useAIResponseGeneration';
@@ -53,7 +53,7 @@ export const useChatMessages = ({
   };
   
   // Load user name if available
-  useState(() => {
+  useEffect(() => {
     const loadUserName = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
@@ -70,7 +70,7 @@ export const useChatMessages = ({
     };
     
     loadUserName();
-  });
+  }, [supabase]);
   
   // Initialize hooks
   const languageDetection = useLanguageDetection();
