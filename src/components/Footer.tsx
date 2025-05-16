@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-earth-50 pt-12 pb-8 px-4 md:px-6">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8">
           <div>
             <Link to="/" className="flex items-center">
               <span className="font-serif text-xl font-semibold">Flow 83</span>
@@ -25,15 +25,21 @@ const Footer: React.FC = () => {
           </div>
           
           <div>
-            <h4 className="font-medium text-lg mb-4">Resources</h4>
+            <h4 className="font-medium text-lg mb-4">Company</h4>
             <ul className="space-y-2">
               <li><Link to="/about" className="text-earth-600 hover:text-spirit-600 transition-colors">About</Link></li>
-              <li><Link to="/blog" className="text-earth-600 hover:text-spirit-600 transition-colors">Blog</Link></li>
-              <li><Link to="/faq" className="text-earth-600 hover:text-spirit-600 transition-colors">FAQ</Link></li>
-              <li><Link to="/contact" className="text-earth-600 hover:text-spirit-600 transition-colors">Contact Us</Link></li>
               <li><Link to="/our-story" className="text-earth-600 hover:text-spirit-600 transition-colors">Our Story</Link></li>
               <li><Link to="/terms" className="text-earth-600 hover:text-spirit-600 transition-colors">Terms & Conditions</Link></li>
               <li><Link to="/privacy" className="text-earth-600 hover:text-spirit-600 transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/contact" className="text-earth-600 hover:text-spirit-600 transition-colors">Contact Us</Link></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="font-medium text-lg mb-4">Resources</h4>
+            <ul className="space-y-2">
+              <li><Link to="/blog" className="text-earth-600 hover:text-spirit-600 transition-colors">Blog</Link></li>
+              <li><Link to="/faq" className="text-earth-600 hover:text-spirit-600 transition-colors">FAQ</Link></li>
             </ul>
           </div>
           
