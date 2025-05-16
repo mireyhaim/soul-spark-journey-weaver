@@ -102,7 +102,7 @@ const generateGenericLessons = (duration: number): LessonTopic[] => {
     'Expand your understanding and deepen your connection to the core concepts.',
     'Identify and work through common obstacles that may arise on your path.',
     'Build consistent habits and routines that support your ongoing growth.',
-    'Apply what you've learned to real-life situations and personal challenges.',
+    'Apply what you\'ve learned to real-life situations and personal challenges.',
     'Explore more nuanced techniques to enhance your practice and results.',
     'Refine your approach and reflect on your progress and insights.',
     'Customize the practices to align with your unique needs and goals.',
@@ -117,7 +117,7 @@ const generateGenericLessons = (duration: number): LessonTopic[] => {
     'Integrate all elements of your learning into a cohesive personal practice.',
     'Seamlessly incorporate your new skills and awareness into daily routines.',
     'Acknowledge your progress and prepare for your next level of growth.',
-    'Synthesize all you've learned and clarify your path forward.'
+    'Synthesize all you\'ve learned and clarify your path forward.'
   ];
   
   return Array.from({ length: duration }, (_, i) => ({
