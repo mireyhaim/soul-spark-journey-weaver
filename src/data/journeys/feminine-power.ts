@@ -18,6 +18,6 @@ export const femininePowerJourneys: Journey[] = [
     teacher: 'Leah Goldman',
     duration: 21,
     category: 'Feminine Power',
-    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   }
 ];
