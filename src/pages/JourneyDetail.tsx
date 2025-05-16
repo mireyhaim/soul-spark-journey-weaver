@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { journeys } from '@/data/journeys';
@@ -70,6 +71,11 @@ const JourneyDetail: React.FC = () => {
   
   // Calculate price based on journey duration
   const price = getJourneyPrice(journey.duration);
+  
+  // Function to handle journey purchase and navigation
+  const handlePurchaseJourney = () => {
+    navigate(`/user-journey/${journey.id}`);
+  };
   
   // Set mentor image when journey changes
   useEffect(() => {
@@ -153,7 +159,10 @@ const JourneyDetail: React.FC = () => {
                       <p className="text-sm text-earth-600">One-time payment</p>
                     </div>
                     
-                    <Button className="w-full bg-green-600 hover:bg-green-700 mb-4">
+                    <Button 
+                      className="w-full bg-green-600 hover:bg-green-700 mb-4"
+                      onClick={handlePurchaseJourney}
+                    >
                       Purchase Journey
                     </Button>
                     
@@ -319,7 +328,10 @@ const JourneyDetail: React.FC = () => {
             <span className="text-xl font-medium">${price}</span>
             <span className="text-earth-600">{journey.duration} days</span>
           </div>
-          <Button className="w-full bg-green-600 hover:bg-green-700">
+          <Button 
+            className="w-full bg-green-600 hover:bg-green-700"
+            onClick={handlePurchaseJourney}
+          >
             Purchase Journey
           </Button>
         </div>
