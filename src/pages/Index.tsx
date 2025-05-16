@@ -12,9 +12,15 @@ const Index: React.FC = () => {
   return (
     <main className="flex-grow">
       <HeroSection />
-      <FeaturesSection />
+      <div className="relative">
+        <div className="absolute inset-0 bg-spirit-50/50 skew-y-3 -z-10 transform-gpu"></div>
+        <FeaturesSection />
+      </div>
       <QuestionnaireSection />
-      <JourneysSection featuredProcesses={featuredProcesses} />
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-earth-50/70 -skew-y-3 -z-10 transform-gpu"></div>
+        <JourneysSection featuredProcesses={featuredProcesses} />
+      </div>
       <TestimonialsSection />
       <CTASection />
     </main>
