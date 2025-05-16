@@ -18,6 +18,7 @@ import MentorLanding from './pages/MentorLanding';
 import UserProfile from './pages/UserProfile';
 import ContactUs from './pages/ContactUs';
 import TermsAndConditions from './pages/TermsAndConditions';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 // Components
 import Header from './components/Header';
@@ -66,6 +67,7 @@ function App() {
             <Route path="/profile/:id" element={<UserProfile />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/terms" element={<TermsAndConditions />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
