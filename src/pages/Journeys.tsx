@@ -133,24 +133,6 @@ const Journeys: React.FC = () => {
               </Button>
             ))}
           </div>
-          
-          {/* Category counts */}
-          <div className="mt-4 pt-4 border-t border-spirit-100 flex flex-wrap gap-2 text-xs text-earth-600">
-            {categories.map(category => {
-              const count = category === 'All' 
-                ? journeys.length 
-                : journeys.filter(j => j.category === category).length;
-              
-              return (
-                <div 
-                  key={category} 
-                  className={`px-3 py-1.5 rounded-full ${activeTab === category ? 'bg-spirit-100 text-spirit-700 font-medium' : 'bg-earth-50'}`}
-                >
-                  {category}: {count}
-                </div>
-              );
-            })}
-          </div>
         </div>
         
         {/* Filter Controls */}
