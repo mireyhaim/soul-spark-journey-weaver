@@ -37,12 +37,10 @@ import { supabase } from "@/integrations/supabase/client";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   
-  // Check for routes where we don't want to show header/footer
+  // Only exclude header/footer from journey detail pages
   const isJourneyPage = /^\/journey\/[^\/]+$/.test(location.pathname);
-  const isAuthPage = location.pathname === '/signup' || location.pathname === '/login';
-  const isSpecialPage = isJourneyPage || isAuthPage;
   
-  if (isSpecialPage) {
+  if (isJourneyPage) {
     return <>{children}</>;
   }
   
