@@ -72,19 +72,31 @@ serve(async (req) => {
     systemPrompt += `Reference specific elements from their current day's task and previous work when relevant. `;
     systemPrompt += `End with a thoughtful question or gentle guidance that flows naturally from the conversation. `;
     
-    // Language adaptation rules
-    systemPrompt += `IMPORTANT: Your first message to the user should always be in English. `;
-    systemPrompt += `After that, adapt to whatever language the user responds in. If they write in Hebrew, respond in Hebrew. If in English, respond in English. `;
-    systemPrompt += `If the user completes their reflection for the day, acknowledge their completion with genuine warmth and appreciation for their effort. `;
+    // Enhanced language adaptation rules
+    systemPrompt += `IMPORTANT: You MUST adapt to the language the user is using. DO NOT rely on only their first message. `;
+    systemPrompt += `You must carefully analyze EACH message from the user and respond in the same language they are using. `;
+    systemPrompt += `If the user writes to you in Hebrew, respond in Hebrew. If they write in English, respond in English. If they write in Arabic, respond in Arabic. `;
+    systemPrompt += `If they write in Spanish, respond in Spanish. If they write in French, respond in French. If they write in Russian, respond in Russian. `;
+    systemPrompt += `Always match the user's language in EACH message they send you, even if they switch languages mid-conversation. `;
+    systemPrompt += `This language adaptation is critical for creating a personalized experience. `;
+    
+    // If userLanguage is provided, emphasize using that language
+    if (userLanguage && userLanguage !== 'en') {
+      const languageNames = {
+        'he': 'Hebrew',
+        'ar': 'Arabic',
+        'es': 'Spanish',
+        'fr': 'French',
+        'ru': 'Russian'
+      };
+      
+      const languageName = languageNames[userLanguage as keyof typeof languageNames] || userLanguage;
+      systemPrompt += `The user's most recent message was in ${languageName}. YOU MUST RESPOND IN ${languageName}. `;
+    }
     
     // If user has sent previous messages, consider their context
     if (userContext) {
       systemPrompt += ` Based on previous interactions, consider: ${userContext}`;
-    }
-
-    // If user has a preferred language already detected from previous interactions
-    if (userLanguage && userLanguage !== 'en') {
-      systemPrompt += ` The user has previously communicated in ${userLanguage}, so you should respond in that language after your initial English greeting.`;
     }
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
