@@ -29,8 +29,7 @@ const Signup: React.FC = () => {
     
     if (error) {
       setAuthError(`${error}: ${errorDescription || 'Unknown error'}`);
-      toast({
-        title: "Authentication error",
+      toast("Authentication error", {
         description: error,
         variant: "destructive"
       });
@@ -68,16 +67,14 @@ const Signup: React.FC = () => {
       
       if (error) throw error;
       
-      toast({
-        title: "Success!",
+      toast("Success!", {
         description: "Please check your email to verify your account."
       });
       
       navigate('/login');
     } catch (error: any) {
       setAuthError(error.message || "There was a problem signing up. Please try again.");
-      toast({
-        title: "Error",
+      toast("Error", {
         description: error.message || "There was a problem signing up. Please try again.",
         variant: "destructive"
       });
@@ -124,8 +121,7 @@ const Signup: React.FC = () => {
     } catch (error: any) {
       console.error("Google auth error:", error);
       setAuthError(error.message || "There was a problem signing in with Google.");
-      toast({
-        title: "Error",
+      toast("Error", {
         description: error.message || "There was a problem signing in with Google.",
         variant: "destructive"
       });
