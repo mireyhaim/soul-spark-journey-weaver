@@ -112,23 +112,23 @@ const Journeys: React.FC = () => {
           </div>
         </div>
         
-        {/* Category Filters */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-spirit-500" /> 
+        {/* Category Filters - Improved Visibility */}
+        <div className="mb-12 bg-white rounded-xl p-6 shadow-md border border-spirit-100 animate-fade-in">
+          <h2 className="text-2xl font-serif font-semibold mb-5 flex items-center gap-2 text-spirit-700">
+            <Sparkles className="h-6 w-6 text-spirit-500" /> 
             <span>Browse by Category</span>
           </h2>
           
           <ScrollArea className="w-full pb-4">
-            <div className="flex space-x-2 pb-3 min-w-max">
+            <div className="flex space-x-3 pb-3 min-w-max">
               {categories.map((category) => (
                 <Button
                   key={category}
                   variant={activeTab === category ? "default" : "outline"}
-                  className={`h-auto py-2 px-4 rounded-full transition-all duration-300 ${
+                  className={`h-auto py-2.5 px-5 rounded-full transition-all duration-300 text-sm font-medium ${
                     activeTab === category 
-                      ? 'bg-spirit-600 hover:bg-spirit-700 shadow-md' 
-                      : 'hover:bg-spirit-100 hover:text-spirit-700'
+                      ? 'bg-spirit-600 hover:bg-spirit-700 shadow-md scale-105' 
+                      : 'hover:bg-spirit-50 hover:text-spirit-700 border-spirit-200'
                   }`}
                   onClick={() => setActiveTab(category)}
                 >
@@ -137,10 +137,31 @@ const Journeys: React.FC = () => {
               ))}
             </div>
           </ScrollArea>
+          
+          {/* Quick category counts */}
+          <div className="mt-4 pt-4 border-t border-spirit-100 flex flex-wrap gap-2 text-xs text-earth-600">
+            {['All', 'Personal Development', 'Spirituality', 'Consciousness'].map(category => {
+              const count = category === 'All' 
+                ? journeys.length 
+                : journeys.filter(j => j.category === category).length;
+              
+              return (
+                <div 
+                  key={category} 
+                  className={`px-3 py-1.5 rounded-full ${activeTab === category ? 'bg-spirit-100 text-spirit-700 font-medium' : 'bg-earth-50'}`}
+                >
+                  {category}: {count}
+                </div>
+              );
+            })}
+            <div className="px-3 py-1.5 rounded-full bg-earth-50">
+              +{categories.length - 4} more
+            </div>
+          </div>
         </div>
         
         {/* Filter Controls */}
-        <div className="flex flex-col md:flex-row gap-4 mb-8 items-center justify-between">
+        <div className="flex flex-col md:flex-row gap-4 mb-8 items-center justify-between animate-fade-in" style={{ animationDelay: '0.2s' }}>
           <div className="flex items-center text-xl font-serif font-medium text-earth-800">
             {activeTab === 'All' ? 'All Journeys' : activeTab} 
             <span className="ml-2 text-sm text-earth-600 font-sans font-normal">
@@ -172,16 +193,18 @@ const Journeys: React.FC = () => {
         
         {/* Journey Cards */}
         <div className="mb-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {currentJourneys.map((journey) => (
-              <div key={journey.id} className="group transform transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            {currentJourneys.map((journey, index) => (
+              <div key={journey.id} 
+                className="group transform transition-all duration-300 hover:-translate-y-2 hover:shadow-lg"
+                style={{ animationDelay: `${0.1 * index}s` }}>
                 <ProcessCard key={journey.id} {...journey} />
               </div>
             ))}
           </div>
           
           {filteredJourneys.length === 0 && (
-            <div className="text-center py-16 bg-white rounded-xl shadow-sm border border-earth-100">
+            <div className="text-center py-16 bg-white rounded-xl shadow-sm border border-earth-100 animate-fade-in">
               <div className="mx-auto w-16 h-16 mb-4 rounded-full bg-earth-100 flex items-center justify-center">
                 <Search size={24} className="text-earth-500" />
               </div>
