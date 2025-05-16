@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/sonner";
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
@@ -55,12 +54,13 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/journeys" element={<Journeys />} />
+            <Route path="/journey/:id" element={<JourneyDetail />} />
+            <Route path="/user-journey/:id" element={<UserJourney />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/blog/archive" element={<BlogArchive />} />
-            <Route path="/journeys" element={<Journeys />} />
-            <Route path="/journey/:id" element={<UserJourney />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/for-teachers" element={<MentorLanding />} />

@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export interface ProcessCardProps {
   id: string;
@@ -48,57 +47,56 @@ const getJourneyPrice = (duration: number): number => {
   return 27;
 };
 
-const ProcessCard: React.FC<ProcessCardProps> = ({
-  id,
-  title,
-  description,
-  teacher,
-  duration,
-  category,
-  image
+const ProcessCard: React.FC<ProcessCardProps> = ({ 
+  id, 
+  title, 
+  description, 
+  image, 
+  teacher, 
+  duration, 
+  category 
 }) => {
-  const cardImage = getProcessImage(category, image);
-  const price = getJourneyPrice(duration);
-  
   return (
-    <Card className="overflow-hidden transition-shadow hover:shadow-md">
-      <div className="relative aspect-video overflow-hidden">
-        <img 
-          src={cardImage} 
-          alt={title} 
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-          loading="lazy"
-        />
-        <Badge className="absolute top-2 right-2 bg-white/80 text-earth-800 hover:bg-white">
-          {duration} days
-        </Badge>
-      </div>
-      
-      <CardHeader className="pb-2">
-        <div className="flex justify-between items-start">
-          <CardTitle className="text-xl">{title}</CardTitle>
-          <Badge variant="outline" className="text-xs font-normal">
-            {category}
+    <Link to={`/journey/${id}`} className="block h-full">
+      <Card className="overflow-hidden transition-shadow hover:shadow-md">
+        <div className="relative aspect-video overflow-hidden">
+          <img 
+            src={getProcessImage(category, image)} 
+            alt={title} 
+            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            loading="lazy"
+          />
+          <Badge className="absolute top-2 right-2 bg-white/80 text-earth-800 hover:bg-white">
+            {duration} days
           </Badge>
         </div>
-        <CardDescription className="text-sm">By {teacher}</CardDescription>
-      </CardHeader>
-      
-      <CardContent>
-        <p className="text-sm text-earth-600 line-clamp-2">
-          {description}
-        </p>
-        <p className="text-sm text-spirit-700 font-semibold mt-2">
-          ${price}
-        </p>
-      </CardContent>
-      
-      <CardFooter>
-        <Button className="w-full" asChild>
-          <Link to={`/journey/${id}`}>Start Journey</Link>
-        </Button>
-      </CardFooter>
-    </Card>
+        
+        <CardHeader className="pb-2">
+          <div className="flex justify-between items-start">
+            <CardTitle className="text-xl">{title}</CardTitle>
+            <Badge variant="outline" className="text-xs font-normal">
+              {category}
+            </Badge>
+          </div>
+          <CardDescription className="text-sm">By {teacher}</CardDescription>
+        </CardHeader>
+        
+        <CardContent>
+          <p className="text-sm text-earth-600 line-clamp-2">
+            {description}
+          </p>
+          <p className="text-sm text-spirit-700 font-semibold mt-2">
+            ${getJourneyPrice(duration)}
+          </p>
+        </CardContent>
+        
+        <CardFooter>
+          <Button className="w-full" asChild>
+            <Link to={`/journey/${id}`}>Start Journey</Link>
+          </Button>
+        </CardFooter>
+      </Card>
+    </Link>
   );
 };
 
