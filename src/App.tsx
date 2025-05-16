@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 
-// Import the new ScrollToTop component
+// Import the ScrollToTop component
 import ScrollToTop from './components/ScrollToTop';
 
 // Pages
@@ -39,15 +39,20 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   
   // Check for routes where we don't want to show header/footer
   const isJourneyPage = /^\/journey\/[^\/]+$/.test(location.pathname);
-  const isSpecialPage = isJourneyPage;
+  const isAuthPage = location.pathname === '/signup' || location.pathname === '/login';
+  const isSpecialPage = isJourneyPage || isAuthPage;
+  
+  if (isSpecialPage) {
+    return <>{children}</>;
+  }
   
   return (
     <div className="min-h-screen flex flex-col">
-      {!isSpecialPage && <Header />}
+      <Header />
       <div className="flex-grow">
         {children}
       </div>
-      {!isSpecialPage && <Footer />}
+      <Footer />
     </div>
   );
 };
