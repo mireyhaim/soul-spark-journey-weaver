@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { journeys } from '@/data/journeys';
 import { getJourneyLessonTopics } from '@/data/journeys/lesson-topics';
@@ -7,16 +7,27 @@ import { getJourneyExperienceContent } from '@/data/journeys/journey-experiences
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Avatar } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Calendar, Clock, User, Check } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, User, Check, UserRound } from 'lucide-react';
 import JourneyExperienceList from '@/components/journey/JourneyExperienceList';
 import { getJourneyPrice } from '@/utils/journey-pricing';
+
+// Mentor profile image URLs
+const mentorImages = [
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80",
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80",
+  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80",
+  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80",
+  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80",
+  "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
+];
 
 const JourneyDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<string>('overview');
+  const [mentorImage, setMentorImage] = useState<string>('');
   
   // Find the journey by ID
   const journey = journeys.find(j => j.id === id);
@@ -36,6 +47,13 @@ const JourneyDetail: React.FC = () => {
   
   // Calculate price based on journey duration
   const price = getJourneyPrice(journey.duration);
+  
+  // Set mentor image when journey changes
+  useEffect(() => {
+    // Generate a consistent profile image based on journey ID
+    const imageIndex = parseInt(journey.id) % mentorImages.length;
+    setMentorImage(mentorImages[imageIndex >= 0 ? imageIndex : 0]);
+  }, [journey.id]);
   
   return (
     <main className="bg-gradient-to-b from-earth-50/30 to-spirit-50/30 min-h-screen py-12 px-4">
@@ -234,27 +252,30 @@ const JourneyDetail: React.FC = () => {
             </TabsContent>
             
             <TabsContent value="about-teacher" className="mt-0 space-y-6">
-              <div className="flex items-start gap-4">
-                <Avatar className="h-16 w-16 rounded-full border-2 border-spirit-100">
-                  {journey.image ? (
-                    <img 
-                      src={journey.image.replace('w=800', 'w=200')} 
-                      alt={journey.teacher} 
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="bg-spirit-100 text-spirit-700 font-medium h-full w-full flex items-center justify-center">
-                      {journey.teacher?.charAt(0) || 'T'}
-                    </div>
-                  )}
-                </Avatar>
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0">
+                  <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-spirit-100 shadow-md bg-white">
+                    <Avatar className="w-full h-full">
+                      <AvatarImage src={mentorImage} alt={journey.teacher} className="object-cover" />
+                      <AvatarFallback className="bg-spirit-100 text-spirit-700 text-2xl">
+                        <UserRound className="h-12 w-12 text-spirit-600" />
+                      </AvatarFallback>
+                    </Avatar>
+                  </div>
+                </div>
+                
                 <div>
-                  <h3 className="text-xl font-medium">{journey.teacher}</h3>
-                  <p className="text-earth-600 mb-4">Spiritual Teacher & Guide</p>
+                  <h3 className="text-2xl font-medium text-earth-900 mb-2">{journey.teacher}</h3>
+                  <p className="text-earth-600 mb-4 text-lg">Spiritual Guide & Mentor</p>
                   <p className="text-earth-700">
                     {journey.teacher} is a dedicated spiritual guide with years of experience helping people
-                    connect with their inner wisdom. Through this carefully crafted journey, they will guide you
-                    through processes and practices designed to deepen your spiritual connection and enrich your daily life.
+                    connect with their inner wisdom. With a background in mindfulness practices and holistic wellness,
+                    they have guided hundreds of individuals through transformative journeys.
+                  </p>
+                  <p className="text-earth-700 mt-4">
+                    Through this carefully crafted {journey.duration}-day journey, they will share powerful practices
+                    and insights designed to deepen your spiritual connection and help you discover new dimensions
+                    of self-awareness and personal growth.
                   </p>
                 </div>
               </div>
