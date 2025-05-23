@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { journeys } from '@/data/journeys';
@@ -76,7 +77,7 @@ const JourneyDetail: React.FC = () => {
   const handlePurchaseJourney = () => {
     toast({
       description: `You've successfully purchased "${journey.title}"`,
-      variant: "success",
+      variant: "default", // Changed from "success" to "default" to match the allowed variants
     });
     navigate(`/user-journey/${journey.id}`);
   };
