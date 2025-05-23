@@ -1,6 +1,6 @@
 
 import { Toaster } from "@/components/ui/sonner";
-import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation, useParams } from 'react-router-dom';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 
 // Import the ScrollToTop component
@@ -11,7 +11,7 @@ import Index from './pages/Index';
 import FAQ from './pages/FAQ';
 import NotFound from './pages/NotFound';
 import Journeys from './pages/Journeys';
-import ActiveJourney from './components/UserJourney'; // Renamed for clarity
+import ActiveJourney from './components/ActiveJourney'; // Fixed import path
 import Blog from './pages/Blog';
 import BlogArchive from './pages/BlogArchive';
 import BlogPost from '@/pages/BlogPost';
@@ -55,6 +55,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+// Redirect component for old user-journey URLs
+const UserJourneyRedirect = () => {
+  const { id } = useParams();
+  return <Navigate to={`/active-journey/${id}`} replace />;
+};
+
 function App() {
   return (
     <SessionContextProvider supabaseClient={supabase}>
@@ -67,6 +73,7 @@ function App() {
             <Route path="/journeys" element={<Journeys />} />
             <Route path="/journey/:id" element={<JourneyDetail />} />
             <Route path="/active-journey/:id" element={<ActiveJourney />} /> {/* Renamed from /user-journey/:id */}
+            <Route path="/user-journey/:id" element={<UserJourneyRedirect />} /> {/* Redirect old URLs */}
             <Route path="/faq" element={<FAQ />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogPost />} />
