@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { journeys } from '@/data/journeys';
 import JourneyHeader from './journey/JourneyHeader';
 import JourneyProgress from './journey/JourneyProgress';
@@ -9,9 +9,11 @@ import JourneyPurchase from './journey/JourneyPurchase';
 import MobileChatView from './journey/MobileChatView';
 import JourneyChatSection from './journey/JourneyChatSection';
 import { useJourneyState } from '@/hooks/use-journey-state';
+import { Button } from './ui/button';
 
 const ActiveJourney: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   
   // Find the selected journey
   const journey = journeys.find(j => j.id === id) || {
@@ -43,6 +45,13 @@ const ActiveJourney: React.FC = () => {
     toggleMobileChat
   } = useJourneyState(journey);
 
+  // If not purchased, redirect to journey details page
+  React.useEffect(() => {
+    if (!isPurchased) {
+      navigate(`/journey/${id}`);
+    }
+  }, [isPurchased, id, navigate]);
+
   // If we're on mobile and showing the chat, only render JourneyInsights
   if (isMobile && showChatOnMobile && isPurchased) {
     return (
@@ -66,17 +75,8 @@ const ActiveJourney: React.FC = () => {
           {/* Journey header with title, description and actions */}
           <JourneyHeader journey={journey} />
           
-          {/* Pre and Post Journey Explanations - only show if not purchased and explanations are enabled */}
-          {!isPurchased && (
-            <JourneyExplanations 
-              journey={journey}
-              showExplanations={showExplanations}
-              onDismiss={handleDismissExplanations}
-            />
-          )}
-          
           {/* Only show progress info and content if journey is purchased */}
-          {isPurchased ? (
+          {isPurchased && (
             <>
               <div className="mb-6">
                 {/* Progress information */}
@@ -104,16 +104,6 @@ const ActiveJourney: React.FC = () => {
                 />
               </div>
             </>
-          ) : (
-            <JourneyPurchase 
-              price={price}
-              journeyTitle={journey.title}
-              duration={journey.duration}
-              isPurchased={isPurchased}
-              onPurchase={handlePurchase}
-              category={journey.category}
-              journeyId={journey.id}
-            />
           )}
         </div>
       </div>
