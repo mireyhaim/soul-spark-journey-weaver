@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { journeys } from '@/data/journeys';
@@ -12,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Calendar, Clock, User, Check, UserRound } from 'lucide-react';
 import JourneyExperienceList from '@/components/journey/JourneyExperienceList';
 import { getJourneyPrice } from '@/utils/journey-pricing';
+import { toast } from "@/hooks/use-toast";
 
 // Mentor profile image URLs categorized by gender
 const mentorImages = {
@@ -74,6 +74,10 @@ const JourneyDetail: React.FC = () => {
   
   // Function to handle journey purchase and navigation
   const handlePurchaseJourney = () => {
+    toast({
+      description: `You've successfully purchased "${journey.title}"`,
+      variant: "success",
+    });
     navigate(`/user-journey/${journey.id}`);
   };
   
