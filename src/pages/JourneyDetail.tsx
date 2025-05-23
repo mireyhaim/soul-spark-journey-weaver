@@ -46,7 +46,7 @@ const JourneyDetail: React.FC = () => {
       description: `You've successfully purchased "${journey.title}"`,
       variant: "default", // Changed from "success" to "default" to match the allowed variants
     });
-    navigate(`/user-journey/${journey.id}`);
+    navigate(`/active-journey/${journey.id}`); // Updated from user-journey to active-journey
   };
   
   // Set mentor image when journey changes

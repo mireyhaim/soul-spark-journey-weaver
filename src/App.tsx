@@ -11,7 +11,7 @@ import Index from './pages/Index';
 import FAQ from './pages/FAQ';
 import NotFound from './pages/NotFound';
 import Journeys from './pages/Journeys';
-import UserJourney from './components/UserJourney';
+import ActiveJourney from './components/UserJourney'; // Renamed for clarity
 import Blog from './pages/Blog';
 import BlogArchive from './pages/BlogArchive';
 import BlogPost from '@/pages/BlogPost';
@@ -66,7 +66,7 @@ function App() {
             <Route path="/" element={<Index />} />
             <Route path="/journeys" element={<Journeys />} />
             <Route path="/journey/:id" element={<JourneyDetail />} />
-            <Route path="/user-journey/:id" element={<UserJourney />} />
+            <Route path="/active-journey/:id" element={<ActiveJourney />} /> {/* Renamed from /user-journey/:id */}
             <Route path="/faq" element={<FAQ />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogPost />} />

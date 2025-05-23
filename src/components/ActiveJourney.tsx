@@ -10,7 +10,7 @@ import MobileChatView from './journey/MobileChatView';
 import JourneyChatSection from './journey/JourneyChatSection';
 import { useJourneyState } from '@/hooks/use-journey-state';
 
-const UserJourney: React.FC = () => {
+const ActiveJourney: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   
   // Find the selected journey
@@ -121,4 +121,4 @@ const UserJourney: React.FC = () => {
   );
 };
 
-export default UserJourney;
+export default ActiveJourney;
