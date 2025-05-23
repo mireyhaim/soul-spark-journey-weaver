@@ -1,27 +1,13 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import ProcessCard from '@/components/ProcessCard';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Search, Filter, Sparkles, LayoutGrid } from 'lucide-react';
-import { journeys } from '@/data/journeys';
-import { 
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
+import React, { useState, useEffect } from 'react';
+import { journeys } from '@/data/journeys';
+import JourneysHero from '@/components/journeys/JourneysHero';
+import CategoryFilter from '@/components/journeys/CategoryFilter';
+import FilterControls from '@/components/journeys/FilterControls';
+import JourneyGrid from '@/components/journeys/JourneyGrid';
+import JourneyPagination from '@/components/journeys/JourneyPagination';
+
+// Categories list
 const categories = [
   'All',
   'Personal Development',
@@ -72,165 +58,42 @@ const Journeys: React.FC = () => {
   };
 
   // Reset to page 1 when filters change
-  React.useEffect(() => {
+  useEffect(() => {
     setCurrentPage(1);
   }, [activeTab, searchQuery]);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-earth-50/30 to-spirit-50/30 py-12 px-4 md:px-6">
       <div className="container mx-auto max-w-6xl">
-        {/* Hero Section - Updated with a non-rectangular design */}
-        <div className="mb-14">
-          <div className="relative z-10 max-w-4xl mx-auto text-center">
-            <div className="absolute -z-10 w-64 h-64 bg-spirit-200/30 rounded-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
-            
-            <h1 className="text-5xl md:text-6xl font-serif font-semibold mb-6 bg-gradient-to-r from-spirit-600 to-spirit-700 bg-clip-text text-transparent">
-              Perfect Journey
-            </h1>
-            
-            <p className="text-lg md:text-xl text-earth-700 max-w-3xl mx-auto mb-10">
-              Explore our collection of transformative spiritual and personal development journeys, 
-              thoughtfully created by experienced teachers and guides to help you thrive.
-            </p>
-            
-            <div className="relative w-full md:max-w-2xl mx-auto">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-earth-400" size={20} />
-              <Input
-                placeholder="Search journeys, teachers, or topics..."
-                className="pl-12 pr-4 py-6 bg-white shadow-lg rounded-full border-0 focus-visible:ring-2 focus-visible:ring-spirit-300 transition-all text-lg"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-          </div>
-        </div>
+        {/* Hero Section */}
+        <JourneysHero searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         
-        {/* Category Filters - Always showing all categories */}
-        <div className="mb-12 bg-white rounded-xl p-6 shadow-md border border-spirit-100 animate-fade-in">
-          <div className="flex justify-between items-center mb-5">
-            <h2 className="text-2xl font-serif font-semibold flex items-center gap-2 text-spirit-700">
-              <Sparkles className="h-6 w-6 text-spirit-500" /> 
-              <span>Browse by Category</span>
-            </h2>
-          </div>
-          
-          {/* All categories - always visible */}
-          <div className="flex flex-wrap gap-3 mb-4">
-            {categories.map((category) => (
-              <Button
-                key={category}
-                variant={activeTab === category ? "default" : "outline"}
-                className={`h-auto py-2.5 px-5 rounded-full transition-all duration-300 text-sm font-medium ${
-                  activeTab === category 
-                    ? 'bg-spirit-600 hover:bg-spirit-700 shadow-md scale-105' 
-                    : 'hover:bg-spirit-50 hover:text-spirit-700 border-spirit-200'
-                }`}
-                onClick={() => setActiveTab(category)}
-              >
-                {category}
-              </Button>
-            ))}
-          </div>
-        </div>
+        {/* Category Filters */}
+        <CategoryFilter 
+          categories={categories} 
+          activeTab={activeTab} 
+          setActiveTab={setActiveTab} 
+        />
         
         {/* Filter Controls */}
-        <div className="flex flex-col md:flex-row gap-4 mb-8 items-center justify-between animate-fade-in" style={{ animationDelay: '0.2s' }}>
-          <div className="flex items-center text-xl font-serif font-medium text-earth-800">
-            {activeTab === 'All' ? 'All Journeys' : activeTab} 
-            <span className="ml-2 text-sm text-earth-600 font-sans font-normal">
-              ({filteredJourneys.length} journeys)
-            </span>
-          </div>
-          
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="gap-2 border-spirit-200 hover:bg-spirit-50">
-              <Filter size={16} className="text-spirit-600" />
-              <span className="hidden sm:inline">Filter</span>
-            </Button>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="border-spirit-200 hover:bg-spirit-50 hover:text-spirit-700"
-            >
-              Popular
-            </Button>
-            <Button 
-              variant="outline" 
-              size="sm"
-              className="border-spirit-200 hover:bg-spirit-50 hover:text-spirit-700"
-            >
-              Newest
-            </Button>
-          </div>
-        </div>
+        <FilterControls activeTab={activeTab} filteredJourneys={filteredJourneys} />
         
         {/* Journey Cards */}
-        <div className="mb-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            {currentJourneys.map((journey, index) => (
-              <div key={journey.id} 
-                className="group transform transition-all duration-300 hover:-translate-y-2 hover:shadow-lg"
-                style={{ animationDelay: `${0.1 * index}s` }}>
-                <ProcessCard key={journey.id} {...journey} />
-              </div>
-            ))}
-          </div>
-          
-          {filteredJourneys.length === 0 && (
-            <div className="text-center py-16 bg-white rounded-xl shadow-sm border border-earth-100 animate-fade-in">
-              <div className="mx-auto w-16 h-16 mb-4 rounded-full bg-earth-100 flex items-center justify-center">
-                <Search size={24} className="text-earth-500" />
-              </div>
-              <h3 className="text-xl font-sans font-medium mb-2">No journeys found</h3>
-              <p className="text-earth-600 mb-4">Try adjusting your search or filters</p>
-              <Button 
-                variant="outline" 
-                onClick={() => {
-                  setSearchQuery('');
-                  setActiveTab('All');
-                }}
-              >
-                Clear filters
-              </Button>
-            </div>
-          )}
-        </div>
+        <JourneyGrid 
+          currentJourneys={currentJourneys}
+          filteredJourneys={filteredJourneys}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          setActiveTab={setActiveTab}
+        />
         
         {/* Pagination */}
-        {filteredJourneys.length > 0 && totalPages > 1 && (
-          <Pagination className="mt-10">
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious 
-                  onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-                  className={`${currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer hover:bg-spirit-50"}`}
-                />
-              </PaginationItem>
-              
-              {[...Array(totalPages)].map((_, i) => (
-                <PaginationItem key={i + 1}>
-                  <PaginationLink
-                    onClick={() => handlePageChange(i + 1)}
-                    isActive={currentPage === i + 1}
-                    className={`cursor-pointer transition-colors ${
-                      currentPage === i + 1 
-                        ? 'bg-spirit-100 text-spirit-700 border border-spirit-200 font-medium'
-                        : 'hover:bg-spirit-50 hover:text-spirit-700'
-                    }`}
-                  >
-                    {i + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              ))}
-              
-              <PaginationItem>
-                <PaginationNext 
-                  onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
-                  className={`${currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer hover:bg-spirit-50"}`}
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+        {filteredJourneys.length > 0 && (
+          <JourneyPagination 
+            currentPage={currentPage}
+            totalPages={totalPages}
+            handlePageChange={handlePageChange}
+          />
         )}
       </div>
     </main>
