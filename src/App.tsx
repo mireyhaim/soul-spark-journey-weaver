@@ -57,7 +57,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
 // Redirect component for old user-journey URLs
 const UserJourneyRedirect = () => {
-  const { id } = useParams();
+  const { id } = useParams<{id: string}>();
   return <Navigate to={`/active-journey/${id}`} replace />;
 };
 
