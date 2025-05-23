@@ -14,8 +14,6 @@ import JourneyPurchaseCard from '@/components/journey/JourneyPurchaseCard';
 import { JourneyOverviewContent, JourneyPlanContent, JourneyTeacherContent } from '@/components/journey/JourneyTabsContent';
 import JourneyMobilePurchaseBar from '@/components/journey/JourneyMobilePurchaseBar';
 import { getMentorImage } from '@/components/journey/JourneyMentorHelper';
-import JourneyExplanations from '@/components/journey/JourneyExplanations';
-import { useJourneyState } from '@/hooks/use-journey-state';
 
 const JourneyDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -39,28 +37,17 @@ const JourneyDetail: React.FC = () => {
   const lessonTopics = getJourneyLessonTopics(journey.id, journey.category, journey.duration);
   const experienceContent = getJourneyExperienceContent(journey.id, journey.category);
   
-  // Get journey state for pre-purchase explanations
-  const {
-    isPurchased,
-    showExplanations,
-    price,
-    handlePurchase,
-    handleDismissExplanations,
-  } = useJourneyState(journey);
+  // Calculate price based on journey duration
+  const price = getJourneyPrice(journey.duration);
   
   // Function to handle journey purchase and navigation
   const handlePurchaseJourney = () => {
-    handlePurchase();
-    // Navigate to the active journey page after purchase
-    navigate(`/active-journey/${journey.id}`);
+    toast({
+      description: `You've successfully purchased "${journey.title}"`,
+      variant: "default", // Changed from "success" to "default" to match the allowed variants
+    });
+    navigate(`/active-journey/${journey.id}`); // Updated from user-journey to active-journey
   };
-  
-  // If journey is already purchased, redirect to active journey
-  useEffect(() => {
-    if (isPurchased) {
-      navigate(`/active-journey/${journey.id}`);
-    }
-  }, [isPurchased, journey.id, navigate]);
   
   // Set mentor image when journey changes
   useEffect(() => {
@@ -83,17 +70,6 @@ const JourneyDetail: React.FC = () => {
         
         {/* Hero section */}
         <JourneyDetailHero journey={journey} />
-        
-        {/* Pre-journey explanations - only show if explanations are enabled */}
-        {showExplanations && (
-          <div className="mb-6">
-            <JourneyExplanations 
-              journey={journey}
-              showExplanations={showExplanations}
-              onDismiss={handleDismissExplanations}
-            />
-          </div>
-        )}
         
         <div className="flex flex-col md:flex-row gap-6 mb-6">
           <div className="flex-1">
